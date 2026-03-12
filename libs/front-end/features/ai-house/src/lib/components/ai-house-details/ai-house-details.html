@@ -1,0 +1,75 @@
+@if(data$ | async; as data) {
+@if(data.isLoading && !data.data) {
+<div class="loading">
+  <p>Loading house details...</p>
+</div>
+} @else if(data.error;) {
+<p>Error loading AI Houses: {{ data.error }}</p>
+
+}@else if(data.data) {
+<ng-container *ngTemplateOutlet="aiHouse; context: { $implicit: data.data, isLoading: data.isLoading }"></ng-container>
+} @else {
+<p>No data about this house</p>
+}
+
+}
+
+
+<ng-template #aiHouse let-house let-isLoading="isLoading">
+  <div class="container">
+    <div class="gallery">
+      <div class="main-image">
+        <img [src]="house.images[0].src" [alt]="house.images[0].alt" />
+      </div>
+      <div class="thumbnail-images">
+        @for(image of house.images; track image.src) {
+        <img [src]="image.src" [alt]="image.alt" />
+        }
+      </div>
+    </div>
+
+    <div class="details">
+      <h1>{{ house.name }}</h1>
+      <p class="address">{{ getAddress(house.address) }}</p>
+
+      <div class="price-rating">
+        <span class="price">{{ house.price | currency }}</span>
+        <span class="rating">Rating: {{ house.rating }} / 5</span>
+      </div>
+
+      <div class="stats">
+        <span>{{ house.rooms }} rooms</span>
+        <span>{{ house.area }} sq ft</span>
+        <span>Built in {{ house.builtYear | date: 'yyyy' }}</span>
+        @if(house.lastRenovation) {
+        <span>Renovated in {{ house.lastRenovation | date: 'yyyy' }}</span>
+        }
+      </div>
+
+      @if(house.features?.length) {
+      <div class="features">
+        <h2>Features</h2>
+        <ul>
+          @for(feature of house.features; track feature) {
+          <li>{{ feature }}</li>
+          }
+        </ul>
+      </div>
+      }
+
+      <div class="availability">
+        <span [class.available]="house.available">
+          {{ house.available ? 'Available' : 'Not Available' }}
+        </span>
+      </div>
+      <div class="availability">
+        <button type="button" (click)="updateLikes(house._id, true, house)">Like</button>
+        <button type="button" (click)="updateLikes(house._id, false, house)">UnLike</button>
+        @if(isLoadingUpdate$ | async) {
+        <i>Updating likes...</i>
+        }
+        <strong>{{house.likes?.length || 0}} liked </strong>
+      </div>
+    </div>
+  </div>
+</ng-template>

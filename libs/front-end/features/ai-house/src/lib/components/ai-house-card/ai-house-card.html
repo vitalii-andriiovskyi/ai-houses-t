@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <img [src]="firstImage()?.src" [alt]="firstImage()?.alt || data()?.name || 'House Image'" class="img" width="500"
+    height="300" />
+  <div class="header">
+    <h2 class="title"><a [routerLink]="['/ai-houses', data()?.url]">{{ data()?.name }}</a></h2>
+    <p class="price">{{ data()?.price }}</p>
+  </div>
+  <p class="address">{{ address() }}</p>
+  <p class="details"><strong>Rooms:</strong> {{ data()?.rooms }}</p>
+  <p class="details"><strong>Area:</strong> {{ data()?.area }} m²</p>
+  <p class="details"><strong>Rating:</strong> {{ data()?.rating }}</p>
+  <p class="details"><strong>Status:</strong> {{ data()?.available ? 'Available' : 'Not Available' }}</p>
+  <div class="actions">
+    <span>{{ data()?.likes?.length || 0 }} liked</span>
+    <!-- @if(isLoggedIn() && isLiked()) {
+      <button (click)="onUnlike()" class="like-button unlike">🤍</button>
+    }
+    @if(isLoggedIn() && !isLiked()) {
+      <button (click)="onLike()" class="like-button like">💞</button>
+    } -->
+    <button (click)="removeMe(data()?._id || '')" type="button">Remove me!</button>
+  </div>
+
+</div>

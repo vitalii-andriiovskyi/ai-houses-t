@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ai-houses-t/ai-house": [
+        "libs/front-end/features/ai-house/src/index.ts"
+      ],
+      "@ai-houses-t/ai": ["front-end/features/ai/src/index.ts"],
+      "@ai-house": ["libs/front-end/features/ai-house/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

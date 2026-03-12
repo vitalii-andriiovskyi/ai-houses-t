@@ -1,0 +1,20 @@
+<div class="wrapper">
+  @if(aiHouses$ | async; as aiHouses) {
+  @if(aiHouses.isLoading && !aiHouses.data?.length) {
+  <p>Loading AI Houses...</p>
+  }
+  @else if(aiHouses.error) {
+  <p>Error loading AI Houses: {{ aiHouses.error }}</p>
+  }
+  @else if(!aiHouses.data || aiHouses.data.length === 0) {
+  <p>No AI Houses found.</p>
+  } @else {
+
+  @for(house of aiHouses.data; track house._id) {
+  <!-- <ai-house-card [data]="house" (like)="like(house._id)" (unlike)="unlike(house._id)"></ai-house-card> -->
+  <lib-ai-house-card [data]="house" [removeMe]="removeHouse"></lib-ai-house-card>
+  }
+  }
+  }
+
+</div>
