@@ -46,6 +46,11 @@ To generate a new library, use:
 
 ```sh
 npx nx g @nx/angular:lib mylib
+yarn nx g @nx/angular:library libs/front-end/pages --importPath=@pages --buildable --routing    
+yarn nx g @nx/angular:library libs/front-end/core --importPath=@fe/core --buildable
+yarn nx g @nx/angular:library libs/front-end/shared --importPath=@shared --buildable
+yarn nx g @nx/angular:library libs/front-end/styles --importPath=@fe/styles --buildable
+yarn nx g @nx/angular:library libs/front-end/utils --importPath=@fe/utils --buildable
 ```
 
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
@@ -99,3 +104,12 @@ And join the Nx community:
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+
+https://nx.dev/blog/setup-tailwind-4-angular-nx-workspace
+
+https://angular.dev/guide/tailwind
+https://nx.dev/docs/technologies/angular/guides/using-tailwind-css-with-angular-projects
+
+https://nx.dev/docs/technologies/typescript/generators#library
+https://nx.dev/docs/technologies/angular/generators#_top

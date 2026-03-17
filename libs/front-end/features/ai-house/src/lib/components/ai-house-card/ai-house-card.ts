@@ -1,5 +1,6 @@
 import { Component, computed, inject, Input, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 
 import { AIHouseBasic, } from '../../domain/ai-house.model';
@@ -7,7 +8,7 @@ import { AiHouseStore } from '../../domain/ai-house.store';
 
 @Component({
   selector: 'lib-ai-house-card',
-  imports: [RouterModule],
+  imports: [RouterModule, ButtonModule],
   templateUrl: './ai-house-card.html',
   styleUrl: './ai-house-card.css',
 })

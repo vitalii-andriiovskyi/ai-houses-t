@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { AiHouseService } from '../infrastructure/ai-house.service';
 import { AIHouseBasic, AIHouse as AIHouseModel } from './ai-house.model';
-import { BasicStore } from './basic.store';
+import { BasicStore } from '@fe/shared';
 
 
 @Injectable({ providedIn: 'root' })

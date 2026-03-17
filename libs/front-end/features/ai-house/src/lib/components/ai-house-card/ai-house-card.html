@@ -1,16 +1,30 @@
-<div class="wrapper">
-  <img [src]="firstImage()?.src" [alt]="firstImage()?.alt || data()?.name || 'House Image'" class="img" width="500"
-    height="300" />
-  <div class="header">
-    <h2 class="title"><a [routerLink]="['/ai-houses', data()?.url]">{{ data()?.name }}</a></h2>
-    <p class="price">{{ data()?.price }}</p>
+<div class="border-primary-900/30 h-full rounded-lg border p-4 shadow-md">
+  <img
+    [src]="firstImage()?.src"
+    [alt]="firstImage()?.alt || data()?.name || 'House Image'"
+    class="h-[300px] w-full rounded-lg object-cover"
+    width="500"
+    height="300"
+  />
+  <div class="my-2 flex justify-between">
+    <h2 class="font-primary text-primary-900 mt-2 text-3xl font-bold">
+      <a [routerLink]="['/ai-houses', data()?.url]">{{ data()?.name }}</a>
+    </h2>
+    <p
+      class="font-primary text-primary-900 mt-2 translate-y-0.5 text-5xl font-black"
+    >
+      ${{ data()?.price }}
+    </p>
   </div>
   <p class="address">{{ address() }}</p>
-  <p class="details"><strong>Rooms:</strong> {{ data()?.rooms }}</p>
+  <p class="details mt-2"><strong>Rooms:</strong> {{ data()?.rooms }}</p>
   <p class="details"><strong>Area:</strong> {{ data()?.area }} m²</p>
   <p class="details"><strong>Rating:</strong> {{ data()?.rating }}</p>
-  <p class="details"><strong>Status:</strong> {{ data()?.available ? 'Available' : 'Not Available' }}</p>
-  <div class="actions">
+  <p class="details">
+    <strong>Status:</strong>
+    {{ data()?.available ? 'Available' : 'Not Available' }}
+  </p>
+  <div class="mt-6 flex justify-between gap-2">
     <span>{{ data()?.likes?.length || 0 }} liked</span>
     <!-- @if(isLoggedIn() && isLiked()) {
       <button (click)="onUnlike()" class="like-button unlike">🤍</button>
@@ -18,7 +32,10 @@
     @if(isLoggedIn() && !isLiked()) {
       <button (click)="onLike()" class="like-button like">💞</button>
     } -->
-    <button (click)="removeMe(data()?._id || '')" type="button">Remove me!</button>
+    <p-button
+      label="Remove me!!"
+      (click)="removeMe(data()?._id || '')"
+      type="button"
+    />
   </div>
-
 </div>

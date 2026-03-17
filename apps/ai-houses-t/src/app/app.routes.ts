@@ -1,17 +1,7 @@
 import { Route } from '@angular/router';
-import { App } from './app';
+
+import { pagesRoutes } from "@fe/pages";
 
 export const appRoutes: Route[] = [
-  {
-    path: '',
-    component: App
-  },
-  {
-    path: 'ai-houses',
-    loadComponent: () => import('@ai-house').then((m) => m.AiHouses),
-  },
-  {
-    path: 'ai-houses/:id',
-    loadComponent: () => import('@ai-house').then((m) => m.AiHouseDetails),
-  }
+  ...pagesRoutes
 ];

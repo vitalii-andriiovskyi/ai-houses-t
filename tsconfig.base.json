@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ai-houses-t/ai-house": [
-        "libs/front-end/features/ai-house/src/index.ts"
-      ],
-      "@ai-houses-t/ai": ["front-end/features/ai/src/index.ts"],
-      "@ai-house": ["libs/front-end/features/ai-house/src/index.ts"]
+      "@ai-house": ["libs/front-end/features/ai-house/src/index.ts"],
+      "@fe/pages": ["libs/front-end/pages/src/index.ts"],
+      "@fe/core": ["libs/front-end/core/src/index.ts"],
+      "@fe/shared": ["libs/front-end/shared/src/index.ts"],
+      "@fe/utils": ["libs/front-end/utils/src/index.ts"],
+      "@fe/styles": ["libs/front-end/styles/src/index.ts"],
+      "@shared": ["libs/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

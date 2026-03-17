@@ -3,7 +3,6 @@ import { AsyncPipe } from '@angular/common';
 
 import { AiHouseStore } from '../../domain/ai-house.store';
 import { AiHouseCard } from '../ai-house-card/ai-house-card';
-import { AIHouse } from '../../domain/ai-house.model';
 
 
 @Component({

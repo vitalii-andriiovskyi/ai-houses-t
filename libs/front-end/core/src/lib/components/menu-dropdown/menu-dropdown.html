@@ -1,0 +1,43 @@
+@if (!!user()) {
+  <p-menu #menu [model]="items" [popup]="true" id="popup_menu_right">
+    <ng-template #item let-item>
+      <a
+        pRipple
+        class="text-primary-900 relative flex cursor-pointer items-center overflow-hidden px-3 py-2 font-[500] no-underline select-none hover:cursor-pointer dark:text-white/80"
+        [class]="item.linkClass"
+      >
+        @if (item.icon || item.iconClass) {
+          <span
+            class="text-primary-900/90 dark:text-white/70"
+            [class]="item.iconClass"
+            >{{ item.icon || '' }}</span
+          >
+        }
+        <span class="ms-2">{{ item.label }}</span>
+
+        @if (item.spinner) {
+          <lib-spinner
+            color="var(--color-primary-900)"
+            class="ml-2"
+            [width]="20"
+            [height]="20"
+          ></lib-spinner>
+        }
+      </a>
+    </ng-template>
+  </p-menu>
+  <button
+    type="button"
+    (click)="menu.toggle($event)"
+    class="flex items-center gap-1.5 hover:cursor-pointer"
+  >
+    <p-avatar
+      [label]="getInitials()"
+      class="from-primary-500 to-primary-700 font-primary flex h-10 w-10 flex-1 items-center justify-center rounded-full bg-linear-to-br text-3xl text-white hover:cursor-pointer dark:bg-gray-900"
+      shape="circle"
+      aria-haspopup
+      aria-controls="popup_menu_right"
+    />
+    <i class="pi pi-bars text-primary-900"></i>
+  </button>
+}
