@@ -3,11 +3,9 @@
     <lib-menu-dropdown></lib-menu-dropdown>
   </div>
 } @else {
-  <p-button
-    variant="outlined"
-    size="small"
+  <lib-custom-button
     label="Hello, Sign in:)"
     (click)="showAuth()"
-    styleClass="font-primary text-primary-700 border-primary-700 bg-primary-100/40 h-9 rounded-lg border-1 px-2 py-0 text-lg font-normal hover:cursor-pointer md:h-10 md:text-2xl"
-  />
+    variantCustom="secondary"
+  ></lib-custom-button>
 }

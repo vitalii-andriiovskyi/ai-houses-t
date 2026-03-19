@@ -1,4 +1,5 @@
 export * from './lib/components/spinner/spinner';
+export * from './lib/components/custom-button/custom-button';
 export * from './lib/tokens/config.token';
 export * from './lib/services/image.service';
 export * from './lib/services/log.service';

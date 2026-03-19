@@ -105,6 +105,7 @@ And join the Nx community:
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
+## Tailwind Configuration
 
 https://nx.dev/blog/setup-tailwind-4-angular-nx-workspace
 
@@ -113,3 +114,35 @@ https://nx.dev/docs/technologies/angular/guides/using-tailwind-css-with-angular-
 
 https://nx.dev/docs/technologies/typescript/generators#library
 https://nx.dev/docs/technologies/angular/generators#_top
+
+## PrimeNG components styles configuration: e.g. Button
+
+We can to customize button in two ways:
+
+1. **General for the whole website.**  Rewrite desing tokens for the button in the file: [ai-houses.ts](/libs/front-end/styles/src/lib/themes/ai-houses.ts)
+  in the way explained in the section [Component](https://primeng.org/theming/styled#component).
+  Here is the [example of button preset](https://github.com/primefaces/primeuix/blob/main/packages/themes/src/presets/aura/button/index.ts) and [base primitive tokens](https://github.com/primefaces/primeuix/blob/main/packages/themes/src/presets/aura/base/index.ts) for the Aura theme.
+  The link to preset of any component can be found in a component page doc at very bottom of the Theming tab.
+  While rewriting preset I can use CSS values (e.g. 1rem, 10px etc), CSS variables defined earlier (e.g. in the theme CSS layer), base tokens, or custom tokens created in the way explained in the [Extend Section](https://primeng.org/theming/styled#extend).
+2. **Local preset rewriting via `pt` property**. In this case we can create button preset in the same way as for the first option and pass it
+  via `pt` property. It's also possible to mark component as unstyled to avoid using any presets and pass own logic via own custom css classes or Tailwind. [Example of this](https://primeng.org/theming/styled#extend)
+
+    ```html
+      <p-button
+        label="Search"
+        icon="pi pi-search"
+        [unstyled]="true"
+        [pt]="{ 
+            root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
+            label: 'text-white font-bold text-lg', 
+            icon: 'text-white !text-xl' 
+        }"
+      />
+    ```
+
+    where `[pt]="{ root: '...'}"` -- `root` can contain bunch of Tailwind classes OR own one custom class like `.btn`. Good example of using Tailwind utilities is in the library `primereact/passthrough/tailwind`. It's for React applications, but could be a good basis for Angular ones too. Probably there's a way to adopt it to Anglar.
+
+Sometimes we need a special variation of button that cannot be defined as primary or secondary. Then we need to extend design tokens like it is shown in the [Extend Section](https://primeng.org/theming/styled#extend) or probably create a component `<custom-btn>` with many local presets and the ability to choose the needed one. Those presets can be done via Tailwind as it shown above.
+
+One pitfall with primeng and Tailwind in Angular is that it's not possible to use Tailwind color design tokens (`--color-blue-500`) for defining primitive primeng css tokens unless using CSS variables (not sure about it) or using a library like `primereact/passthrough/tailwind` when all styles of 
+primeng components are defined by Tailwind utilities.

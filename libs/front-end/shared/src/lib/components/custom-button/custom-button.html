@@ -1,0 +1,107 @@
+@if (routerLink() && isExternalLink(routerLink())) {
+  <a
+    [href]="routerLink()"
+    [target]="target()"
+    [rel]="rel()"
+    pButton
+    [class]="cstyleClass()"
+    [unstyled]="isUnstyled()"
+    [pt]="cpt()"
+    [dt]="dt()"
+    [ptOptions]="ptOptions()"
+    [text]="text"
+    [plain]="plain"
+    [raised]="raised"
+    [size]="csize()"
+    [outlined]="outlined"
+    [rounded]="rounded"
+    [iconPos]="iconPos"
+    [loadingIcon]="loadingIcon"
+    [fluid]="fluid()"
+    [icon]="icon || ''"
+    [loading]="loading"
+    [severity]="severity"
+  >
+    <ng-container *ngTemplateOutlet="linkInner"></ng-container>
+  </a>
+} @else if (routerLink() && !isExternalLink(routerLink())) {
+  <a
+    [routerLink]="routerLink()"
+    [target]="target()"
+    [rel]="rel()"
+    pButton
+    [class]="cstyleClass()"
+    [unstyled]="isUnstyled()"
+    [pt]="cpt()"
+    [dt]="dt()"
+    [ptOptions]="ptOptions()"
+    [text]="text"
+    [plain]="plain"
+    [raised]="raised"
+    [size]="csize()"
+    [outlined]="outlined"
+    [rounded]="rounded"
+    [iconPos]="iconPos"
+    [loadingIcon]="loadingIcon"
+    [fluid]="fluid()"
+    [icon]="icon || ''"
+    [loading]="loading"
+    [severity]="severity"
+  >
+    <ng-container *ngTemplateOutlet="linkInner"></ng-container>
+  </a>
+} @else {
+  <p-button
+    [dt]="dt()"
+    [unstyled]="isUnstyled()"
+    [pt]="cpt()"
+    [ptOptions]="ptOptions()"
+    [type]="type"
+    [badge]="cbadge()"
+    [disabled]="disabled"
+    [raised]="raised"
+    [rounded]="rounded"
+    [text]="text"
+    [plain]="plain"
+    [outlined]="outlined"
+    [link]="link"
+    [tabindex]="tabindex"
+    [size]="csize()"
+    [variant]="cvariant()"
+    [style]="style"
+    [styleClass]="cstyleClass()"
+    [badgeSeverity]="badgeSeverity"
+    [ariaLabel]="ariaLabel"
+    [autofocus]="autofocus"
+    [iconPos]="iconPos"
+    [icon]="icon"
+    [label]="clabel()"
+    [loading]="loading"
+    [loadingIcon]="loadingIcon"
+    [severity]="severity"
+    [buttonProps]="buttonProps"
+    [fluid]="fluid()"
+    (onClick)="onClickFn($event)"
+    (onFocus)="onFocusFn($event)"
+    (onBlur)="onBlurFn($event)"
+  >
+    <ng-container *ngTemplateOutlet="inner"></ng-container>
+  </p-button>
+}
+
+<ng-template #inner>
+  <ng-content #innerContent></ng-content>
+</ng-template>
+
+<ng-template #linkInner>
+  <span
+    pButtonLabel
+    [pButtonLabelUnstyled]="isUnstyled()"
+    [pButtonLabelPT]="cptLabel()"
+  >
+    @if (!innerContent()) {
+      {{ clabel() }}
+    }
+    <ng-container *ngTemplateOutlet="inner"></ng-container>
+  </span>
+</ng-template>

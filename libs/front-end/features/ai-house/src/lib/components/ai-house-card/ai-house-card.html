@@ -6,6 +6,16 @@
     width="500"
     height="300"
   />
+  <!-- Ideally we should use responsive images with ngSrc and sizes 
+    or own <lib-img> but is has no implementation for link rel="preload"/rel="preconnect" -->
+  <!-- <img
+    [ngSrc]="firstImage()?.src"
+    [alt]="firstImage()?.alt || data()?.name || 'House Image'"
+    class="h-[300px] w-full rounded-lg object-cover"
+    width="500"
+    height="300"
+    sizes="(min-width: 600px) 500px, calc(100vw - 40px)"
+  /> -->
   <div class="my-2 flex justify-between">
     <h2 class="font-primary text-primary-900 mt-2 text-3xl font-bold">
       <a [routerLink]="['/ai-houses', data()?.url]">{{ data()?.name }}</a>

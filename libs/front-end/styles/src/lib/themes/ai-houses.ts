@@ -34,10 +34,10 @@ export const AiHousesTheme = definePreset(Aura, {
     colorScheme: {
       light: {
         primary: {
-          color: '{aiRed.950}',
+          color: '{aiRed.600}',
           inverseColor: '#ffffff',
-          hoverColor: '{aiRed.900}',
-          activeColor: '{aiRed.800}',
+          hoverColor: '{aiRed.700}',
+          activeColor: '{aiRed.700}',
           50: '{aiRed.50}',
           100: '{aiRed.100}',
           200: '{aiRed.200}',
@@ -65,7 +65,7 @@ export const AiHousesTheme = definePreset(Aura, {
           950: '{zinc.950}'
         },
         highlight: {
-          background: '{aiRed.950}',
+          background: '{aiRed.600}',
           focusBackground: '{aiRed.700}',
           color: '#ffffff',
           focusColor: '#ffffff'

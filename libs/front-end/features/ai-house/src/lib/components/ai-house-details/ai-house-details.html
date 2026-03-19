@@ -26,6 +26,19 @@
           [alt]="house.images[0].alt"
           class="h-auto w-full rounded-lg"
         />
+        <!--
+            Ideally we should use responsive images with ngSrc and sizes 
+            or own <lib-img> but is has no implementation for link rel="preload"/rel="preconnect" 
+         -->
+        <!-- 
+          <img
+           [ngSrc]="house.images[0].src"
+            [alt]="house.images[0].alt"
+            class="h-auto w-full rounded-lg"
+            width="600"
+            height="400"
+            sizes="(min-width: 600px) 600px, calc(100vw - 40px)"
+        /> -->
       </div>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-2">
         @for (image of house.images; track image.src) {
@@ -34,6 +47,19 @@
             [alt]="image.alt"
             class="w-full cursor-pointer rounded opacity-70 transition-opacity duration-200 hover:opacity-100 active:opacity-100"
           />
+          <!--
+            Ideally we should use responsive images with ngSrc and sizes 
+              or own <lib-img> but is has no implementation for link rel="preload"/rel="preconnect" 
+          -->
+          <!-- 
+            <img
+              [ngSrc]="image.src"
+              [alt]="image.alt"
+              class="w-full cursor-pointer rounded opacity-70 transition-opacity duration-200 hover:opacity-100 active:opacity-100"
+              width="200"
+              height="100"
+              sizes="200px"
+          /> -->
         }
       </div>
     </div>

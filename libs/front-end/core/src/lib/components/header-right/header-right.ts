@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
+import { CustomButton } from "@fe/shared";
 import { MenuDropdown } from '../menu-dropdown/menu-dropdown';
 
 @Component({
   selector: 'lib-header-right',
-  imports: [MenuDropdown, ButtonModule],
+  imports: [MenuDropdown, ButtonModule, CustomButton],
   templateUrl: './header-right.html',
   styleUrl: './header-right.css',
 })

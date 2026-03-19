@@ -37,6 +37,7 @@ export const appConfig: ApplicationConfig = {
         }
       }
     }),
+    // provideImageKitLoader('https://ik.imagekit.io/ai-houses/'), // For now no image loader, if needed add one or custom one
     Title,
     Meta,
   ],

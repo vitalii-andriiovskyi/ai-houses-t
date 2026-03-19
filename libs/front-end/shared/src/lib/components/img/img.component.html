@@ -1,0 +1,34 @@
+@if (showCaption()) {
+  <div class="article-slide">
+    <ng-container *ngTemplateOutlet="img"></ng-container>
+    <div class="article-slide-caption">
+      {{ image().caption || image().alternateName }}
+    </div>
+  </div>
+} @else {
+  <ng-container *ngTemplateOutlet="img"></ng-container>
+}
+
+<ng-template #img>
+  <picture>
+    <source
+      type="image/webp"
+      [srcset]="srcSetWebP()"
+      sizes="(min-width: 992px) 700px, (min-width: 600px) 600px, 100vw"
+    />
+    <source
+      type="image/jpeg"
+      [srcset]="srcSetJPG()"
+      sizes="(min-width: 992px) 700px, (min-width: 600px) 600px, 100vw"
+    />
+    <img
+      class="img-fluid"
+      [alt]="image().alternateName"
+      [title]="image().name"
+      [width]="showWH() ? image().width : ''"
+      [height]="showWH() ? image().height : ''"
+      [src]="src() + '.jpg'"
+      [attr.loading]="loading() || null"
+    />
+  </picture>
+</ng-template>
