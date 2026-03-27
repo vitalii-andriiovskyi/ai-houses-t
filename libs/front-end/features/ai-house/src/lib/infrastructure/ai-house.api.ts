@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import type { AIHouse, AIHouseCreate, AIHouseUpdate } from '../domain/ai-house.model';
 
-const API_URL = 'http://localhost:3000/api'; // this has to be injected via CONFIG.API_URL token, but for simplicity, we will hardcode it here
+const API_URL = '/api'; // this has to be injected via CONFIG.API_URL token, but for simplicity, we will hardcode it here
 
 @Injectable({
   providedIn: 'root',

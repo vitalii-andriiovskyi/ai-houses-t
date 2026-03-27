@@ -1,5 +1,5 @@
-import { Image } from "@/shared/features/image/domain/image.model";
-import { SEO } from "@/shared/features/seo/domain/seo.model";
+import { Image } from "../../image/domain/image.model";
+import { SEO } from "../../seo/domain/seo.model";
 
 export interface Pet {
   _id: string;

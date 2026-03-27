@@ -6,8 +6,11 @@ export interface SEO {
   headline: string; // headline of the page without name of website: "Blog"
   description: string;
   url?: string;
-  image: Image;
+  image: Image; // should be in DTO
+  // imageId: string; // db sets it, but we need to have it in the model for the relation
   keywords?: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export type MetadataProps = {
@@ -34,3 +37,7 @@ export enum WepPageType {
   PostPage,
   CommonPage
 }
+
+export type SEO_DB = Omit<SEO, 'image'>;
+
+export type SEOBasic = Omit<SEO, 'createdAt' | 'updatedAt'>;

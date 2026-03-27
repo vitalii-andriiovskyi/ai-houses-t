@@ -21,7 +21,14 @@
       "@fe/shared": ["libs/front-end/shared/src/index.ts"],
       "@fe/utils": ["libs/front-end/utils/src/index.ts"],
       "@fe/styles": ["libs/front-end/styles/src/index.ts"],
-      "@shared": ["libs/shared/src/index.ts"]
+      "@shared": ["libs/shared/src/index.ts"],
+      "@be/shared": ["libs/back-end/shared/src/index.ts"],
+      "@be/user": ["libs/back-end/features/user/src/index.ts"],
+      "@be/address": ["libs/back-end/features/address/src/index.ts"],
+      "@be/image": ["libs/back-end/features/image/src/index.ts"],
+      "@be/seo": ["libs/back-end/features/seo/src/index.ts"],
+      "@be/ai-house": ["libs/back-end/features/ai-house/src/index.ts"],
+      "@be/migrations": ["libs/back-end/migrations/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

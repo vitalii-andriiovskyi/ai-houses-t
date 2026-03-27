@@ -1,5 +1,5 @@
 export interface Address {
-  _id: string; // db sets it
+  id: string; // db sets it
   address1: string;
   address2?: string;
   city: string;
@@ -7,8 +7,8 @@ export interface Address {
   zip: string;
   country: string;
   apt: string;
-  createdAt: Date; // db sets it
-  updatedAt: Date; // db sets it
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export type AddressBasic = Omit<Address, '_id' | 'createdAt' | 'updatedAt'>;
+export type AddressBasic = Omit<Address, 'id' | 'createdAt' | 'updatedAt'>;

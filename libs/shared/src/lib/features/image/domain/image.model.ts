@@ -5,11 +5,11 @@ export interface Image {
   title?: string;
   width?: number;
   height?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  type?: string;
+  type?: ImageType;
   caption?: string;
   description?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export enum ImageType {
@@ -19,3 +19,5 @@ export enum ImageType {
   OGImage = 'OpenGraphImage',
   TWImage = 'TwitterImage',
 }
+
+export type ImageBasic = Omit<Image, 'createdAt' | 'updatedAt'>;

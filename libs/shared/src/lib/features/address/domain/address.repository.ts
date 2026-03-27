@@ -1,4 +1,4 @@
-import { AddressBasic } from "@/shared/features/address/domain/address.model";
+import { AddressBasic } from "./address.model";
 
 export const getEmptyAddress = (): AddressBasic => ({
   address1: "",

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   defaultImageUrl: 'red-raptor-1200x675.jpg',
   imagesUrl: 'http://localhost:4200/images/', // url for the service (be) that serves images (S3)
-  apiUrl: 'http://localhost:3000/',
+  apiUrl: '',
 
   domain: 'http://localhost:4200/',
   googleVerificationId: 'yQdgz7Tq72QQcbVy-jMOrcoUDXjOF8r_ODPch02CpBQ',

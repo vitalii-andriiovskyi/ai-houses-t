@@ -146,3 +146,82 @@ Sometimes we need a special variation of button that cannot be defined as primar
 
 One pitfall with primeng and Tailwind in Angular is that it's not possible to use Tailwind color design tokens (`--color-blue-500`) for defining primitive primeng css tokens unless using CSS variables (not sure about it) or using a library like `primereact/passthrough/tailwind` when all styles of 
 primeng components are defined by Tailwind utilities.
+
+## API nest.js
+
+Run `nx show project api-e2e` to view details about this project.
+Run `nx show project api` to view details about this project.
+
+[NX Nest.js generators](https://nx.dev/docs/technologies/node/nest/generators)
+
+### Run tasks nest.js
+
+To run the dev server for your app, use:
+
+```sh
+npx nx serve api
+```
+
+To create a production bundle:
+
+```sh
+npx nx build api
+```
+
+To see all available targets to run for a project, run:
+
+```sh
+npx nx show project api
+```
+
+https://nx.dev/docs/technologies/node/nest/generators
+https://nx.dev/docs/technologies/node/nest/introduction
+
+```sh
+nx generate @nx/nest:library libs/back-end/shared --importPath=@be/shared --name=be/shared
+
+npx nx generate @nx/nest:service libs/back-end/shared/src/lib/services/typeorm-config/typeorm-config
+
+# ai-house migrations
+npx nx generate @nx/nest:library libs/back-end/migrations --importPath=@be/migrations --name=be-migrations --linter=eslint --unitTestRunner=none 
+
+# user feature
+nx generate @nx/nest:library libs/back-end/features/user --importPath=@be/user --name=be-user  
+nx generate @nx/nest:resource libs/back-end/features/user/src/lib/user --type=rest --crud
+
+# user address feature
+npx nx generate @nx/nest:library libs/back-end/features/address --importPath=@be/address --name=be-address --linter=eslint --unitTestRunner=jest 
+npx nx generate @nx/nest:resource libs/back-end/features/address/src/lib/address --type=rest --crud
+
+# image feature
+npx nx generate @nx/nest:library libs/back-end/features/image --importPath=@be/image --name=be-image --linter=eslint --unitTestRunner=jest 
+npx nx generate @nx/nest:resource libs/back-end/features/image/src/lib/image --type=rest --crud
+
+# seo feature
+npx nx generate @nx/nest:library libs/back-end/features/seo --importPath=@be/seo --name=be-seo --linter=eslint --unitTestRunner=jest 
+npx nx generate @nx/nest:resource libs/back-end/features/seo/src/lib/seo --type=rest --crud
+
+# ai-house feature
+npx nx generate @nx/nest:library libs/back-end/features/ai-house --importPath=@be/ai-house --name=be-ai-house --linter=eslint --unitTestRunner=jest 
+npx nx generate @nx/nest:resource libs/back-end/features/ai-house/src/lib/ai-house --type=rest --crud
+
+
+nx run be-migrations:migration:run
+```
+
+https://docs.nestjs.com/fundamentals/dynamic-modules
+https://github.com/nestjs/nest/tree/master/sample/25-dynamic-modules
+https://docs.nestjs.com/techniques/database
+https://typeorm.io/docs/relations/relations/
+
+https://docs.nestjs.com/recipes/crud-generator
+
+to open postgres connection in terminal:
+
+```sh
+psql postgres
+```
+
+## Database migrations
+
+All details about database migrations and CLI usage are in the [README](./libs/back-end/migrations/README.md) of the library `be-migrations`.
