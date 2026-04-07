@@ -20,7 +20,6 @@ export class UserService {
 
   create(createUserDto: CreateUserDto): Promise<UserEntity> {
     const user = this.usersRepository.create(createUserDto);
-    console.log('user', user);
     return this.usersRepository.save(user);
   }
 

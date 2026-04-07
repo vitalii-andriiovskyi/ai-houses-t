@@ -260,3 +260,11 @@ Stack Overflow
 3. Quick One-Line Solution (NPM) 
 If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID: 
 Command: `npx kill-port 4200`.
+
+## Redis
+
+To monitor Redis commands in real-time:
+
+```bash
+redis-cli monitor
+```

@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
@@ -10,13 +11,13 @@ import { compare } from 'bcrypt';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { CreateUserDto, UserEntity, UserService } from '@be/user';
 import { UserSignUpResponse } from '@shared';
-import { logoutAsync } from '@be/shared';
 import { RedisService } from '@be/redis';
 
 @Injectable()
 export class AuthService {
   blacklistKeyPrefix = 'blacklist_';
   blacklisted = 'blacklisted';
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     @Inject(forwardRef(() => UserService))
     private userService: UserService,
@@ -51,14 +52,22 @@ export class AuthService {
     return { user, ...login };
   }
 
-  async logout(req: any, authHeader: string) {
-    const token = authHeader?.split(' ')[1];
+  async logout(logout: any, authHeader: string) {
+    const token = this.extractToken(authHeader);
+
     try {
-      await logoutAsync(req);
-      await this.invalidateToken(token);
+      await this.reqLogoutAsync(logout);
+      if (token) {
+        await this.invalidateToken(token);
+      } else {
+        this.logger.warn('No token provided for logout');
+        // return; // do not return as the session will be canceled and token will be removed on the client side.
+      }
     } catch (error: any) {
-      console.log('AUTHORIZATION ERROR: ', error);
-      throw new InternalServerErrorException(error.message); // Throwing an error is commented out to prevent disruption of the user creation process
+      this.logger.error('AUTHORIZATION LOGOUT ERROR: ', error);
+      throw new InternalServerErrorException(
+        'Something went wrong during logout',
+      );
     }
   }
 
@@ -76,5 +85,23 @@ export class AuthService {
     const key = `${this.blacklistKeyPrefix}${token}`;
     const result = await this.redisService.getString(key);
     return result === this.blacklisted;
+  }
+
+  private reqLogoutAsync(logout: any) {
+    return new Promise((resolve, reject) => {
+      // Original callback-based function
+      logout((err: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve('success');
+        }
+      });
+    });
+  }
+
+  private extractToken(authHeader: string): string | undefined {
+    const [type, token] = authHeader?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }

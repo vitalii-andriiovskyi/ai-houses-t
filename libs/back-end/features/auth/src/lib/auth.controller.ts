@@ -43,7 +43,7 @@ export class AuthController {
     @Request() req: any,
     @Headers('authorization') authHeader: string,
   ) {
-    await this.authService.logout(req, authHeader);
+    await this.authService.logout(req.logout.bind(req), authHeader);
     return { message: 'Logged out successfully' };
   }
 }

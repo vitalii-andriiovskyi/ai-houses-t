@@ -11,19 +11,25 @@ import {
   NotFoundException,
   UseGuards,
   Request,
+  Headers,
+  Logger,
 } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { logoutAsync, Roles, RolesGuard } from '@be/shared';
+import { Roles, RolesGuard } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { JwtAuthGuard } from '@be/auth';
+import { JwtAuthGuard, AuthService } from '@be/auth';
 import { Role } from '@shared';
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  private readonly logger = new Logger(UserController.name);
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Roles(Role.User, Role.Admin)
   @UseGuards(RolesGuard)
@@ -57,12 +63,16 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async remove(@Request() req: any, @Param('id') id: string) {
+  async remove(
+    @Request() req: any,
+    @Headers('authorization') authHeader: string,
+    @Param('id') id: string,
+  ) {
     try {
-      await logoutAsync(req);
+      await this.authService.logout(req.logout.bind(req), authHeader);
     } catch (error: any) {
-      console.log('AUTHORIZATION ERROR: ', error);
-      // throw new InternalServerErrorException(error.message); // Throwing an error is commented out to prevent disruption of the user creation process
+      this.logger.error('AUTHORIZATION ERROR: ', error);
+      // throw new InternalServerErrorException(error.message); // Throwing an error is commented out to prevent disruption of the user removal process
     }
     return this.userService.softRemove(id);
   }
