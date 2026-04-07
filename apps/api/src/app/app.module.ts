@@ -7,11 +7,12 @@ import {
 } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core/constants';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RedisClientType } from 'redis';
 import { RedisStore } from 'connect-redis';
 import session from 'express-session';
+import { CipherKey } from 'crypto';
 
 import configuration from '../config/configuration';
 import { AppController } from './app.controller';
@@ -73,19 +74,22 @@ import { RedisConfigService, REDIS_CLIENT, RedisModule } from '@be/redis';
   ],
 })
 export class AppModule implements NestModule {
-  constructor(@Inject(REDIS_CLIENT) private readonly redis: RedisClientType) {}
+  constructor(
+    @Inject(REDIS_CLIENT) private readonly redis: RedisClientType,
+    private config: ConfigService,
+  ) {}
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         session({
           store: new RedisStore({ client: this.redis, prefix: 'sess:' }),
           saveUninitialized: false,
-          secret: 'sup3rs3cr3t',
+          secret: this.config.get('session.secret') as CipherKey,
           resave: false,
           cookie: {
-            sameSite: true,
+            sameSite: false,
             httpOnly: false,
-            maxAge: 60000,
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
           },
         }),
       )

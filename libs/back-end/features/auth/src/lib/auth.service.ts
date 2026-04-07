@@ -65,7 +65,11 @@ export class AuthService {
   async invalidateToken(token: string): Promise<void> {
     const { exp } = this.jwtService.decode(token);
     const key = `${this.blacklistKeyPrefix}${token}`;
-    await this.redisService.setString(key, this.blacklisted, exp);
+    const exp_in = exp ? exp - Math.floor(Date.now() / 1000) : 0;
+    if (exp_in <= 0) {
+      return; // Token is already expired, no need to blacklist
+    }
+    await this.redisService.setString(key, this.blacklisted, exp_in);
   }
 
   async isTokenBlacklisted(token: string): Promise<boolean> {
