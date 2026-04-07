@@ -51,6 +51,19 @@ yarn nx g @nx/angular:library libs/front-end/core --importPath=@fe/core --builda
 yarn nx g @nx/angular:library libs/front-end/shared --importPath=@shared --buildable
 yarn nx g @nx/angular:library libs/front-end/styles --importPath=@fe/styles --buildable
 yarn nx g @nx/angular:library libs/front-end/utils --importPath=@fe/utils --buildable
+
+yarn nx g @nx/angular:library libs/front-end/features/user --importPath=@fe/user --name=fe-user --buildable
+
+yarn nx g @nx/angular:library libs/front-end/features/auth --importPath=@fe/auth --name=fe-auth --buildable
+yarn nx g @nx/angular:component libs/front-end/features/auth/src/lib/components/auth/auth --export
+yarn nx g @nx/angular:component libs/front-end/features/auth/src/lib/components/sign-in/sign-in --export
+yarn nx g @nx/angular:component libs/front-end/features/auth/src/lib/components/sign-up/sign-up --export
+yarn nx g @nx/angular:component libs/front-end/shared/src/lib/components/form-control-wrapper/form-control-wrapper --export
+
+yarn nx g @nx/angular:service services/validation-errors-service/validation-errors-service --project=fe/shared --dry-run
+yarn nx g @nx/angular:service services/local-storage/local-storage --project=fe/shared --dry-run
+yarn nx g @nx/angular:interceptor interceptors/auth/auth --project=fe/shared --dry-run
+
 ```
 
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
@@ -206,6 +219,15 @@ npx nx generate @nx/nest:library libs/back-end/features/ai-house --importPath=@b
 npx nx generate @nx/nest:resource libs/back-end/features/ai-house/src/lib/ai-house --type=rest --crud
 
 
+# auth feature
+nx generate @nx/nest:library libs/back-end/features/auth --importPath=@be/auth --name=be-auth --linter=eslint --unitTestRunner=jest 
+nx generate @nx/nest:service libs/back-end/features/auth/src/lib/auth --unitTestRunner=jest
+nx generate @nx/nest:controller libs/back-end/features/auth/src/lib/auth --unitTestRunner=jest
+
+
+nx generate @nx/nest:library libs/back-end/features/redis --importPath=@be/redis --name=be-redis --linter=eslint --unitTestRunner=jest 
+nx generate @nx/nest:service libs/back-end/features/redis/src/lib/redis --unitTestRunner=jest
+
 nx run be-migrations:migration:run
 ```
 
@@ -225,3 +247,16 @@ psql postgres
 ## Database migrations
 
 All details about database migrations and CLI usage are in the [README](./libs/back-end/migrations/README.md) of the library `be-migrations`.
+
+
+macOS and Linux
+Find the Process ID (PID): Open the terminal and run:
+`lsof -i :4200`
+Kill the Process: Use the PID found from the previous step:
+`kill -9 [PID]`
+One-liner for Mac/Linux: sudo kill -9 $(sudo lsof -t -i:4200). 
+Stack Overflow
+Stack Overflow
+3. Quick One-Line Solution (NPM) 
+If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID: 
+Command: `npx kill-port 4200`.

@@ -9,7 +9,7 @@ The GitHub repository for the original implementation can be found [nestjs-mater
 To automatically generate a new migration, run:
 
 ```bash
-yarn nx run be-migrations:migration:generate --name MigrationName
+yarn nx run be-migrations:migration:gen --name MigrationName
 
 # Example:
 yarn nx run be-migrations:migration:gen --name initial-migration

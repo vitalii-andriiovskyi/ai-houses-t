@@ -28,7 +28,11 @@
       "@be/image": ["libs/back-end/features/image/src/index.ts"],
       "@be/seo": ["libs/back-end/features/seo/src/index.ts"],
       "@be/ai-house": ["libs/back-end/features/ai-house/src/index.ts"],
-      "@be/migrations": ["libs/back-end/migrations/src/index.ts"]
+      "@be/migrations": ["libs/back-end/migrations/src/index.ts"],
+      "@fe/user": ["libs/front-end/features/user/src/index.ts"],
+      "@fe/auth": ["libs/front-end/features/auth/src/index.ts"],
+      "@be/auth": ["libs/back-end/features/auth/src/index.ts"],
+      "@be/redis": ["libs/back-end/features/redis/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,4 +1,4 @@
-@if (!!user()) {
+@if (user$ | async; as user) {
   <p-menu #menu [model]="items" [popup]="true" id="popup_menu_right">
     <ng-template #item let-item>
       <a
@@ -32,7 +32,7 @@
     class="flex items-center gap-1.5 hover:cursor-pointer"
   >
     <p-avatar
-      [label]="getInitials()"
+      [label]="getInitials(user)"
       class="from-primary-500 to-primary-700 font-primary flex h-10 w-10 flex-1 items-center justify-center rounded-full bg-linear-to-br text-3xl text-white hover:cursor-pointer dark:bg-gray-900"
       shape="circle"
       aria-haspopup

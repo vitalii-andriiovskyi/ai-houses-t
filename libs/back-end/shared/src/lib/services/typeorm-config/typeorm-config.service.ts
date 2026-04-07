@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
@@ -15,7 +15,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: this.configService.get<string>('db.postgres.password'),
       database: this.configService.get<string>('db.postgres.database'),
       autoLoadEntities: true,
+      // logging: true,
     };
   }
 }
-

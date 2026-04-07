@@ -1,9 +1,21 @@
 export * from './lib/components/spinner/spinner';
 export * from './lib/components/custom-button/custom-button';
+export * from './lib/components/form-control-wrapper/form-control-wrapper';
+
 export * from './lib/tokens/config.token';
+export * from './lib/tokens/local-storage.token';
+
 export * from './lib/services/image.service';
 export * from './lib/services/log.service';
 export * from './lib/services/seo.service';
 export * from './lib/services/document-ref.service';
 export * from './lib/services/window-ref.service';
 export * from './lib/services/basic.store';
+export * from './lib/services/validation-errors/validation-errors.service';
+export * from './lib/services/local-storage/local-storage';
+
+export * from './lib/validators/match-validator';
+export * from './lib/validators/password-match.validator';
+export * from './lib/validators/password-strength.validator';
+
+export * from './lib/interceptors/auth/auth-interceptor';

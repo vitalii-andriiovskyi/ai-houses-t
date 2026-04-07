@@ -1,9 +1,9 @@
-import { Address } from "../../address/domain/address.model";
-import { Image } from "../../image/domain/image.model";
+import { Address } from '../../address/domain/address.model';
+import { Image } from '../../image/domain/image.model';
 
 export enum UserRole {
   User = 'user',
-  Admin = 'admin'
+  Admin = 'admin',
 }
 
 export interface User {
@@ -20,7 +20,7 @@ export interface User {
   // imageId?: string; // db sets it, but we need to have it in the model for the relation
   description?: string;
   verificationToken?: string;
-  role?: UserRole;
+  roles?: UserRole[];
   recovery?: string;
   isRecovered?: boolean;
   // addressId?: string; // db sets it, but we need to have it in the model for the relation
@@ -32,26 +32,31 @@ export interface User {
   updatedAt: Date;
 }
 
-export type FormInputFromUser<Fields extends keyof User, Extra = object> =
-  Pick<User, Fields> & Extra;
+export type FormInputFromUser<Fields extends keyof User, Extra = object> = Pick<
+  User,
+  Fields
+> &
+  Extra;
 
-export type UserSignUp = FormInputFromUser<'firstName' | 'lastName' | 'email' | 'password',
-  { repeatPassword: string }>
+export type UserSignUp = FormInputFromUser<
+  'firstName' | 'lastName' | 'email' | 'password',
+  { repeatPassword: string }
+>;
 
-export type UserSignUpBE = FormInputFromUser<'firstName' | 'lastName' | 'email' | 'password',
-  { isTemporaryPassword?: boolean }>
+export type UserSignUpBE = FormInputFromUser<
+  'firstName' | 'lastName' | 'email' | 'password',
+  { isTemporaryPassword?: boolean }
+>;
 
-export type Credentials = FormInputFromUser<'email' | 'password'>
+export type Credentials = FormInputFromUser<'email' | 'password'>;
 
-export type UserShort = Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'image' | 'address'>
+export type UserShort = Pick<
+  User,
+  'id' | 'firstName' | 'lastName' | 'email' | 'image' | 'address'
+>;
 
-export type CreateUserResponse = {
-  success: boolean;
+export type UserSignUpResponse = {
   user: UserShort;
-  message: string;
-}
-
-
-
-
-
+  access_token: string;
+  expires_in: number;
+};

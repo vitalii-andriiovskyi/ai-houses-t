@@ -1,0 +1,37 @@
+<dialog
+  class="animate-fade-out open:animate-fade-in open:backdrop:animate-backdrop-fade-in border-primary-900/30 min-h-8 w-md rounded-xs border p-8 open:backdrop:bg-white/75 open:backdrop:backdrop-blur-lg"
+  #dialogEl
+>
+  <button class="absolute top-2 right-2" (click)="hideAuth()">
+    <span class="text-primary h-5 w-5 cursor-pointer">
+      <i class="pi pi-times"></i>
+    </span>
+  </button>
+  @if (isLogin()) {
+    <lib-sign-in />
+  } @else {
+    <lib-sign-up />
+  }
+  <div
+    class="text-primary-700 font-primary mt-4 text-center text-2xl font-semibold"
+  >
+    OR
+  </div>
+  <div class="mt-4 flex justify-center">
+    @if (isLogin()) {
+      <lib-custom-button
+        variantCustom="regular"
+        (click)="showSignUp()"
+        label="Sign Up"
+      >
+      </lib-custom-button>
+    } @else {
+      <lib-custom-button
+        variantCustom="regular"
+        (click)="showSignIn()"
+        label="Sign In"
+      >
+      </lib-custom-button>
+    }
+  </div>
+</dialog>

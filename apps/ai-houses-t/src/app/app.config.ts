@@ -9,15 +9,18 @@ import {
   Title,
   withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { providePrimeNG } from 'primeng/config';
 
 import { appRoutes } from './app.routes';
 import CONFIG from '../config';
 
 import { AiHousesTheme } from '@fe/styles';
-import { APP_CONFIG_TOKEN } from '@fe/shared';
-
+import { APP_CONFIG_TOKEN, authInterceptor } from '@fe/shared';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,17 +28,17 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     providePrimeNG({
       theme: {
         preset: AiHousesTheme,
         options: {
           cssLayer: {
             name: 'primeng',
-            order: 'theme, base, components, primeng, utilities'
-          }
-        }
-      }
+            order: 'theme, base, components, primeng, utilities',
+          },
+        },
+      },
     }),
     // provideImageKitLoader('https://ik.imagekit.io/ai-houses/'), // For now no image loader, if needed add one or custom one
     Title,

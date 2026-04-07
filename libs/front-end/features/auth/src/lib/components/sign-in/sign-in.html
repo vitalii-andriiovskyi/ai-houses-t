@@ -1,0 +1,69 @@
+<div>
+  <h1 class="font-primary text-primary-900 text-center text-4xl font-bold">
+    Sign In
+  </h1>
+  <form
+    class="mt-4 flex flex-col gap-4"
+    [formGroup]="signInForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <lib-form-control-wrapper
+      label="Email"
+      id="email"
+      [touched]="email?.touched || false"
+      [dirty]="email?.dirty || false"
+      [invalid]="email?.invalid || false"
+      [required]="true"
+      [errors]="email?.errors"
+    >
+      <input
+        pInputText
+        formControlName="email"
+        required
+        id="email"
+        placeholder="Your Email..."
+        type="email"
+        [invalid]="email?.invalid && (email?.touched || email?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Password"
+      id="password"
+      [touched]="password?.touched || false"
+      [dirty]="password?.dirty || false"
+      [invalid]="password?.invalid || false"
+      [required]="true"
+      [errors]="password?.errors"
+    >
+      <p-password
+        formControlName="password"
+        [required]="true"
+        inputId="password"
+        placeholder="Your Password..."
+        type="password"
+        class="w-full"
+        inputStyleClass="w-full"
+        minLength="8"
+        [toggleMask]="true"
+        [feedback]="false"
+        [invalid]="password?.invalid && (password?.touched || password?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    @if (error()) {
+      <div class="mt-4 text-center text-lg font-bold text-red-500">
+        {{ error() }}
+      </div>
+    }
+
+    <div class="my-3 mt-5 text-center">
+      <lib-custom-button
+        type="submit"
+        variantCustom="regular"
+        [disabled]="signInForm.invalid || signInForm.pending || isLoading()"
+        label="Sign In"
+        [loading]="isLoading()"
+      >
+      </lib-custom-button>
+    </div>
+  </form>
+</div>

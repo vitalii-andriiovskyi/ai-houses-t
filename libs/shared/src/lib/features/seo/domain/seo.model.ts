@@ -1,4 +1,4 @@
-import { Image } from "../../image/domain/image.model";
+import { Image } from '../../image/domain/image.model';
 
 export interface SEO {
   id: string;
@@ -14,19 +14,19 @@ export interface SEO {
 }
 
 export type MetadataProps = {
-  params: Promise<{ id: string, pageURL?: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  params: Promise<{ id: string; pageURL?: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export interface WebPageSeo {
   pageType: number;
   page?: string;
-  pageData: SEO;
+  pageData: SEOBasic;
 }
 
 export interface WebPageSeoState {
-  data: SEO,
-  pageType: number
+  data: SEOBasic;
+  pageType: number;
 }
 
 // I put them in order from the least number of meta tags to the biggest number of meta tags
@@ -35,7 +35,7 @@ export enum WepPageType {
   BlogCategoryPage,
   BlogPage,
   PostPage,
-  CommonPage
+  CommonPage,
 }
 
 export type SEO_DB = Omit<SEO, 'image'>;

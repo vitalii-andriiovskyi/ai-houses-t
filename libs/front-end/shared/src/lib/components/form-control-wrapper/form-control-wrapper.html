@@ -1,0 +1,24 @@
+<div class="group flex w-full flex-col gap-1.5">
+  @if (label()) {
+    <label class="flex gap-1" [attr.for]="id()">
+      {{ label() }}
+      @if (required()) {
+        <strong
+          class="-translate-y-0.4 hidden text-red-500 group-has-required:inline-flex"
+        >
+          *
+        </strong>
+      }
+    </label>
+  }
+  <ng-content></ng-content>
+  @if (invalid() && (touched() || dirty()) && errosMessages().length > 0) {
+    @for (errorMsg of errosMessages(); track errorMsg.key) {
+      <small class="error-msg text-red-500">{{ errorMsg.message }}</small>
+    }
+  }
+
+  @if (helpText()) {
+    <small>{{ helpText() }}</small>
+  }
+</div>

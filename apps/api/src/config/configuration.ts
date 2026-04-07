@@ -11,8 +11,11 @@ export default () => ({
       password: process.env.DATABASE_PASSWORD,
     },
     redis: {
-      uri: process.env.REDIS_URI
-    }
-  }
+      uri: process.env.REDIS_URI,
+    },
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  },
 });
-

@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { ButtonDirective } from 'primeng/button';
 
-import { SEO } from '@shared';
+import { ImageType, SEOBasic } from '@shared';
 import { SeoService } from '@fe/shared';
-import { ButtonDirective } from "primeng/button";
 
 @Component({
   selector: 'lib-page-not-found',
@@ -11,7 +11,7 @@ import { ButtonDirective } from "primeng/button";
   styleUrl: './page-not-found.css',
 })
 export class PageNotFound implements OnInit {
-  seoData: SEO = {
+  seoData: SEOBasic = {
     id: 'page-not-found',
     title: 'Page Not Found - AI HOUSES',
     headline: 'Page Not Found',
@@ -21,7 +21,9 @@ export class PageNotFound implements OnInit {
       id: 'page-not-found',
       src: '',
       alt: 'Page Not Found',
-      type: 'HeroImage'
+      type: ImageType.HeroImage,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
   };
 

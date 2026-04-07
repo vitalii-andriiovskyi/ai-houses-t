@@ -3,7 +3,14 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 import { merge, partition, Subject, BehaviorSubject } from 'rxjs';
 import { bufferCount, tap, map, filter } from 'rxjs/operators';
 
-import { SEO, WebPageSeo, WepPageType, WebPageSeoState } from '@shared';
+import {
+  SEO,
+  WebPageSeo,
+  WepPageType,
+  WebPageSeoState,
+  ImageType,
+  SEOBasic,
+} from '@shared';
 import { APP_CONFIG_TOKEN } from '../tokens/config.token';
 
 const initWebPageSeoState: WebPageSeoState = {
@@ -16,14 +23,17 @@ const initWebPageSeoState: WebPageSeoState = {
     image: {
       id: 'default',
       src: '',
-      alt: ''
+      alt: '',
+      type: ImageType.OGImage,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
   },
-  pageType: -1
-}
+  pageType: -1,
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SeoService {
   metaTags: string[] = [
@@ -48,47 +58,54 @@ export class SeoService {
     `name='google-site-verification'`,
   ];
 
-  private _seoData$: BehaviorSubject<WebPageSeoState> = new BehaviorSubject(initWebPageSeoState);
-  seoData$ = this._seoData$.asObservable().pipe(
-    bufferCount(2, 1)
+  private _seoData$: BehaviorSubject<WebPageSeoState> = new BehaviorSubject(
+    initWebPageSeoState,
   );
+  seoData$ = this._seoData$.asObservable().pipe(bufferCount(2, 1));
 
   private _prepareSeoState$: Subject<WebPageSeo> = new Subject();
   prepareSeoState$ = this._prepareSeoState$.asObservable();
 
-  prepareWPSForBlogCat = (pageType: number) => (page: string, category: SEO): WebPageSeoState => {
-    const { headline, description, url, image, id, keywords } = category;
-    let { title } = category;
-    title = page == '1' ? title : `${title} - Page ${page}`;
-    return {
-      data: { id, title, headline, description, url, image, keywords },
-      pageType: pageType
-    }
-  }
+  prepareWPSForBlogCat =
+    (pageType: number) =>
+    (page: string, category: SEOBasic): WebPageSeoState => {
+      const { headline, description, url, image, id, keywords } = category;
+      let { title } = category;
+      title = page == '1' ? title : `${title} - Page ${page}`;
+      return {
+        data: { id, title, headline, description, url, image, keywords },
+        pageType: pageType,
+      };
+    };
 
-  prepareWebPageStateForCategory = this.prepareWPSForBlogCat(WepPageType.BlogCategoryPage);
+  prepareWebPageStateForCategory = this.prepareWPSForBlogCat(
+    WepPageType.BlogCategoryPage,
+  );
   prepareWebPageStateForBlog = this.prepareWPSForBlogCat(WepPageType.BlogPage);
 
-  preparePageState = (pageType: number) => (page: SEO): WebPageSeoState => {
-    const { title, headline, description, url, image, id, keywords } = page;
-    return {
-      data: { id, title, headline, description, url, image, keywords },
-      pageType: pageType
-    }
-  }
+  preparePageState =
+    (pageType: number) =>
+    (page: SEO): WebPageSeoState => {
+      const { title, headline, description, url, image, id, keywords } = page;
+      return {
+        data: { id, title, headline, description, url, image, keywords },
+        pageType: pageType,
+      };
+    };
 
   preparePageStateForArticle = this.preparePageState(WepPageType.PostPage);
   preparePageStateForCommonPage = this.preparePageState(WepPageType.CommonPage);
 
-  setBlogCatSeoData = (pageType: number) => (page: string, pageData: SEO) => {
-    this._prepareSeoState$.next({ page, pageData, pageType: pageType });
-  }
+  setBlogCatSeoData =
+    (pageType: number) => (page: string, pageData: SEOBasic) => {
+      this._prepareSeoState$.next({ page, pageData, pageType: pageType });
+    };
   setCatSeoData = this.setBlogCatSeoData(WepPageType.BlogCategoryPage);
   setBlogSeoData = this.setBlogCatSeoData(WepPageType.BlogPage);
 
-  setPageSeoData = (pageType: number) => (pageData: SEO) => {
+  setPageSeoData = (pageType: number) => (pageData: SEOBasic) => {
     this._prepareSeoState$.next({ pageData, pageType: pageType });
-  }
+  };
   setPostSeoData = this.setPageSeoData(WepPageType.PostPage);
   setCommonPageSeoData = this.setPageSeoData(WepPageType.CommonPage);
 
@@ -116,32 +133,41 @@ export class SeoService {
 
   private handleSeo() {
     const catBlogPage$ = this.prepareSeoState$.pipe(
-      filter(({ pageType }) => pageType == WepPageType.BlogPage || pageType == WepPageType.BlogCategoryPage),
-      map(({ pageType, page, pageData }) => this.prepareWPSForBlogCat(pageType)(page || '1', pageData as SEO))
+      filter(
+        ({ pageType }) =>
+          pageType == WepPageType.BlogPage ||
+          pageType == WepPageType.BlogCategoryPage,
+      ),
+      map(({ pageType, page, pageData }) =>
+        this.prepareWPSForBlogCat(pageType)(page || '1', pageData as SEO),
+      ),
     );
     const postCommonPage$ = this.prepareSeoState$.pipe(
-      filter(({ pageType }) => pageType == WepPageType.PostPage || pageType == WepPageType.CommonPage),
-      map(({ pageType, pageData }) => this.preparePageState(pageType)(pageData as SEO))
-    )
+      filter(
+        ({ pageType }) =>
+          pageType == WepPageType.PostPage ||
+          pageType == WepPageType.CommonPage,
+      ),
+      map(({ pageType, pageData }) =>
+        this.preparePageState(pageType)(pageData as SEO),
+      ),
+    );
 
     merge(catBlogPage$, postCommonPage$).subscribe(this._seoData$);
 
     const [samePageType$, diffPageType$] = partition(
       this.seoData$,
-      ([prev, curr]) => prev.pageType === curr.pageType
+      ([prev, curr]) => prev.pageType === curr.pageType,
     );
 
-    merge(
-      diffPageType$.pipe(
-        tap(() => this.removeMeta())
-      ),
-      samePageType$
-    ).pipe(
-      tap(([, curr]) => this.setTitle(curr.data.title)),
-      tap(([, curr]) => this.setCanonical(`${this.domain}${curr.data.url}`)),
-      map(([, curr]) => this.prepareMetaData(curr)),
-      tap(metaData => this.setMeta(metaData))
-    ).subscribe();
+    merge(diffPageType$.pipe(tap(() => this.removeMeta())), samePageType$)
+      .pipe(
+        tap(([, curr]) => this.setTitle(curr.data.title)),
+        tap(([, curr]) => this.setCanonical(`${this.domain}${curr.data.url}`)),
+        map(([, curr]) => this.prepareMetaData(curr)),
+        tap((metaData) => this.setMeta(metaData)),
+      )
+      .subscribe();
   }
 
   setTitle(newTitle: string) {
@@ -166,7 +192,6 @@ export class SeoService {
 
   // Search Intent and SEO: A Quick Guide - Moz         <-- https://moz.com/blog/search-intent-and-seo-a-quick-guide
 
-
   // Competitive Research - Moz                         <-- for page 1 https://moz.com/blog/category/competitive-research
   // Competitive Research - page 3 - Moz                <-- for page 3 https://moz.com/blog/category/competitive-research
 
@@ -174,11 +199,11 @@ export class SeoService {
   // Moz - Products                                     <-- products page
 
   setMeta(data: MetaDefinition[]) {
-    data.forEach(metaTag => this.metaService.updateTag(metaTag));
+    data.forEach((metaTag) => this.metaService.updateTag(metaTag));
   }
 
   removeMeta(metaTags = this.metaTags) {
-    metaTags.forEach(metaTag => this.metaService.removeTag(metaTag));
+    metaTags.forEach((metaTag) => this.metaService.removeTag(metaTag));
   }
 
   prepareMetaData(pageState: WebPageSeoState): MetaDefinition[] {
@@ -187,13 +212,13 @@ export class SeoService {
     let metaData: MetaDefinition[] = [];
     switch (pageType) {
       case WepPageType.BlogPage:
-        metaData = this.prepareMetaBlog(pageData)
+        metaData = this.prepareMetaBlog(pageData);
         break;
       case WepPageType.PostPage:
-        metaData = this.prepareMetaPost(pageData)
+        metaData = this.prepareMetaPost(pageData);
         break;
       case WepPageType.CommonPage:
-        metaData = this.prepareMetaPage(pageData)
+        metaData = this.prepareMetaPage(pageData);
         break;
 
       default:
@@ -206,11 +231,11 @@ export class SeoService {
     return `${this.imagesUrl}${imagePath || this.defaultImageUrl}`;
   }
 
-  // gather data for meta tags. 
+  // gather data for meta tags.
   // take data saved in array format. every item is object with data for separate <meta>
   // loop the array and call this.metaService.updateTag(value);
 
-  prepareMetaPost(page: SEO): MetaDefinition[] {
+  prepareMetaPost(page: SEOBasic): MetaDefinition[] {
     const imageSrc = this.getImageSrc(page.image?.src);
     return [
       // { name: 'referrer', content: 'no-referrer-when-downgrade'},
@@ -228,10 +253,10 @@ export class SeoService {
       { name: 'twitter:image', content: imageSrc }, // w: 1024, h: 512
       // { name: 'twitter:site', content: twitterName}, // optional
       // { name: 'twitter:creator', content: twitterName}, // optional
-    ]
+    ];
   }
 
-  prepareMetaPage(page: SEO): MetaDefinition[] {
+  prepareMetaPage(page: SEOBasic): MetaDefinition[] {
     const imageSrc = this.getImageSrc(page.image?.src);
     return [
       // { name: 'referrer', content: 'no-referrer-when-downgrade'}, // specific to page non-post
@@ -239,7 +264,10 @@ export class SeoService {
       { property: 'og:image', content: imageSrc },
       { property: 'og:image:alt', content: page.image?.alt },
       { property: 'og:image:width', content: `${page.image?.width || '1200'}` }, // specific to page non-post width: 1200
-      { property: 'og:image:height', content: `${page.image?.height || '630'}` }, // specific to page non-post; height: 630
+      {
+        property: 'og:image:height',
+        content: `${page.image?.height || '630'}`,
+      }, // specific to page non-post; height: 630
       { property: 'og:title', content: page.headline },
       { property: 'og:description', content: page.description },
       { property: 'og:type', content: 'website' }, // specific to page non-post
@@ -250,18 +278,21 @@ export class SeoService {
       { name: 'twitter:description', content: page.description },
       { name: 'twitter:image', content: imageSrc },
       { name: 'twitter:image:width', content: `${page.image?.width || '800'}` }, // specific to page non-post; width: 800
-      { name: 'twitter:image:height', content: `${page.image?.height || '418'}` }, // specific to page non-post width: 418
+      {
+        name: 'twitter:image:height',
+        content: `${page.image?.height || '418'}`,
+      }, // specific to page non-post width: 418
       // { name: 'twitter:site', content: this.twitterName }, // optional
       // { name: 'twitter:creator', content: this.twitterName }, // optional
       // { name: 'google-site-verification', content: this.googleVerificationId} // specific to page non-post;
-    ]
+    ];
   }
 
-  prepareMetaBlog(page: SEO): MetaDefinition[] {
+  prepareMetaBlog(page: SEOBasic): MetaDefinition[] {
     return [
       // { name: 'referrer', content: 'origin-when-cross-origin'},
       { name: 'description', content: page.description },
-    ]
+    ];
   }
   // prepareMetaBlogCategory(): MetaDefinition[] {
   //   return [

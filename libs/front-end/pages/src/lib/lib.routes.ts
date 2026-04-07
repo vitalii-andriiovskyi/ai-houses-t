@@ -3,30 +3,40 @@ import { Route } from '@angular/router';
 export const pagesRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('./pages/home-page/home-page').then((m) => m.HomePage)
+    loadComponent: () =>
+      import('./pages/home-page/home-page').then((m) => m.HomePage),
   },
   {
     path: 'ai-houses',
-    loadComponent: () => import('./pages/ai-houses-page/ai-houses-page').then((m) => m.AiHousesPage),
+    loadComponent: () =>
+      import('./pages/ai-houses-page/ai-houses-page').then(
+        (m) => m.AiHousesPage,
+      ),
     children: [
       {
         path: '',
-        loadComponent: () => import('@ai-house').then((m) => m.AiHouses)
-      }
-    ]
+        loadComponent: () => import('@ai-house').then((m) => m.AiHouses),
+      },
+    ],
   },
   {
     path: 'ai-houses/:id',
-    loadComponent: () => import('./pages/ai-house-details-page/ai-house-details-page').then((m) => m.AiHouseDetailsPage),
+    loadComponent: () =>
+      import('./pages/ai-house-details-page/ai-house-details-page').then(
+        (m) => m.AiHouseDetailsPage,
+      ),
     children: [
       {
         path: '',
-        loadComponent: () => import('@ai-house').then((m) => m.AiHouseDetails)
-      }
-    ]
+        loadComponent: () => import('@ai-house').then((m) => m.AiHouseDetails),
+      },
+    ],
   },
-  {
-    path: '**',
-    loadComponent: () => import('./pages/page-not-found/page-not-found').then((m) => m.PageNotFound)
-  }
+  // {
+  //   path: '**',
+  //   loadComponent: () =>
+  //     import('./pages/page-not-found/page-not-found').then(
+  //       (m) => m.PageNotFound,
+  //     ),
+  // },
 ];
