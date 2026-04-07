@@ -15,15 +15,18 @@ import {
 
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { logoutAsync } from '@be/shared';
+import { logoutAsync, Roles, RolesGuard } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { JwtAuthGuard } from '@be/auth';
+import { Role } from '@shared';
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Roles(Role.User, Role.Admin)
+  @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Get()
   async findUser(@Request() req: any) {

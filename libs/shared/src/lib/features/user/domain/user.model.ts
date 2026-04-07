@@ -1,7 +1,7 @@
 import { Address } from '../../address/domain/address.model';
 import { Image } from '../../image/domain/image.model';
 
-export enum UserRole {
+export enum Role {
   User = 'user',
   Admin = 'admin',
 }
@@ -20,7 +20,7 @@ export interface User {
   // imageId?: string; // db sets it, but we need to have it in the model for the relation
   description?: string;
   verificationToken?: string;
-  roles?: UserRole[];
+  roles?: Role[];
   recovery?: string;
   isRecovered?: boolean;
   // addressId?: string; // db sets it, but we need to have it in the model for the relation

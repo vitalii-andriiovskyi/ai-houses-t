@@ -51,12 +51,12 @@ import { RedisConfigService, REDIS_CLIENT, RedisModule } from '@be/redis';
       useClass: RedisConfigService,
       isGlobal: true,
     }),
+    AuthModule,
     UserModule,
     SeoModule,
     AddressModule,
     ImageModule,
     AiHouseModule,
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [

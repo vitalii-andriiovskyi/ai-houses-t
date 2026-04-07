@@ -10,7 +10,6 @@ import { AuthController } from './auth.controller';
 import { JwtConfigService } from './jwt/jwt-config.service';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { LocalStrategy } from './local/local.strategy';
-// import { RedisModule } from '@be/redis';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { LocalStrategy } from './local/local.strategy';
     JwtModule.registerAsync({
       useClass: JwtConfigService,
     }),
-    // RedisModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],

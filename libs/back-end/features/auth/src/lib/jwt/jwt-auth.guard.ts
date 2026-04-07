@@ -10,8 +10,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
   override async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const authHeader = request.headers['authorization'];
-    const token = authHeader?.split(' ')[1];
+    const token = this.extractTokenFromHeader(request);
     if (token) {
       const isBlacklisted = await this.authService.isTokenBlacklisted(token);
       if (isBlacklisted) {
@@ -22,5 +21,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
     return super.canActivate(context) as Promise<boolean>;
+  }
+
+  private extractTokenFromHeader(request: any): string | undefined {
+    const [type, token] = request.headers['authorization']?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }

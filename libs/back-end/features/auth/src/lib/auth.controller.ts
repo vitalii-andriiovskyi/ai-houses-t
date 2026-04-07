@@ -12,7 +12,6 @@ import {
 import { CredentialsDto } from './dto/credentials.dto';
 import { LocalAuthGuard } from './local/local-auth.guard';
 import { AuthService } from './auth.service';
-import { logoutAsync } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { CreateUserDto } from '@be/user';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
