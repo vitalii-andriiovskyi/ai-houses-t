@@ -32,7 +32,10 @@
       "@fe/user": ["libs/front-end/features/user/src/index.ts"],
       "@fe/auth": ["libs/front-end/features/auth/src/index.ts"],
       "@be/auth": ["libs/back-end/features/auth/src/index.ts"],
-      "@be/redis": ["libs/back-end/features/redis/src/index.ts"]
+      "@be/redis": ["libs/back-end/features/redis/src/index.ts"],
+      "@ap/pages": ["libs/front-end-ap/pages/src/index.ts"],
+      "@ap/core": ["libs/front-end-ap/core/src/index.ts"],
+      "@ap/shared": ["libs/front-end-ap/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

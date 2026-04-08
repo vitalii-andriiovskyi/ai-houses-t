@@ -10,6 +10,7 @@ import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { include, includeAll } from '@be/shared';
+import { Role } from '@shared';
 
 @Injectable()
 export class UserService {
@@ -53,6 +54,7 @@ export class UserService {
       'lastName',
       'email',
       'phone',
+      'roles',
     ];
     if (withPassword) {
       basicSelect.push('password');
@@ -127,5 +129,9 @@ export class UserService {
     const createdUser = await this.create(createUserDto);
     const { password, ...result } = createdUser;
     return result as UserEntity;
+  }
+
+  isAdmin(user: UserEntity): boolean {
+    return user.roles?.includes(Role.Admin);
   }
 }

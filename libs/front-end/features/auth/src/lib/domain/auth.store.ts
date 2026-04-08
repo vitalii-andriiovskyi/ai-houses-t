@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import {
   BehaviorSubject,
   catchError,
-  delay,
+  combineLatest,
   filter,
   map,
   merge,
@@ -15,6 +15,7 @@ import { addSeconds, isBefore } from 'date-fns';
 import { UserSignUp, UserStore } from '@fe/user';
 import { LocalStorageService } from '@fe/shared';
 import { AuthApi } from '../infrastructure/auth.api';
+import { Role } from '@shared';
 
 const TOKEN_KEY = 'id_token';
 const EXPIRATION_KEY = 'expires_at';
@@ -45,32 +46,21 @@ export class AuthStore {
   );
   user$ = merge(this.userLoggedIn$, this.userLoggedOut$);
 
-  signIn(email: string, password: string) {
-    this._isLoading.set(true);
-    this._error.set('');
-    this._authAPI
-      .signIn({ email, password })
-      .pipe(
-        tap(({ access_token, expires_in }) => {
-          this.setSession({ access_token, expires_in });
-          this._isLoading.set(false);
-          this._isAuthVisible.set(false);
-        }),
-        switchMap(() => this._userStore.refetchUser()),
-        catchError((err) => {
-          // not sure about email message:
-          this._error.set(err.error?.message || 'Invalid email or password.');
-          // this._error.set('Invalid email or password.');
-          this._isLoading.set(false);
-          return of(err).pipe(
-            delay(5000),
-            tap(() => {
-              this._error.set('');
-            }),
-          );
-        }),
-      )
-      .subscribe();
+  isAdmin$ = combineLatest([this.user$, this.isLoggedIn$]).pipe(
+    filter(([user, loggedIn]) => (loggedIn && !!user) || !loggedIn),
+    map(([user, loggedIn]) => {
+      return loggedIn && user?.roles?.includes(Role.Admin) ? true : false;
+    }),
+  );
+
+  signIn(email: string, password: string, role?: Role) {
+    return this._authAPI.signIn({ email, password }, { role }).pipe(
+      tap(({ access_token, expires_in }) => {
+        this.setSession({ access_token, expires_in });
+        this._isAuthVisible.set(false);
+      }),
+      switchMap(() => this._userStore.refetchUser()),
+    );
   }
 
   signUp(userData: UserSignUp) {

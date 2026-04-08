@@ -11,6 +11,7 @@ const cors = environment.cors;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors,
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
   app.use(
     helmet({

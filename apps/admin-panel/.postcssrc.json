@@ -1,0 +1,6 @@
+{
+  "plugins": {
+    "../../postcss/nx-tailwind-graph-to-source": {},
+    "@tailwindcss/postcss": {}
+  }
+}

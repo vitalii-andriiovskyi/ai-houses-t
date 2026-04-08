@@ -66,6 +66,22 @@ yarn nx g @nx/angular:interceptor interceptors/auth/auth --project=fe/shared --d
 
 ```
 
+For the admin panel:
+
+```sh
+yarn nx g @nx/angular:library libs/front-end-ap/pages --importPath=@ap/pages --name=ap-pages --buildable --routing    
+yarn nx g @nx/angular:library libs/front-end-ap/core --importPath=@ap/core --name=ap-core --buildable
+yarn nx g @nx/angular:library libs/front-end-ap/shared --importPath=@ap/shared --name=ap-shared --buildable
+
+yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/layout/layout --export
+yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/sidebar/sidebar --export
+
+yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/sign-in/sign-in --export
+
+yarn nx g @nx/angular:guard guards/admin/admin --project=ap-shared --dry-run
+
+```
+
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
 [Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)

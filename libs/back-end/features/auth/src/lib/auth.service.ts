@@ -4,13 +4,14 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { CreateUserDto, UserEntity, UserService } from '@be/user';
-import { UserSignUpResponse } from '@shared';
+import { Role, UserSignUpResponse } from '@shared';
 import { RedisService } from '@be/redis';
 
 @Injectable()
@@ -25,10 +26,18 @@ export class AuthService {
     private redisService: RedisService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<UserEntity | null> {
+  async validateUser(
+    email: string,
+    pass: string,
+    role?: Role,
+  ): Promise<UserEntity | null> {
     const user = await this.userService.findOneByEmail(email, {
       withPassword: true,
     });
+    if (user && role === Role.Admin && !this.userService.isAdmin(user)) {
+      throw new UnauthorizedException('User is not an admin');
+    }
+
     if (user && (await compare(pass, user.password))) {
       const { password, ...result } = user;
       return result as UserEntity;

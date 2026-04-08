@@ -52,7 +52,7 @@ export type Credentials = FormInputFromUser<'email' | 'password'>;
 
 export type UserShort = Pick<
   User,
-  'id' | 'firstName' | 'lastName' | 'email' | 'image' | 'address'
+  'id' | 'firstName' | 'lastName' | 'email' | 'image' | 'address' | 'roles'
 >;
 
 export type UserSignUpResponse = {
