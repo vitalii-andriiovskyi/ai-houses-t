@@ -17,7 +17,11 @@ import { CipherKey } from 'crypto';
 import configuration from '../config/configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AllExceptionsFilter, TypeOrmConfigService } from '@be/shared';
+import {
+  AllExceptionsFilter,
+  AppLoggerMiddleware,
+  TypeOrmConfigService,
+} from '@be/shared';
 import { UserModule } from '@be/user';
 import { AiHouseModule } from '@be/ai-house';
 import { ImageModule } from '@be/image';
@@ -81,6 +85,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
+        AppLoggerMiddleware,
         session({
           store: new RedisStore({ client: this.redis, prefix: 'sess:' }),
           saveUninitialized: false,
