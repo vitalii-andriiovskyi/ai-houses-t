@@ -1,0 +1,382 @@
+<div class="py-8">
+  <h1 class="font-primary text-primary-900 text-center text-4xl font-bold">
+    Generic Form
+  </h1>
+  <form class="mt-4 flex flex-col gap-4 px-5" [formGroup]="form">
+    <!--!!! pass id using [id] binding, if to use id="someId" we end up with 2 elements having the same id: lib-form-control-wrapper and input -->
+    <lib-form-control-wrapper
+      label="First Name"
+      [id]="'firstName'"
+      [touched]="firstName?.touched || false"
+      [dirty]="firstName?.dirty || false"
+      [invalid]="firstName?.invalid || false"
+      [required]="true"
+      [errors]="firstName?.errors"
+    >
+      <input
+        pInputText
+        formControlName="firstName"
+        required
+        [id]="'firstName'"
+        placeholder="Your First Name..."
+        type="text"
+        [invalid]="
+          firstName?.invalid && (firstName?.touched || firstName?.dirty)
+        "
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Last Name"
+      [id]="'lastName'"
+      [touched]="lastName?.touched || false"
+      [dirty]="lastName?.dirty || false"
+      [invalid]="lastName?.invalid || false"
+      [required]="true"
+      [errors]="lastName?.errors"
+    >
+      <input
+        pInputText
+        formControlName="lastName"
+        required
+        [id]="'lastName'"
+        placeholder="Your Last Name..."
+        type="text"
+        [invalid]="lastName?.invalid && (lastName?.touched || lastName?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Email"
+      [id]="'email'"
+      [touched]="email?.touched || false"
+      [dirty]="email?.dirty || false"
+      [invalid]="email?.invalid || false"
+      [required]="true"
+      [errors]="email?.errors"
+    >
+      <input
+        pInputText
+        formControlName="email"
+        required
+        [id]="'email'"
+        placeholder="Your Email..."
+        type="email"
+        [invalid]="email?.invalid && (email?.touched || email?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Password"
+      [id]="'password'"
+      [touched]="password?.touched || false"
+      [dirty]="password?.dirty || false"
+      [invalid]="password?.invalid || false"
+      [required]="true"
+      [errors]="password?.errors"
+    >
+      <p-password
+        formControlName="password"
+        [required]="true"
+        [inputId]="'password'"
+        placeholder="Your Password..."
+        type="password"
+        class="w-full"
+        inputStyleClass="w-full"
+        minLength="8"
+        [toggleMask]="true"
+        [feedback]="false"
+        [invalid]="password?.invalid && (password?.touched || password?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Confirm Password"
+      [id]="'confirmPassword'"
+      [touched]="confirmPassword?.touched || false"
+      [dirty]="confirmPassword?.dirty || false"
+      [invalid]="confirmPassword?.invalid || false"
+      [required]="true"
+      [errors]="getErrorsForConfirmPassword()"
+    >
+      <p-password
+        formControlName="confirmPassword"
+        [required]="true"
+        [inputId]="'confirmPassword'"
+        placeholder="Confirm Your Password..."
+        type="password"
+        class="w-full"
+        inputStyleClass="w-full"
+        minLength="8"
+        [toggleMask]="true"
+        [feedback]="false"
+        [invalid]="
+          confirmPassword?.invalid &&
+          (confirmPassword?.touched || confirmPassword?.dirty)
+        "
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Phone"
+      [id]="'phone'"
+      [touched]="phone?.touched || false"
+      [dirty]="phone?.dirty || false"
+      [invalid]="phone?.invalid || false"
+      [required]="true"
+      [errors]="phone?.errors"
+    >
+      <input
+        pInputText
+        pInputMask="(999) 99 999 9999"
+        formControlName="phone"
+        required
+        [id]="'phone'"
+        placeholder="(999) 99 999 9999"
+        type="text"
+        [invalid]="phone?.invalid && (phone?.touched || phone?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Your Bio"
+      [id]="'bio'"
+      [touched]="bio?.touched || false"
+      [dirty]="bio?.dirty || false"
+      [invalid]="bio?.invalid || false"
+      [errors]="bio?.errors"
+    >
+      <textarea
+        rows="5"
+        cols="30"
+        pTextarea
+        [id]="'bio'"
+        formControlName="bio"
+        autoResize="true"
+        placeholder="Your Bio..."
+        [invalid]="bio?.invalid && (bio?.touched || bio?.dirty)"
+      ></textarea>
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Text"
+      [id]="'text'"
+      [touched]="text?.touched || false"
+      [dirty]="text?.dirty || false"
+      [invalid]="text?.invalid || false"
+      [errors]="text?.errors"
+    >
+      <lib-quill-editor
+        formControlName="text"
+        nameStart="text"
+      ></lib-quill-editor>
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Date of Birth"
+      [id]="'dateOfBirth'"
+      [touched]="dateOfBirth?.touched || false"
+      [dirty]="dateOfBirth?.dirty || false"
+      [invalid]="dateOfBirth?.invalid || false"
+      [required]="true"
+      [errors]="dateOfBirth?.errors"
+    >
+      <p-datepicker
+        formControlName="dateOfBirth"
+        required
+        [inputId]="'dateOfBirth'"
+        placeholder="Select Date..."
+        class="max-w-100"
+        [showIcon]="true"
+        [invalid]="
+          dateOfBirth?.invalid && (dateOfBirth?.touched || dateOfBirth?.dirty)
+        "
+        dateFormat="yy-mm-dd"
+      ></p-datepicker>
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Country"
+      [id]="'country'"
+      [touched]="country?.touched || false"
+      [dirty]="country?.dirty || false"
+      [invalid]="country?.invalid || false"
+      [errors]="country?.errors"
+      [required]="true"
+    >
+      <p-select
+        placeholder="Your Country..."
+        formControlName="country"
+        [options]="countries"
+        optionLabel="name"
+        optionValue="code"
+        required
+        class="w-full md:w-100"
+        [invalid]="country?.invalid && (country?.touched || country?.dirty)"
+      />
+    </lib-form-control-wrapper>
+
+    <lib-image-uploader
+      formControlName="image"
+      nameStart="image"
+      [withCaption]="true"
+      [withDescription]="true"
+      [withTitle]="true"
+      [withType]="true"
+    ></lib-image-uploader>
+
+    <lib-image-uploader
+      formControlName="photo"
+      nameStart="photo"
+    ></lib-image-uploader>
+
+    <div>
+      <h4>Images</h4>
+      <div class="grid gap-3">
+        @for (img of images.controls; track img.value.id; let i = $index) {
+          <div>
+            @if (images.value.length > 1) {
+              <div class="-mb-11 flex justify-end">
+                <lib-remove-item
+                  tooltip="Remove Image"
+                  [fn]="() => images.removeAt(i)"
+                ></lib-remove-item>
+              </div>
+            }
+            <lib-image-uploader
+              [formControl]="getFormControl(img)"
+              [nameStart]="`images[${i}]`"
+              [legend]="`Image ${i + 1}`"
+            ></lib-image-uploader>
+          </div>
+        }
+        <div class="flex justify-end">
+          <lib-custom-button
+            type="button"
+            label="Add Image"
+            class="p-button-sm"
+            (click)="addImage()"
+          ></lib-custom-button>
+        </div>
+      </div>
+    </div>
+
+    <lib-form-control-wrapper
+      label="Range"
+      [touched]="range?.touched || false"
+      [dirty]="range?.dirty || false"
+      [invalid]="range?.invalid || false"
+      [errors]="range?.errors"
+      [required]="true"
+    >
+      <p-slider
+        placeholder="Your Range..."
+        formControlName="range"
+        range
+        required
+        class="w-full md:w-100"
+        [invalid]="range?.invalid && (range?.touched || range?.dirty)"
+        (onSlideEnd)="range?.markAsTouched()"
+      />
+    </lib-form-control-wrapper>
+    <div>
+      Chosen range is:
+      <strong>{{ range?.value?.[0] }} - {{ range?.value?.[1] }}</strong>
+    </div>
+
+    <div class="my-3">
+      <h3 class="mb-1 font-semibold">
+        Select your pet <span class="text-red-500">*</span>
+      </h3>
+      <div class="flex gap-3">
+        @for (p of pets; track p.value) {
+          <lib-form-control-wrapper
+            [label]="p.name"
+            [id]="'pet-' + p.value"
+            [touched]="pet?.touched || false"
+            [dirty]="pet?.dirty || false"
+            [invalid]="pet?.invalid || false"
+            [errors]="pet?.errors"
+            wrapperClass="w-auto! flex-row-reverse! hover:[&_label]:cursor-pointer"
+          >
+            <p-radiobutton
+              formControlName="pet"
+              [value]="p.value"
+              [inputId]="'pet-' + p.value"
+              required
+            />
+          </lib-form-control-wrapper>
+        }
+      </div>
+    </div>
+
+    <lib-form-control-wrapper
+      label="Accept Terms and Conditions"
+      [id]="'acceptTermsId'"
+      [touched]="acceptTerms?.touched || false"
+      [dirty]="acceptTerms?.dirty || false"
+      [invalid]="acceptTerms?.invalid || false"
+      [errors]="acceptTerms?.errors"
+      [required]="true"
+      wrapperClass="w-auto! flex-row-reverse! justify-end! hover:[&_label]:cursor-pointer"
+    >
+      <p-checkbox
+        formControlName="acceptTerms"
+        [binary]="true"
+        [inputId]="'acceptTermsId'"
+        [invalid]="
+          acceptTerms?.invalid && (acceptTerms?.touched || acceptTerms?.dirty)
+        "
+        required
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Is Visible"
+      [id]="'isVisibleId'"
+      [touched]="isVisible?.touched || false"
+      [dirty]="isVisible?.dirty || false"
+      [invalid]="isVisible?.invalid || false"
+      [errors]="isVisible?.errors"
+      [required]="true"
+      wrapperClass="w-auto! flex-row-reverse! justify-end! hover:[&_label]:cursor-pointer"
+    >
+      <p-toggleswitch
+        formControlName="isVisible"
+        [inputId]="'isVisibleId'"
+        [invalid]="
+          isVisible?.invalid && (isVisible?.touched || isVisible?.dirty)
+        "
+        required
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Age (optional)"
+      [id]="'ageId'"
+      [touched]="age?.touched || false"
+      [dirty]="age?.dirty || false"
+      [invalid]="age?.invalid || false"
+      [errors]="age?.errors"
+    >
+      <p-inputnumber
+        formControlName="age"
+        [inputId]="'ageId'"
+        [invalid]="age?.invalid && (age?.touched || age?.dirty)"
+        placeholder="Your Age..."
+        autocomplete="off"
+        class="w-full md:max-w-100"
+      />
+    </lib-form-control-wrapper>
+
+    <lib-color-picker
+      formControlName="favoriteColor"
+      nameStart="favoriteColor"
+      legend="Favorite Color"
+    ></lib-color-picker>
+
+    <div class="my-3 mt-5 text-center">
+      <lib-custom-button
+        type="submit"
+        variantCustom="regular"
+        [disabled]="form.invalid || form.pending || isSubmitting()"
+        [loading]="form.pending || isSubmitting()"
+        label="Save changes"
+      >
+      </lib-custom-button>
+    </div>
+  </form>
+</div>

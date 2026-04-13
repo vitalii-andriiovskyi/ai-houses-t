@@ -18,9 +18,9 @@ export const pagesRoutes: Route[] = [
     path: 'pages',
     children: [
       {
-        path: 'ai-houses',
+        path: 'landing',
         loadComponent: () =>
-          import('./pages/sign-in/sign-in').then((m) => m.SignInPage),
+          import('./pages/landing/landing').then((m) => m.LandingPage),
       },
     ],
     canActivate: [adminGuard],

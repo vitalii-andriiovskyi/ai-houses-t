@@ -9,6 +9,7 @@ import { ValidationErrorsService } from '../../services/validation-errors/valida
   styleUrl: './form-control-wrapper.css',
 })
 export class FormControlWrapper {
+  wrapperClass = input('');
   label = input(''); // for now label is only text
   id = input();
   touched = input(false);
@@ -20,7 +21,7 @@ export class FormControlWrapper {
 
   private _validationErrorService = inject(ValidationErrorsService);
 
-  errosMessages = computed(() => {
+  errorMessages = computed(() => {
     if (!this.invalid()) {
       return [];
     }

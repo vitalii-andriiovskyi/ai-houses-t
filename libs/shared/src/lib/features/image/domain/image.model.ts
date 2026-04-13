@@ -18,6 +18,7 @@ export enum ImageType {
   ThumbnailImage = 'ThumbnailImage',
   OGImage = 'OpenGraphImage',
   TWImage = 'TwitterImage',
+  RegularImage = 'RegularImage',
 }
 
 export type ImageBasic = Omit<Image, 'createdAt' | 'updatedAt'>;

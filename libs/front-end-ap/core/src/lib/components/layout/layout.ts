@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +9,7 @@ import { Sidebar } from '../sidebar/sidebar';
 
 @Component({
   selector: 'lib-layout',
-  imports: [RouterModule, AsyncPipe, Header, Footer, Sidebar],
+  imports: [RouterModule, Header, Footer, Sidebar],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })

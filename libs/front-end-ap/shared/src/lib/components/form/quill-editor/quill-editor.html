@@ -1,0 +1,166 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<quill-editor
+  [formControl]="fieldEditor"
+  [registry]="registry"
+  [placeholder]="editorOptions.placeholder"
+  [modules]="editorOptions.modules"
+  [customOptions]="editorOptions.customOptions"
+  [style]="quillStyle()"
+  (onEditorCreated)="onEditorCreated($event)"
+>
+  <div quill-editor-toolbar>
+    <span class="ql-formats">
+      <select class="ql-header">
+        <option value="1"></option>
+        <option value="2"></option>
+        <option value="3"></option>
+        <option value="4"></option>
+        <option value="5"></option>
+        <option value="6"></option>
+        <option selected="selected"></option>
+      </select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-header" value="1"></button>
+      <button class="ql-header" value="2"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-font">
+        <option selected></option>
+        <option value="serif"></option>
+        <option value="monospace"></option>
+      </select>
+    </span>
+
+    <span class="ql-formats">
+      <select class="ql-size">
+        <option value="small"></option>
+        <option selected="selected"></option>
+        <option value="large"></option>
+        <option value="huge"></option>
+        @for (option of fontSizeRange; track option) {
+          <option [value]="option"></option>
+        }
+      </select>
+    </span>
+    <span class="ql-formats">
+      <input
+        type="number"
+        id=""
+        min="8"
+        max="90"
+        name="fontSizeControl"
+        placeholder="0-90px"
+        (keydown)="onFontSizeKeyDown($event)"
+        (keyup.enter)="onFontSizeChange($event)"
+        (blur)="onFontSizeChange($event)"
+        [formControl]="fontSizeControl"
+        class="fontSizeControl border-primary-900/40 min-w-20 rounded-sm border bg-white px-1.5"
+      />
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-bold"></button>
+      <button class="ql-italic"></button>
+      <button class="ql-underline"></button>
+      <button class="ql-strike"></button>
+      <div
+        class="flex h-full flex-col"
+        pTooltip="Choose font-weight for a selected text"
+      >
+        <select class="ql-fontweight">
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="300">300</option>
+          <option value="400" selected="400">400</option>
+          <option value="500">500</option>
+          <option value="600">600</option>
+          <option value="700">700</option>
+          <option value="800">800</option>
+          <option value="900">900</option>
+        </select>
+      </div>
+    </span>
+
+    <span class="ql-formats">
+      <select class="ql-color">
+        @for (option of allTextColors; track option) {
+          <option [value]="option"></option>
+        }
+      </select>
+      <select class="ql-background">
+        @for (option of allColors; track option) {
+          <option [value]="option"></option>
+        }
+      </select>
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-list" value="ordered"></button>
+      <button class="ql-list" value="bullet"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-align">
+        <option selected></option>
+        <option value="center"></option>
+        <option value="right"></option>
+        <option value="justify"></option>
+      </select>
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-link"></button>
+      <button class="ql-image"></button>
+      <button class="ql-video"></button>
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-blockquote"></button>
+      <button class="ql-code-block"></button>
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-script" value="sub"></button>
+      <button class="ql-script" value="super"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-indent" value="-1"></button>
+      <button class="ql-indent" value="+1"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-direction" value="rtl"></button>
+    </span>
+
+    <span class="ql-formats">
+      <div
+        class="p-d-flex p-ai-center"
+        pTooltip="line-height for a selected text"
+      >
+        <input
+          placeholder="8-90"
+          type="number"
+          id=""
+          min="8"
+          max="90"
+          [formControl]="lineHeightControl"
+          (keydown)="onLineHeightKeyDown($event)"
+          (keyup.enter)="onLineHeightChange($event)"
+          (blur)="onLineHeightChange($event)"
+          name="lineHeightControl"
+          class="ql-spanLineHeight border-primary-900/40 min-w-17.5 rounded-sm border bg-white px-1.5"
+        />
+
+        <select class="ql-spanLineHeight">
+          <option selected>Normal</option>
+          @for (option of fontSizeRange; track option) {
+            <option [value]="option"></option>
+          }
+        </select>
+      </div>
+    </span>
+
+    <span class="ql-formats">
+      <button class="ql-clean"></button>
+    </span>
+  </div>
+</quill-editor>

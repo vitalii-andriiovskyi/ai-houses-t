@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.ql-container .ql-editor {
+  max-height: 700px;
+}
+
+:host ::ng-deep .ql-container .ql-editor {
+  min-height: 80px;
+  max-height: 700px;
+}
+
+.bgColor {
+  vertical-align: middle;
+}

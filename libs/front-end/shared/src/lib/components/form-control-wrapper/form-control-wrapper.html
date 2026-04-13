@@ -1,4 +1,4 @@
-<div class="group flex w-full flex-col gap-1.5">
+<div class="group flex w-full flex-col gap-1.5" [class]="wrapperClass()">
   @if (label()) {
     <label class="flex gap-1" [attr.for]="id()">
       {{ label() }}
@@ -12,8 +12,8 @@
     </label>
   }
   <ng-content></ng-content>
-  @if (invalid() && (touched() || dirty()) && errosMessages().length > 0) {
-    @for (errorMsg of errosMessages(); track errorMsg.key) {
+  @if (invalid() && (touched() || dirty()) && errorMessages().length > 0) {
+    @for (errorMsg of errorMessages(); track errorMsg.key) {
       <small class="error-msg text-red-500">{{ errorMsg.message }}</small>
     }
   }

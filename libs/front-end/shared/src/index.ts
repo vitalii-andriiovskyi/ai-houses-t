@@ -17,5 +17,10 @@ export * from './lib/services/local-storage/local-storage';
 export * from './lib/validators/match-validator';
 export * from './lib/validators/password-match.validator';
 export * from './lib/validators/password-strength.validator';
+export * from './lib/validators/range-validator';
 
 export * from './lib/interceptors/auth/auth-interceptor';
+
+export * from './lib/utils/getId';
+export * from './lib/utils/getDefaultImage';
+export * from './lib/utils/collection';

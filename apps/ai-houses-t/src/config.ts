@@ -1,5 +1,5 @@
-import { AppConfig } from "@fe/shared";
-import { environment } from "./environments/environment";
+import { AppConfig } from '@fe/shared';
+import { environment } from './environments/environment';
 
 const CONFIG: AppConfig = {
   apiUrl: environment.apiUrl,
@@ -10,7 +10,8 @@ const CONFIG: AppConfig = {
   domain: environment.domain,
   googleVerificationId: environment.googleVerificationId,
   blogName: environment.blogName,
-  twitterName: environment.twitterName
-}
+  twitterName: environment.twitterName,
+  fileUploadUrl: `${environment.apiUrl}/file/upload`,
+};
 
 export default CONFIG;

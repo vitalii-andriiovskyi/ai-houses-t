@@ -66,21 +66,6 @@ yarn nx g @nx/angular:interceptor interceptors/auth/auth --project=fe/shared --d
 
 ```
 
-For the admin panel:
-
-```sh
-yarn nx g @nx/angular:library libs/front-end-ap/pages --importPath=@ap/pages --name=ap-pages --buildable --routing    
-yarn nx g @nx/angular:library libs/front-end-ap/core --importPath=@ap/core --name=ap-core --buildable
-yarn nx g @nx/angular:library libs/front-end-ap/shared --importPath=@ap/shared --name=ap-shared --buildable
-
-yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/layout/layout --export
-yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/sidebar/sidebar --export
-
-yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/sign-in/sign-in --export
-
-yarn nx g @nx/angular:guard guards/admin/admin --project=ap-shared --dry-run
-
-```
 
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
@@ -270,11 +255,11 @@ Find the Process ID (PID): Open the terminal and run:
 `lsof -i :4200`
 Kill the Process: Use the PID found from the previous step:
 `kill -9 [PID]`
-One-liner for Mac/Linux: sudo kill -9 $(sudo lsof -t -i:4200). 
+One-liner for Mac/Linux: sudo kill -9 $(sudo lsof -t -i:4200).
 Stack Overflow
 Stack Overflow
-3. Quick One-Line Solution (NPM) 
-If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID: 
+3. Quick One-Line Solution (NPM)
+If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID:
 Command: `npx kill-port 4200`.
 
 ## Redis
@@ -283,4 +268,50 @@ To monitor Redis commands in real-time:
 
 ```bash
 redis-cli monitor
+```
+
+## Admin Panel
+
+Run `nx show project admin-panel-e2e` to view details about this project.
+Run `nx show project admin-panel` to view details about this project.
+
+### Run tasks for Admin Panel
+
+To run the dev server for your app, use:
+
+```sh
+npx nx serve admin-panel
+```
+
+To create a production bundle:
+
+```sh
+npx nx build admin-panel
+```
+
+For the admin panel:
+
+```sh
+yarn nx g @nx/angular:library libs/front-end-ap/pages --importPath=@ap/pages --name=ap-pages --buildable --routing    
+yarn nx g @nx/angular:library libs/front-end-ap/core --importPath=@ap/core --name=ap-core --buildable
+yarn nx g @nx/angular:library libs/front-end-ap/shared --importPath=@ap/shared --name=ap-shared --buildable
+
+yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/layout/layout --export
+yarn nx g @nx/angular:component libs/front-end-ap/core/src/lib/components/sidebar/sidebar --export
+
+yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/sign-in/sign-in --export
+
+yarn nx g @nx/angular:guard guards/admin/admin --project=ap-shared --dry-run
+
+
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/image-uploader/image-uploader --export
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/color-picker/color-picker --export
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/quill-editor/quill-editor --export
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/remove-item/remove-item --export
+
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/generic-form/generic-form --export
+
+yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/landing/landing --export
+
+
 ```

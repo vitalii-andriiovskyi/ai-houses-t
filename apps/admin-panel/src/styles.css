@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@layer theme, base, components, primeng, primereacticons, utilities;
+@layer theme, base, components, primeng, primereacticons, utilities, quill;
 @import "tailwindcss/theme.css" layer(theme) source(none);
 @import "tailwindcss/preflight.css" layer(base) source(none);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "tailwindcss-primeui" source(none); /* it goes into @layer utilities */
+@import 'quill/dist/quill.snow.css' layer(quill) source(none);
 
 @import "primeicons/primeicons.css" layer(primereacticons) source(none);
 /* Configuration Tailwind v4 with Angular in an Nx Monorepo without problem to include Tailwind classes from unused libraries */
@@ -15,6 +16,8 @@
 /* @import 'primeicons/primeicons.css'; */
         
 /* @source "../node_modules/primereact/passthrough/tailwind"; */
+
+@import './quill.css' layer(quill);
 
 :root {
   --background: #ffffff;
@@ -159,4 +162,5 @@ body {
   font-weight: 400;
   font-size: 16px;
 }
+
 

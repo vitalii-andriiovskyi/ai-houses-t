@@ -1,6 +1,9 @@
 {
   "plugins": {
     "../../postcss/nx-tailwind-graph-to-source": {},
+    "postcss-at-rules-variables": {},
+    "postcss-custom-properties": {},
+    "postcss-each": {},
     "@tailwindcss/postcss": {}
   }
 }

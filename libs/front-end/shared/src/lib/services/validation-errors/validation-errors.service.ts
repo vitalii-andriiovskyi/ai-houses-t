@@ -32,6 +32,31 @@ const VALIDATORS_KEY = {
 //   },
 // };
 
+export const PATTERNS = {
+  HEX: {
+    requiredPattern: /^#([0-9A-Fa-f]{3}){1,2}$/.toString(),
+    message: ' is not a valid hex color (valid color should be like #ff0000)',
+  },
+  PHONE: {
+    requiredPattern: /^\(\d{3}\) \d{2} \d{3} \d{4}$/.toString(),
+    message:
+      ' is not a valid phone number. It should be 12 digits and can include country code, for example: (123) 45 678 9012',
+  },
+};
+
+const getPatternError = (
+  label: string,
+  error: { requiredPattern: string; actualValue: string },
+) => {
+  if (error.requiredPattern === PATTERNS.HEX.requiredPattern) {
+    return `${label} ${PATTERNS.HEX.message}, but the actual value is ${error.actualValue}`;
+  }
+  if (error.requiredPattern === PATTERNS.PHONE.requiredPattern) {
+    return `${label} ${PATTERNS.PHONE.message}, but the actual value is ${error.actualValue}`;
+  }
+  return `${label} is invalid.`;
+};
+
 export const ERROR_MESSAGES: { [key: string]: (...args: any) => string } = {
   [VALIDATORS_KEY.MIN]: (label, value?: { min: number; actual: number }) =>
     `${label} should be greater than or equal to ${value?.min}`,
@@ -51,6 +76,7 @@ export const ERROR_MESSAGES: { [key: string]: (...args: any) => string } = {
   [VALIDATORS_KEY.INVALID_DATE]: () => `This is not a valid date`,
   [VALIDATORS_KEY.INVALID_YEAR]: () =>
     `Date of Birth should be after year 1900`,
+  [VALIDATORS_KEY.PATTERN]: getPatternError,
 };
 
 // to add error messages handler https://blog.bitsrc.io/effortlessly-show-validation-messages-in-angular-fbcf7bce8f4c

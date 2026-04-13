@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 
 export interface AppConfig {
   apiUrl: string;
@@ -11,6 +11,7 @@ export interface AppConfig {
   googleVerificationId: string;
   blogName: string;
   twitterName: string;
+  fileUploadUrl: string;
 }
 
 // Globally available configuration using providedIn

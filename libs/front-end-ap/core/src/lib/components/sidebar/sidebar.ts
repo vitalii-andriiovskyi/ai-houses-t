@@ -16,7 +16,7 @@ export class Sidebar {
       items: [
         {
           label: 'Home Page',
-          routerLink: 'pages/home-page',
+          routerLink: 'pages/landing',
         },
       ],
     },
