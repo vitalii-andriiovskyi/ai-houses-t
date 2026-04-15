@@ -18,6 +18,7 @@ export * from './lib/validators/match-validator';
 export * from './lib/validators/password-match.validator';
 export * from './lib/validators/password-strength.validator';
 export * from './lib/validators/range-validator';
+export * from './lib/validators/zone.validator';
 
 export * from './lib/interceptors/auth/auth-interceptor';
 

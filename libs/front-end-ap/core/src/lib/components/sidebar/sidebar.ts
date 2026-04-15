@@ -21,6 +21,20 @@ export class Sidebar {
       ],
     },
     {
+      label: 'AI House',
+      icon: 'pi pi-home',
+      items: [
+        {
+          label: 'All AI Houses',
+          routerLink: 'pages/ai-houses',
+        },
+        {
+          label: 'Create AI House',
+          routerLink: 'pages/ai-houses/create',
+        },
+      ],
+    },
+    {
       label: 'Files',
       icon: 'pi pi-file',
       items: [

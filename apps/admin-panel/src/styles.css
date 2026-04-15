@@ -107,6 +107,18 @@
   dialog {
     margin: auto;
   }
+
+  a[target="_blank"]::after {
+    content: '\1f517';
+    margin-left: 5px; 
+    vertical-align: middle;
+    transform: translateY(-2px);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  a[target="_blank"]:hover::after {
+    opacity: 1;
+  }
 }
 
 @layer components {

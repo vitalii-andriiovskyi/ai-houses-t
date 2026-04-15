@@ -8,7 +8,7 @@ export const environment = {
   imagesUrl: 'http://localhost:4300/images/', // url for the service (be) that serves images (S3)
   apiUrl: 'http://localhost:3333/api',
 
-  domain: 'http://localhost:4300/',
+  domain: 'http://localhost:4200/', // domain of the front-end application not admin panel
   googleVerificationId: 'yQdgz7Tq72QQcbVy-jMOrcoUDXjOF8r_ODPch02CpBQ',
   blogName: 'AI HOUSES Admin Panel',
   twitterName: '@...',

@@ -22,6 +22,32 @@ export const pagesRoutes: Route[] = [
         loadComponent: () =>
           import('./pages/landing/landing').then((m) => m.LandingPage),
       },
+      {
+        path: 'ai-houses',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/ai-house/ai-house-index/ai-house-index').then(
+                (m) => m.AiHouseIndex,
+              ),
+          },
+          {
+            path: 'create',
+            loadComponent: () =>
+              import('./pages/ai-house/ai-house-create/ai-house-create').then(
+                (m) => m.AiHouseCreate,
+              ),
+          },
+          {
+            path: 'edit/:id',
+            loadComponent: () =>
+              import('./pages/ai-house/ai-house-edit/ai-house-edit').then(
+                (m) => m.AiHouseEdit,
+              ),
+          },
+        ],
+      },
     ],
     canActivate: [adminGuard],
   },

@@ -1,24 +1,14 @@
-import {
-  Component,
-  inject,
-  input,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, input, OnDestroy, signal } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormBuilder,
   FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-  ValidationErrors,
   Validator,
-  Validators,
 } from '@angular/forms';
-import { map, merge, Subscription, tap } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { QuillModule } from 'ngx-quill';
 import QuillType from 'quill';
 import { TooltipModule } from 'primeng/tooltip';

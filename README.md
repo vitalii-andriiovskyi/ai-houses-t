@@ -311,7 +311,14 @@ yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form
 
 yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/form/generic-form/generic-form --export
 
+yarn nx g @nx/angular:component libs/front-end-ap/shared/src/lib/components/toast/toast --export
+
 yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/landing/landing --export
 
+yarn nx g @nx/angular:service services/api-client/api-client --project=ap-shared --dry-run
+yarn nx g @nx/angular:service services/global-toast/global-toast --project=ap-shared
 
+
+yarn nx g @nx/angular:component libs/front-end-ap/pages/src/lib/pages/ai-house/ai-house-form/ai-house-form
+libs/front-end-ap/shared/src/lib/services
 ```

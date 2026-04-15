@@ -1,0 +1,588 @@
+<form
+  class="border-primary-900/35 my-8 flex flex-col gap-4 rounded-md border p-5"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <!-- Name -->
+  <lib-form-control-wrapper
+    label="House Name"
+    [id]="'name'"
+    [touched]="name?.touched || false"
+    [dirty]="name?.dirty || false"
+    [invalid]="name?.invalid || false"
+    [required]="true"
+    [errors]="name?.errors"
+  >
+    <input
+      pInputText
+      formControlName="name"
+      required
+      [id]="'name'"
+      placeholder="House Name..."
+      type="text"
+      [invalid]="name?.invalid && (name?.touched || name?.dirty)"
+    />
+  </lib-form-control-wrapper>
+
+  <!-- URL -->
+  <lib-form-control-wrapper
+    label="URL"
+    [id]="'url'"
+    [touched]="url?.touched || false"
+    [dirty]="url?.dirty || false"
+    [invalid]="url?.invalid || false"
+    [required]="true"
+    [errors]="url?.errors"
+  >
+    <input
+      pInputText
+      formControlName="url"
+      required
+      [id]="'url'"
+      placeholder="URL slug... (e.g. my-awesome-house)"
+      type="text"
+      [invalid]="url?.invalid && (url?.touched || url?.dirty)"
+    />
+  </lib-form-control-wrapper>
+
+  <!-- Description -->
+  <lib-form-control-wrapper
+    label="Description"
+    [id]="'description'"
+    [touched]="description?.touched || false"
+    [dirty]="(description?.dirty && description?.touched) || false"
+    [invalid]="description?.invalid || false"
+    [required]="true"
+    [errors]="description?.errors"
+  >
+    <lib-quill-editor
+      formControlName="description"
+      nameStart="description"
+    ></lib-quill-editor>
+  </lib-form-control-wrapper>
+
+  <!-- Owner ID -->
+  <!-- If it has to be present, then in should be list of users to select from,
+      for now no implementation for users list, so ownerId will always be adminId 
+     -->
+  <!-- <lib-form-control-wrapper
+      label="Owner ID"
+      [id]="'ownerId'"
+      [touched]="ownerId?.touched || false"
+      [dirty]="ownerId?.dirty || false"
+      [invalid]="ownerId?.invalid || false"
+      [required]="true"
+      [errors]="ownerId?.errors"
+    >
+      <input
+        pInputText
+        formControlName="ownerId"
+        required
+        [id]="'ownerId'"
+        placeholder="Owner ID..."
+        type="text"
+        [invalid]="ownerId?.invalid && (ownerId?.touched || ownerId?.dirty)"
+      />
+    </lib-form-control-wrapper> -->
+
+  <!-- Rooms -->
+  <lib-form-control-wrapper
+    label="Rooms"
+    [id]="'rooms'"
+    [touched]="rooms?.touched || false"
+    [dirty]="rooms?.dirty || false"
+    [invalid]="rooms?.invalid || false"
+    [required]="true"
+    [errors]="rooms?.errors"
+  >
+    <p-inputnumber
+      formControlName="rooms"
+      [inputId]="'rooms'"
+      [invalid]="rooms?.invalid && (rooms?.touched || rooms?.dirty)"
+      placeholder="Number of Rooms..."
+      autocomplete="off"
+      class="w-full md:max-w-100"
+      [min]="1"
+      required
+    />
+  </lib-form-control-wrapper>
+
+  <!-- Area -->
+  <lib-form-control-wrapper
+    label="Area (sq m)"
+    [id]="'area'"
+    [touched]="area?.touched || false"
+    [dirty]="area?.dirty || false"
+    [invalid]="area?.invalid || false"
+    [required]="true"
+    [errors]="area?.errors"
+  >
+    <p-inputnumber
+      formControlName="area"
+      [inputId]="'area'"
+      [invalid]="area?.invalid && (area?.touched || area?.dirty)"
+      placeholder="Area..."
+      autocomplete="off"
+      class="w-full md:max-w-100"
+      [min]="1"
+      required
+    />
+  </lib-form-control-wrapper>
+
+  <!-- Price -->
+  <lib-form-control-wrapper
+    label="Price"
+    [id]="'price'"
+    [touched]="price?.touched || false"
+    [dirty]="price?.dirty || false"
+    [invalid]="price?.invalid || false"
+    [required]="true"
+    [errors]="price?.errors"
+  >
+    <p-inputnumber
+      formControlName="price"
+      [inputId]="'price'"
+      [invalid]="price?.invalid && (price?.touched || price?.dirty)"
+      placeholder="Price..."
+      autocomplete="off"
+      class="w-full md:max-w-100"
+      [min]="0"
+      mode="currency"
+      currency="USD"
+      required
+    />
+  </lib-form-control-wrapper>
+
+  <!-- Available -->
+  <lib-form-control-wrapper
+    label="Available"
+    [id]="'availableId'"
+    [touched]="available?.touched || false"
+    [dirty]="available?.dirty || false"
+    [invalid]="available?.invalid || false"
+    [required]="true"
+    [errors]="available?.errors"
+    wrapperClass="w-auto! flex-row-reverse! justify-end! hover:[&_label]:cursor-pointer py-2"
+  >
+    <p-toggleswitch
+      formControlName="available"
+      [inputId]="'availableId'"
+      [invalid]="available?.invalid && (available?.touched || available?.dirty)"
+      required
+    />
+  </lib-form-control-wrapper>
+
+  <!-- Built Year -->
+  <lib-form-control-wrapper
+    label="Built Year"
+    [id]="'builtYear'"
+    [touched]="builtYear?.touched || false"
+    [dirty]="builtYear?.dirty || false"
+    [invalid]="builtYear?.invalid || false"
+    [required]="true"
+    [errors]="builtYear?.errors"
+  >
+    <p-datepicker
+      formControlName="builtYear"
+      required
+      [inputId]="'builtYear'"
+      placeholder="Select Date..."
+      class="max-w-100"
+      [showIcon]="true"
+      [invalid]="builtYear?.invalid && (builtYear?.touched || builtYear?.dirty)"
+      dateFormat="yy-mm-dd"
+    ></p-datepicker>
+  </lib-form-control-wrapper>
+
+  <!-- Last Renovation (optional) -->
+  <lib-form-control-wrapper
+    label="Last Renovation (optional)"
+    [id]="'lastRenovation'"
+    [touched]="lastRenovation?.touched || false"
+    [dirty]="lastRenovation?.dirty || false"
+    [invalid]="lastRenovation?.invalid || false"
+    [errors]="lastRenovation?.errors"
+  >
+    <p-datepicker
+      formControlName="lastRenovation"
+      [inputId]="'lastRenovation'"
+      placeholder="Select Date..."
+      class="max-w-100"
+      [showIcon]="true"
+      [invalid]="
+        lastRenovation?.invalid &&
+        (lastRenovation?.touched || lastRenovation?.dirty)
+      "
+      dateFormat="yy-mm-dd"
+    ></p-datepicker>
+  </lib-form-control-wrapper>
+
+  <!-- Features -->
+  <div class="border-primary-900/20 bg-primary-900-4 rounded-md border p-3">
+    <h4 class="mb-1 font-semibold">Features (optional)</h4>
+    <div class="grid gap-3">
+      @for (feat of features.controls; track feat; let i = $index) {
+        <div class="flex items-center gap-2">
+          <input
+            pInputText
+            [formControl]="feat"
+            [id]="'feature-' + i"
+            placeholder="Feature..."
+            type="text"
+            class="flex-1"
+          />
+          <lib-remove-item
+            tooltip="Remove Feature"
+            [fn]="() => removeFeature(i)"
+          ></lib-remove-item>
+        </div>
+      }
+      <div class="flex justify-end">
+        <lib-custom-button
+          type="button"
+          label="Add Feature"
+          class="p-button-sm"
+          (click)="addFeature()"
+        ></lib-custom-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Images -->
+  <div class="border-primary-900/20 rounded-md border p-3">
+    <h4 class="mb-1 font-semibold">
+      Images <span class="text-red-500">*</span>
+    </h4>
+    <div class="grid gap-3">
+      @for (img of images.controls; track img.value.id; let i = $index) {
+        <div>
+          @if (images.value.length > 1) {
+            <div class="-mb-11 flex justify-end">
+              <lib-remove-item
+                tooltip="Remove Image"
+                [fn]="() => images.removeAt(i)"
+              ></lib-remove-item>
+            </div>
+          }
+          <lib-image-uploader
+            [formControl]="getFormControl(img)"
+            [nameStart]="`images[${i}]`"
+            [legend]="`Image ${i + 1}`"
+            [withCaption]="true"
+            [withDescription]="true"
+            [withTitle]="true"
+            [withType]="true"
+          ></lib-image-uploader>
+        </div>
+      }
+      <div class="flex justify-end">
+        <lib-custom-button
+          type="button"
+          label="Add Image"
+          class="p-button-sm"
+          (click)="addImage()"
+        ></lib-custom-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address -->
+  <fieldset
+    class="border-primary-900/20 bg-primary-900-4 rounded-md border p-4"
+    formGroupName="address"
+  >
+    <legend class="font-primary text-primary-900 px-2 text-2xl font-bold">
+      Address
+    </legend>
+    <div class="flex flex-col gap-4">
+      <lib-form-control-wrapper
+        label="Country"
+        [touched]="country?.touched || false"
+        [dirty]="country?.dirty || false"
+        [invalid]="country?.invalid || false"
+        [required]="true"
+        [errors]="country?.errors"
+      >
+        <p-select
+          placeholder="Select Country..."
+          formControlName="country"
+          [options]="countries"
+          optionLabel="name"
+          optionValue="code"
+          dataKey="code"
+          required
+          class="w-full md:w-100"
+          [invalid]="country?.invalid && (country?.touched || country?.dirty)"
+        />
+      </lib-form-control-wrapper>
+
+      @if (zones$ | async; as zones) {
+        @if (zones.length > 0) {
+          <lib-form-control-wrapper
+            label="State/Province"
+            [id]="'addressState'"
+            [touched]="state?.touched || false"
+            [dirty]="state?.dirty || false"
+            [invalid]="state?.invalid || false"
+            [required]="true"
+            [errors]="getZoneErrorMessage('State/Province')"
+          >
+            <p-select
+              placeholder="Select State/Province..."
+              formControlName="state"
+              [options]="zones"
+              optionLabel="name"
+              optionValue="code"
+              dataKey="code"
+              class="w-full md:w-100"
+              [invalid]="state?.invalid && (state?.touched || state?.dirty)"
+            />
+          </lib-form-control-wrapper>
+        }
+      }
+
+      <lib-form-control-wrapper
+        label="City"
+        [id]="'city'"
+        [touched]="city?.touched || false"
+        [dirty]="city?.dirty || false"
+        [invalid]="city?.invalid || false"
+        [required]="true"
+        [errors]="city?.errors"
+      >
+        <input
+          pInputText
+          formControlName="city"
+          required
+          [id]="'city'"
+          placeholder="City..."
+          type="text"
+          [invalid]="city?.invalid && (city?.touched || city?.dirty)"
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="Address Line 1"
+        [id]="'address1'"
+        [touched]="address1?.touched || false"
+        [dirty]="address1?.dirty || false"
+        [invalid]="address1?.invalid || false"
+        [required]="true"
+        [errors]="address1?.errors"
+      >
+        <input
+          pInputText
+          formControlName="address1"
+          required
+          [id]="'address1'"
+          placeholder="Address Line 1..."
+          type="text"
+          [invalid]="
+            address1?.invalid && (address1?.touched || address1?.dirty)
+          "
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="Address Line 2 (optional)"
+        [id]="'address2'"
+        [touched]="address2?.touched || false"
+        [dirty]="address2?.dirty || false"
+        [invalid]="address2?.invalid || false"
+        [errors]="address2?.errors"
+      >
+        <input
+          pInputText
+          formControlName="address2"
+          [id]="'address2'"
+          placeholder="Address Line 2..."
+          type="text"
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="Apt (optional)"
+        [id]="'apt'"
+        [touched]="apt?.touched || false"
+        [dirty]="apt?.dirty || false"
+        [invalid]="apt?.invalid || false"
+        [errors]="apt?.errors"
+      >
+        <input
+          pInputText
+          formControlName="apt"
+          [id]="'apt'"
+          placeholder="Apt / Suite..."
+          type="text"
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="ZIP Code"
+        [id]="'zip'"
+        [touched]="zip?.touched || false"
+        [dirty]="zip?.dirty || false"
+        [invalid]="zip?.invalid || false"
+        [required]="true"
+        [errors]="zip?.errors"
+      >
+        <input
+          pInputText
+          formControlName="zip"
+          required
+          [id]="'zip'"
+          placeholder="ZIP Code..."
+          type="text"
+          [invalid]="zip?.invalid && (zip?.touched || zip?.dirty)"
+        />
+      </lib-form-control-wrapper>
+    </div>
+  </fieldset>
+
+  <!-- SEO -->
+  <fieldset
+    class="border-primary-900/20 bg-primary-900-4 rounded-md border p-4"
+    formGroupName="seo"
+  >
+    <legend class="font-primary text-primary-900 px-2 text-2xl font-bold">
+      SEO
+    </legend>
+    <div class="flex flex-col gap-4">
+      <lib-form-control-wrapper
+        label="SEO Title"
+        [id]="'seoTitle'"
+        [touched]="seoTitle?.touched || false"
+        [dirty]="seoTitle?.dirty || false"
+        [invalid]="seoTitle?.invalid || false"
+        [required]="true"
+        [errors]="seoTitle?.errors"
+      >
+        <input
+          pInputText
+          formControlName="title"
+          required
+          [id]="'seoTitle'"
+          placeholder="SEO Title..."
+          type="text"
+          [invalid]="
+            seoTitle?.invalid && (seoTitle?.touched || seoTitle?.dirty)
+          "
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO Headline"
+        [id]="'seoHeadline'"
+        [touched]="seoHeadline?.touched || false"
+        [dirty]="seoHeadline?.dirty || false"
+        [invalid]="seoHeadline?.invalid || false"
+        [required]="true"
+        [errors]="seoHeadline?.errors"
+      >
+        <input
+          pInputText
+          formControlName="headline"
+          required
+          [id]="'seoHeadline'"
+          placeholder="SEO Headline..."
+          type="text"
+          [invalid]="
+            seoHeadline?.invalid && (seoHeadline?.touched || seoHeadline?.dirty)
+          "
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO Description"
+        [id]="'seoDescription'"
+        [touched]="seoDescription?.touched || false"
+        [dirty]="seoDescription?.dirty || false"
+        [invalid]="seoDescription?.invalid || false"
+        [required]="true"
+        [errors]="seoDescription?.errors"
+      >
+        <textarea
+          rows="3"
+          cols="30"
+          pTextarea
+          [id]="'seoDescription'"
+          formControlName="description"
+          autoResize="true"
+          placeholder="SEO Description..."
+          [invalid]="
+            seoDescription?.invalid &&
+            (seoDescription?.touched || seoDescription?.dirty)
+          "
+          required
+        ></textarea>
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO URL (optional)"
+        [id]="'seoUrl'"
+        [touched]="seoUrl?.touched || false"
+        [dirty]="seoUrl?.dirty || false"
+        [invalid]="seoUrl?.invalid || false"
+        [errors]="seoUrl?.errors"
+      >
+        <input
+          pInputText
+          formControlName="url"
+          [id]="'seoUrl'"
+          placeholder="SEO URL..."
+          type="text"
+        />
+      </lib-form-control-wrapper>
+
+      <lib-image-uploader
+        formControlName="image"
+        nameStart="seoImage"
+        [withType]="true"
+      ></lib-image-uploader>
+
+      <!-- SEO Keywords -->
+      <div class="border-primary-900/20 bg-primary-900/5 rounded-md border p-3">
+        <h4 class="mb-1 font-semibold">Keywords (optional)</h4>
+        <div class="grid gap-3">
+          @for (kw of seoKeywords.controls; track kw; let i = $index) {
+            <div class="flex items-center gap-2">
+              <input
+                pInputText
+                [formControl]="kw"
+                [id]="'seoKeyword-' + i"
+                placeholder="Keyword..."
+                type="text"
+                class="flex-1"
+              />
+              <lib-remove-item
+                tooltip="Remove Keyword"
+                [fn]="() => removeSeoKeyword(i)"
+              ></lib-remove-item>
+            </div>
+          }
+          <div class="flex justify-end">
+            <lib-custom-button
+              type="button"
+              label="Add Keyword"
+              class="p-button-sm"
+              (click)="addSeoKeyword()"
+            ></lib-custom-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="my-3 mt-5 text-center">
+    <lib-custom-button
+      type="submit"
+      variantCustom="regular"
+      [disabled]="
+        form.invalid || !form.touched || form.pending || isSubmitting()
+      "
+      [loading]="form.pending || isSubmitting()"
+      label="Save changes"
+    >
+    </lib-custom-button>
+  </div>
+</form>

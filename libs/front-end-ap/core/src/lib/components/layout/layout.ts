@@ -6,10 +6,11 @@ import { AuthStore } from '@fe/auth';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { Sidebar } from '../sidebar/sidebar';
+import { GlobalToast } from '../global-toast/global-toast';
 
 @Component({
   selector: 'lib-layout',
-  imports: [RouterModule, Header, Footer, Sidebar],
+  imports: [RouterModule, Header, Footer, Sidebar, GlobalToast],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })

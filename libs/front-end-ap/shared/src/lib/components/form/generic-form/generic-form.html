@@ -156,7 +156,7 @@
       label="Text"
       [id]="'text'"
       [touched]="text?.touched || false"
-      [dirty]="text?.dirty || false"
+      [dirty]="(text?.dirty && text?.touched) || false"
       [invalid]="text?.invalid || false"
       [errors]="text?.errors"
     >

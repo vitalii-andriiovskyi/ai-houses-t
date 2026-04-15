@@ -3,11 +3,7 @@
     <label class="flex gap-1" [attr.for]="id()">
       {{ label() }}
       @if (required()) {
-        <strong
-          class="-translate-y-0.4 hidden text-red-500 group-has-required:inline-flex"
-        >
-          *
-        </strong>
+        <strong class="-translate-y-0.4 text-red-500"> * </strong>
       }
     </label>
   }

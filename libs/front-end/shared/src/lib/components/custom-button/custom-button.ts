@@ -99,7 +99,7 @@ const CUSTOM_VARIANTS_PROPS = {
   ],
 })
 export class CustomButton extends Button {
-  routerLink = input<string>(); // `routerLink` has to be the full route path without domain of course
+  routerLink = input<string | any[]>(); // `routerLink` has to be the full route path without domain of course
   innerContent = contentChild('innerContent'); // always undefined | cannot remove bug when there's html passed and label is not empty
   variantCustom = input<'primary' | 'secondary' | 'accent' | 'regular'>();
   isUnstyled = computed(
@@ -156,8 +156,9 @@ export class CustomButton extends Button {
     this.onBlur.emit(event);
   };
 
-  protected isExternalLink(str?: string): boolean {
+  protected isExternalLink(str?: string | any[]): boolean {
     if (!str) return false;
+    if (Array.isArray(str)) return false;
     return /^(http|https):/.test(str);
   }
 }

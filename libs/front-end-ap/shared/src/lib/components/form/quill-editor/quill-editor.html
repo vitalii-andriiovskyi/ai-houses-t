@@ -7,6 +7,7 @@
   [customOptions]="editorOptions.customOptions"
   [style]="quillStyle()"
   (onEditorCreated)="onEditorCreated($event)"
+  (onBlur)="onTouched()"
 >
   <div quill-editor-toolbar>
     <span class="ql-formats">
