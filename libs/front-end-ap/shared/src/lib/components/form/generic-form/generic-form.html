@@ -131,6 +131,7 @@
         placeholder="(999) 99 999 9999"
         type="text"
         [invalid]="phone?.invalid && (phone?.touched || phone?.dirty)"
+        [autoClear]="false"
       />
     </lib-form-control-wrapper>
     <lib-form-control-wrapper

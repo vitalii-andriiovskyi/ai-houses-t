@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
+// sometimes validation error keys are in lowercase instead of camelCase, so we want to handle both cases
 const VALIDATORS_KEY = {
   MIN: 'min',
   MAX: 'max',
   REQUIRED: 'required',
-  REQUIRED_TRUE: 'requiredTrue',
+  REQUIRED_TRUE: 'requiredtrue', // Angular mostly uses 'requiredTrue'
   EMAIL: 'email',
-  MIN_LENGTH: 'minLength',
-  MAX_LENGTH: 'maxLength',
+  MIN_LENGTH: 'minlength', // Angular mostly uses 'minLength'
+  MAX_LENGTH: 'maxlength', // Angular mostly uses 'maxLength'
   PATTERN: 'pattern',
-  NULL_VALIDATOR: 'nullValidator',
+  NULL_VALIDATOR: 'nullvalidator', // Angular mostly uses 'nullValidator'
   COMPOSE: 'compose',
-  COMPOSE_ASYNC: 'composeAsync',
-  INVALID_DATE: 'invalidDate',
-  INVALID_YEAR: 'invalidYear',
+  COMPOSE_ASYNC: 'composeasync', // Angular mostly uses 'composeAsync'
+  INVALID_DATE: 'invaliddate', // This is custom and should be 'invalidDate' in camelCase, but we will handle both cases
+  INVALID_YEAR: 'invalidyear', // This is custom and should be 'invalidYear' in camelCase, but we will handle both cases
 };
 
 // based on https://angular.dev/api/forms/Validators
@@ -94,9 +95,13 @@ export class ValidationErrorsService {
   }
 
   getErrorValidationMessage(label: string, key: string, error: any): string {
-    if (typeof error === 'string' || ERROR_MESSAGES[key] === undefined) {
+    const keyLowerCase = key.toLowerCase();
+    if (
+      typeof error === 'string' ||
+      ERROR_MESSAGES[keyLowerCase] === undefined
+    ) {
       return error;
     }
-    return ERROR_MESSAGES[key](label, error);
+    return ERROR_MESSAGES[keyLowerCase](label, error);
   }
 }

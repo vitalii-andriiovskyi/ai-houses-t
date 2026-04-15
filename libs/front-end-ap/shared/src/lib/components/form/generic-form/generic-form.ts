@@ -113,9 +113,7 @@ export class GenericForm {
         ],
       ],
       bio: ['', Validators.maxLength(300)],
-      text: [
-        '<p>Now imagine that your application has many different forms where an address is required. We wouldn&#39;t want to repeat all the code needed for displaying and validating those fields across every form.</p><p>Instead, what we would like to do is to create a reusable form section under the form of an Angular component, that we could then plug into multiple forms, sort of a nested reusable sub-form.</p><p>Here is how we would like to use such an address form component:</p>',
-      ],
+      text: ['', [Validators.required, Validators.maxLength(300)]],
       phone: [
         null,
         [
@@ -164,6 +162,9 @@ export class GenericForm {
   }
   get text() {
     return this.form.get('text');
+  }
+  get text1() {
+    return this.form.get('text1');
   }
   get phone() {
     return this.form.get('phone');
