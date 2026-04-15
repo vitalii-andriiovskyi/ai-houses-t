@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 
 import { SEO_DB } from '@shared';
-import { ImageEntity } from '@be/image';
-import { AiHouseEntity } from '@be/ai-house';
+import { ImageEntity } from '@be/image/parts';
+import { AiHouseEntity } from '@be/ai-house/parts';
 
 @Entity('seo')
 export class SeoEntity implements SEO_DB {
@@ -33,7 +33,6 @@ export class SeoEntity implements SEO_DB {
   @Column('simple-array', { nullable: true })
   keywords!: string[];
 
-
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
 
@@ -41,7 +40,10 @@ export class SeoEntity implements SEO_DB {
   updatedAt!: Date;
 
   // **** Relations ****
-  @OneToOne(() => ImageEntity, (image) => image.seo, { eager: true })
+  @OneToOne(() => ImageEntity, (image) => image.seo, {
+    eager: true,
+    cascade: true,
+  })
   @JoinColumn()
   image!: ImageEntity;
 

@@ -11,7 +11,7 @@ import {
 import { UserService } from './user.service';
 import { Roles, RolesGuard } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { JwtAuthGuard } from '@be/auth';
+import { JwtAuthGuard } from '@be/auth/jwt-guard';
 import { Role } from '@shared';
 
 @Controller('admin/users')

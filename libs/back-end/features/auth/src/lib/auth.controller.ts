@@ -14,7 +14,7 @@ import { CredentialsDto } from './dto/credentials.dto';
 import { LocalAuthGuard } from './local/local-auth.guard';
 import { AuthService } from './auth.service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { CreateUserDto } from '@be/user';
+import { CreateUserDto } from '@be/user/parts';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { Role } from '@shared';
 

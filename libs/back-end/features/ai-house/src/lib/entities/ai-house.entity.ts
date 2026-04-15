@@ -2,6 +2,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -13,10 +14,10 @@ import {
 } from 'typeorm';
 
 import { AIHouse } from '@shared';
-import { UserEntity } from '@be/user';
-import { AddressEntity } from '@be/address';
-import { ImageEntity } from '@be/image';
-import { SeoEntity } from '@be/seo';
+import { UserEntity } from '@be/user/parts';
+import { AddressEntity } from '@be/address/parts';
+import { ImageEntity } from '@be/image/parts';
+import { SeoEntity } from '@be/seo/parts';
 
 @Entity('ai_houses')
 export class AiHouseEntity implements AIHouse {
@@ -26,7 +27,7 @@ export class AiHouseEntity implements AIHouse {
   @Column({ type: 'varchar', length: 255 })
   name!: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 1000 })
   description!: string;
 
   @Column()
@@ -59,8 +60,11 @@ export class AiHouseEntity implements AIHouse {
   @Column('simple-array', { nullable: true })
   likes?: string[];
 
-  @Column()
+  @Column({ unique: true })
   url!: string;
+
+  @DeleteDateColumn()
+  deletedDate!: Date;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
@@ -69,7 +73,9 @@ export class AiHouseEntity implements AIHouse {
   updatedAt!: Date;
 
   // **** Relations ****
-  @ManyToOne(() => AddressEntity, (address) => address.aiHouses)
+  @ManyToOne(() => AddressEntity, (address) => address.aiHouses, {
+    cascade: true,
+  })
   @JoinColumn()
   address!: AddressEntity;
 
@@ -77,11 +83,11 @@ export class AiHouseEntity implements AIHouse {
   @JoinColumn()
   owner!: UserEntity;
 
-  @ManyToMany(() => ImageEntity, (image) => image.aiHouses)
+  @ManyToMany(() => ImageEntity, (image) => image.aiHouses, { cascade: true })
   @JoinTable()
   images!: ImageEntity[];
 
-  @OneToOne(() => SeoEntity, (seo) => seo.aiHouse)
+  @OneToOne(() => SeoEntity, (seo) => seo.aiHouse, { cascade: true })
   @JoinColumn()
   seo!: SeoEntity;
 }

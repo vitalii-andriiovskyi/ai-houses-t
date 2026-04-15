@@ -1,2 +1,2 @@
 export * from './lib/seo.module';
-export * from './lib/entities/seo.entity';
+export * from './lib/seo.service';

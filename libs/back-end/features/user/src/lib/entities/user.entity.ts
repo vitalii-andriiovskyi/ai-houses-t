@@ -13,9 +13,9 @@ import { Exclude } from 'class-transformer';
 import { hashSync } from 'bcrypt';
 
 import { User, Role } from '@shared';
-import { AddressEntity } from '@be/address';
-import { ImageEntity } from '@be/image';
-import { AiHouseEntity } from '@be/ai-house';
+import { AddressEntity } from '@be/address/parts';
+import { ImageEntity } from '@be/image/parts';
+import { AiHouseEntity } from '@be/ai-house/parts';
 
 const SALT_ROUNDS = 10; // Define the number of salt rounds for bcrypt
 const toBcryptHash: ValueTransformer = {

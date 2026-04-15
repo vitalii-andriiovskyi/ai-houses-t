@@ -8,5 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [TypeOrmModule.forFeature([ImageEntity])],
   controllers: [ImageController],
   providers: [ImageService],
+  exports: [ImageService, TypeOrmModule],
 })
 export class ImageModule {}

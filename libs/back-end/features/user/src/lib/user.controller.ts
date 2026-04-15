@@ -13,13 +13,17 @@ import {
   Request,
   Headers,
   Logger,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles, RolesGuard } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { JwtAuthGuard, AuthService } from '@be/auth';
+import { JwtAuthGuard } from '@be/auth/jwt-guard';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { AuthService } from '@be/auth';
 import { Role } from '@shared';
 
 @Controller('user')
@@ -28,6 +32,7 @@ export class UserController {
   private readonly logger = new Logger(UserController.name);
   constructor(
     private readonly userService: UserService,
+    @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
   ) {}
 

@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 import { Address } from '@shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { UserEntity } from '@be/user';
+import { UserEntity } from '@be/user/parts';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { AiHouseEntity } from '@be/ai-house';
+import { AiHouseEntity } from '@be/ai-house/parts';
 
 @Entity('addresses')
 export class AddressEntity implements Address {

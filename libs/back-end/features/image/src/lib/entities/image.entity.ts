@@ -11,9 +11,9 @@ import {
 } from 'typeorm';
 
 import { Image, ImageType } from '@shared';
-import { SeoEntity } from '@be/seo';
-import { UserEntity } from '@be/user';
-import { AiHouseEntity } from '@be/ai-house';
+import { SeoEntity } from '@be/seo/parts';
+import { UserEntity } from '@be/user/parts';
+import { AiHouseEntity } from '@be/ai-house/parts';
 
 @Entity('images')
 export class ImageEntity implements Image {

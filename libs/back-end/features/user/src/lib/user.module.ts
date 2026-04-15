@@ -15,6 +15,6 @@ import { AdminUsersController } from './user-admin.controller';
   ],
   controllers: [UserController, AdminUsersController],
   providers: [UserService],
-  exports: [UserService],
+  exports: [UserService, TypeOrmModule],
 })
 export class UserModule {}

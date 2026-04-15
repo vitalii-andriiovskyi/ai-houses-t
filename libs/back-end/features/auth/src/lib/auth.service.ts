@@ -10,7 +10,10 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { CreateUserDto, UserEntity, UserService } from '@be/user';
+import { CreateUserDto, UserEntity } from '@be/user/parts';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { UserService } from '@be/user';
+
 import { Role, UserSignUpResponse } from '@shared';
 import { RedisService } from '@be/redis';
 

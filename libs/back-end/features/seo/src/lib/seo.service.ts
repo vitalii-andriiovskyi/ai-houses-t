@@ -1,11 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
 import { CreateSeoDto } from './dto/create-seo.dto';
 import { UpdateSeoDto } from './dto/update-seo.dto';
+import { SeoEntity } from './entities/seo.entity';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ImageService } from '@be/image';
 
 @Injectable()
 export class SeoService {
+  constructor(
+    @InjectRepository(SeoEntity)
+    private repository: Repository<SeoEntity>,
+    @Inject(forwardRef(() => ImageService))
+    private imageService: ImageService,
+  ) {}
+
   create(createSeoDto: CreateSeoDto) {
-    return 'This action adds a new seo';
+    const { image, ...seoData } = createSeoDto;
+    const seo = this.repository.create(seoData);
+    if (image) {
+      const imageEntity = this.imageService.create(image);
+      seo.image = imageEntity;
+    }
+    return seo;
+  }
+
+  createAndSave(createSeoDto: CreateSeoDto) {
+    const seo = this.create(createSeoDto);
+    return this.repository.save(seo);
   }
 
   findAll() {
