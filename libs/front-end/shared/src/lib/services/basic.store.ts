@@ -98,7 +98,7 @@ export abstract class BasicStore<T, K> {
     queries: {},
     page: 1,
     pageSize: 10,
-    total: 0,
+    total: 10,
     entities: {},
   };
   protected _state = new BehaviorSubject<StoreState<T, K>>(
@@ -139,6 +139,7 @@ export abstract class BasicStore<T, K> {
     error: string | null = null,
   ) {
     const { entities, queries } = this._state.getValue();
+    const entityId = (entity as any)?.[this.primaryIdKey];
     this._updateState({
       entities: {
         ...entities,
@@ -147,9 +148,7 @@ export abstract class BasicStore<T, K> {
       queries: {
         ...queries,
         [id]: {
-          ids: (entity as any)?.[this.primaryIdKey]
-            ? [(entity as any)?.[this.primaryIdKey]]
-            : [],
+          ids: entityId ? [entityId] : [],
           isLoading,
           error,
         },
@@ -242,21 +241,46 @@ export abstract class BasicStore<T, K> {
         if (typeof entity !== 'object') {
           return;
         }
-        this._setEntityDetails(
-          (entity as any)?.[this.primaryIdKey],
-          entity,
-          false,
-          null,
-        );
+
+        const entityId = (entity as any)?.[this.primaryIdKey];
         if (isURL) {
           // in this case `id` is url, and I set queries[id][ids] to entity._id, so I can get entity._id by url later, and then get entity details by id
           // not to duplicate entity details for the url in entities object, I will just set entity _id. So I can have correct entity id even from details
-          this._setEntityDetails(
-            id,
-            { [this.primaryIdKey]: (entity as any)?.[this.primaryIdKey] } as K,
-            false,
-            null,
-          );
+          const url = id;
+          const urlEntityDetails = {
+            [this.primaryIdKey]: entityId,
+          } as K;
+
+          const { entities, queries } = this._state.getValue();
+          this._updateState({
+            entities: {
+              ...entities,
+              // here id = url, and I set details to object with only id, so I can get entity id by url, and then get entity details by id, and avoid duplicating entity details in entities object for url and id
+              [url]: {
+                ...(entities[url] || {}),
+                details: urlEntityDetails,
+              },
+              // here is actual entity details stored by entity id, and I set it to full entity details
+              [entityId]: { ...(entities[entityId] || {}), details: entity },
+            },
+            queries: {
+              ...queries,
+              // here id = url, and I set queries[id][ids] to entity._id, so I can get entity id by url, and then get entity details by id, and avoid duplicating entity details in entities object for url and id
+              [url]: {
+                ids: entityId ? [entityId] : [],
+                isLoading: false,
+                error: null,
+              },
+              // this is query for actual entity
+              [entityId]: {
+                ids: entityId ? [entityId] : [],
+                isLoading: false,
+                error: null,
+              },
+            },
+          });
+        } else {
+          this._setEntityDetails(entityId, entity, false, null);
         }
       }),
       catchError((error) => {

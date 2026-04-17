@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { ImageType, SEOBasic } from '@shared';
 import { SeoService } from '@fe/shared';
 
+import { AiHouses } from '@fe/ai-house';
+
 @Component({
   selector: 'lib-ai-houses-page',
-  imports: [RouterModule],
+  imports: [AiHouses],
   templateUrl: './ai-houses-page.html',
   styleUrl: './ai-houses-page.css',
 })

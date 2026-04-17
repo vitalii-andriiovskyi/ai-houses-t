@@ -28,24 +28,38 @@
   </div>
   <p class="address">{{ address() }}</p>
   <p class="details mt-2"><strong>Rooms:</strong> {{ data()?.rooms }}</p>
-  <p class="details"><strong>Area:</strong> {{ data()?.area }} m²</p>
+  <p class="details"><strong>Area:</strong> {{ data()?.area }} sq ft</p>
   <p class="details"><strong>Rating:</strong> {{ data()?.rating }}</p>
   <p class="details">
     <strong>Status:</strong>
     {{ data()?.available ? 'Available' : 'Not Available' }}
   </p>
-  <div class="mt-6 flex justify-between gap-2">
-    <span>{{ data()?.likes?.length || 0 }} liked</span>
-    <!-- @if(isLoggedIn() && isLiked()) {
-      <button (click)="onUnlike()" class="like-button unlike">🤍</button>
-    }
-    @if(isLoggedIn() && !isLiked()) {
-      <button (click)="onLike()" class="like-button like">💞</button>
-    } -->
-    <p-button
-      label="Remove me!!"
-      (click)="removeMe(data()?._id || '')"
-      type="button"
-    />
+  <div class="mt-6 flex items-center justify-between gap-2">
+    <span
+      >{{ data()?.likesCount || 0 }} like{{
+        data()?.likesCount === 1 ? '' : 's'
+      }}</span
+    >
+
+    <span class="flex min-h-10.5 items-center">
+      @if (user() && isLiked()) {
+        <lib-custom-button
+          label="💞"
+          (click)="unlike()?.(data())"
+          variant="text"
+          [rounded]="true"
+          [text]="true"
+        />
+      }
+      @if (user() && !isLiked()) {
+        <lib-custom-button
+          (click)="like()?.(data())"
+          variant="text"
+          label="🤍"
+          [rounded]="true"
+          [text]="true"
+        />
+      }
+    </span>
   </div>
 </div>

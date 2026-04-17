@@ -13,3 +13,4 @@ export * from './lib/features/pagination/domain/pagination.model';
 
 export * from './lib/utils/delay';
 export * from './lib/utils/to-query-key';
+export * from './lib/utils/filter-query-params';

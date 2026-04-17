@@ -1,40 +1,31 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
-import { ImageType, SEOBasic } from '@shared';
 import { SeoService } from '@fe/shared';
+import { AiHouseDetails, AiHouseStore } from '@fe/ai-house';
 
 @Component({
   selector: 'lib-ai-house-details-page',
-  imports: [RouterOutlet],
+  imports: [AiHouseDetails],
   templateUrl: './ai-house-details-page.html',
   styleUrl: './ai-house-details-page.css',
 })
-export class AiHouseDetailsPage implements OnInit {
-  seoData: SEOBasic = {
-    id: 'ai-house-details',
-    title: 'AI House Details - AI HOUSES',
-    headline: 'AI House Details',
-    description:
-      'Detailed information about a specific AI-generated house, including architecture, interior design, and related topics.',
-    url: '/ai-house-details',
-    image: {
-      id: 'ai-house-details',
-      src: '',
-      alt: 'AI House Details',
-      type: ImageType.HeroImage,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  };
-
+export class AiHouseDetailsPage {
   private seoService = inject(SeoService);
-  //   aiHouseService = inject(AiHouseStore);
-  // private activatedRoute = inject(ActivatedRoute);
-  // data$ = this.activatedRoute.params.pipe(
-  //   switchMap((params) => this.aiHouseService.getEntityByURL(params['id']))
-  // );
-  ngOnInit() {
-    this.seoService.setPostSeoData(this.seoData); // TODO: replace with actual data when available using :id from URL or similar
-  }
+  aiHouseService = inject(AiHouseStore);
+  private activatedRoute = inject(ActivatedRoute);
+
+  data$ = this.activatedRoute.params.pipe(
+    map((params) => params['id']),
+    distinctUntilChanged(),
+    switchMap((id) => this.aiHouseService.getEntityByURL(id)),
+    tap(({ data }) => {
+      if (data?.seo) {
+        this.seoService.setPostSeoData(data.seo);
+      }
+    }),
+  );
+  data = toSignal(this.data$);
 }

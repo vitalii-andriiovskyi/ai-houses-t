@@ -1,47 +1,41 @@
-import { CommonModule, AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { AiHouseStore } from '../../domain/ai-house.store';
 import { AIHouse } from '../../domain/ai-house.model';
-
-const USER_ID = "6877c9e33a5f97f4a86f9777";
+import { AuthStore } from '@fe/auth';
+import { ActionStatus, CustomButton } from '@fe/shared';
 
 @Component({
   selector: 'lib-ai-house-details',
-  imports: [CommonModule, AsyncPipe],
+  imports: [CommonModule, CustomButton],
   templateUrl: './ai-house-details.html',
   styleUrl: './ai-house-details.css',
 })
 export class AiHouseDetails {
-  aiHouseService = inject(AiHouseStore);
-  private activatedRoute = inject(ActivatedRoute);
-  data$ = this.activatedRoute.params.pipe(
-    switchMap((params) => this.aiHouseService.getEntityByURL(params['id']))
-  );
+  private authStore = inject(AuthStore);
+  private aiHouseService = inject(AiHouseStore);
 
-  isLoadingUpdate$ = this.activatedRoute.params.pipe(
-    switchMap((params) => this.aiHouseService.getEntityByURL(params['id'])),
-    switchMap(({ data }) => this.aiHouseService.getEntityById(data?._id || '')),
-    map(({ isLoading }) => isLoading)
-  );
+  data = input<ActionStatus<AIHouse> | null>();
+
+  user$ = this.authStore.user$;
+  user = toSignal(this.user$);
+  isLiked = computed(() => {
+    const userId = this.user()?.id;
+    const likes = this.data()?.data?.likes || [];
+    return likes.some((like) => like.id === userId);
+  });
 
   getAddress(address: any): string {
     const { street, city, state, zip, country } = address || {};
-    return [street, city, state, zip, country]
-      .filter(Boolean)
-      .join(", ");
+    return [street, city, state, zip, country].filter(Boolean).join(', ');
   }
 
-  updateLikes(id: string, liked: boolean, house: AIHouse) {
-    let newLikes: string[];
-    const curLikes = house.likes || []
-    if (liked) {
-      newLikes = [...curLikes, USER_ID]
-    } else {
-      newLikes = curLikes.filter(userId => userId !== USER_ID);
-    }
-    this.aiHouseService.updateEntityPessimistic(id, { ...house, likes: newLikes });
-  }
+  like = () => {
+    this.aiHouseService.likeOne(this.data()?.data);
+  };
+  unlike = () => {
+    this.aiHouseService.unlikeOne(this.data()?.data);
+  };
 }

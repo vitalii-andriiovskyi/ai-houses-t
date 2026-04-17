@@ -12,12 +12,6 @@ export const pagesRoutes: Route[] = [
       import('./pages/ai-houses-page/ai-houses-page').then(
         (m) => m.AiHousesPage,
       ),
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('@ai-house').then((m) => m.AiHouses),
-      },
-    ],
   },
   {
     path: 'ai-houses/:id',
@@ -25,12 +19,6 @@ export const pagesRoutes: Route[] = [
       import('./pages/ai-house-details-page/ai-house-details-page').then(
         (m) => m.AiHouseDetailsPage,
       ),
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('@ai-house').then((m) => m.AiHouseDetails),
-      },
-    ],
   },
   // {
   //   path: '**',

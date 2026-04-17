@@ -9,4 +9,4 @@ import { HeaderRight } from '../header-right/header-right';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header { }
+export class Header {}

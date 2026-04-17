@@ -1,20 +1,18 @@
-@if (data$ | async; as data) {
-  @if (data.isLoading && !data.data) {
-    <div class="loading">
-      <p>Loading house details...</p>
-    </div>
-  } @else if (data.error) {
-    <p>Error loading AI Houses: {{ data.error }}</p>
-  } @else if (data.data) {
-    <ng-container
-      *ngTemplateOutlet="
-        aiHouse;
-        context: { $implicit: data.data, isLoading: data.isLoading }
-      "
-    ></ng-container>
-  } @else {
-    <p>No data about this house</p>
-  }
+@if (data()?.isLoading && !data()?.data) {
+  <div class="loading">
+    <p>Loading house details...</p>
+  </div>
+} @else if (data()?.error) {
+  <p>Error loading AI Houses: {{ data()?.error }}</p>
+} @else if (data()?.data) {
+  <ng-container
+    *ngTemplateOutlet="
+      aiHouse;
+      context: { $implicit: data()?.data, isLoading: data()?.isLoading }
+    "
+  ></ng-container>
+} @else {
+  <p>No data about this house</p>
 }
 
 <ng-template #aiHouse let-house let-isLoading="isLoading">
@@ -41,7 +39,7 @@
         /> -->
       </div>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-2">
-        @for (image of house.images; track image.src) {
+        @for (image of house.images; track image.id) {
           <img
             [src]="image.src"
             [alt]="image.alt"
@@ -102,7 +100,7 @@
         </div>
       }
 
-      <div class="availability">
+      <div>
         <span
           [class.text-green-600]="house.available"
           [class.font-bold]="house.available"
@@ -112,17 +110,33 @@
           {{ house.available ? 'Available' : 'Not Available' }}
         </span>
       </div>
-      <div class="availability">
-        <button type="button" (click)="updateLikes(house._id, true, house)">
-          Like
-        </button>
-        <button type="button" (click)="updateLikes(house._id, false, house)">
-          UnLike
-        </button>
-        @if (isLoadingUpdate$ | async) {
-          <i>Updating likes...</i>
-        }
-        <strong>{{ house.likes?.length || 0 }} liked </strong>
+      <div class="flex items-center gap-2 pt-6">
+        <strong
+          >{{ house.likesCount || 0 }} like{{
+            house.likesCount === 1 ? '' : 's'
+          }}</strong
+        >
+
+        <span class="flex min-h-10.5 items-center">
+          @if (user() && isLiked()) {
+            <lib-custom-button
+              label="💞"
+              (click)="unlike()"
+              variant="text"
+              [rounded]="true"
+              [text]="true"
+            />
+          }
+          @if (user() && !isLiked()) {
+            <lib-custom-button
+              (click)="like()"
+              variant="text"
+              icon="pi pi-heart"
+              [rounded]="true"
+              [text]="true"
+            />
+          }
+        </span>
       </div>
     </div>
   </div>
