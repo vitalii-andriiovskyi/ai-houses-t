@@ -3,6 +3,7 @@ import {
   forwardRef,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { ILike, Repository } from 'typeorm';
@@ -28,6 +29,8 @@ import { keyBy } from 'lodash-es';
 
 @Injectable()
 export class AiHouseService {
+  private readonly logger = new Logger(AiHouseService.name);
+
   constructor(
     @InjectRepository(AiHouseEntity)
     private repository: Repository<AiHouseEntity>,
@@ -83,6 +86,76 @@ export class AiHouseService {
     });
   }
 
+  async paginatePreviews(
+    options: IPaginationOptions,
+    { search }: { search?: string },
+    userId?: string,
+  ): Promise<Pagination<AiHouseEntity>> {
+    const saveSearch = search ? escapeLikeString(search) : undefined;
+
+    const result = await paginate<AiHouseEntity>(this.repository, options, {
+      select: {
+        id: true,
+        url: true,
+        name: true,
+        rooms: true,
+        area: true,
+        price: true,
+        rating: true,
+        available: true,
+        updatedAt: true,
+        owner: { id: true },
+        seo: { id: true, image: true }, // actually we should have imagePreview for such cases, but for simplicity, we will use the same image for AI HOUSE preview
+      },
+      where: {
+        ...(saveSearch && { name: ILike(`%${saveSearch}%`) }),
+      },
+      relations: {
+        address: true,
+        owner: true,
+        seo: true,
+      },
+      order: {
+        updatedAt: 'DESC',
+      },
+    });
+
+    const ids = result.items.map((item) => item.id);
+
+    // if userId is present, get likes for this user and mark liked AI Houses with that info.
+    if (userId) {
+      // can be either 1 or 0, as user can like only once
+      const likes = await this.repository
+        .createQueryBuilder('aiHouse')
+        .select('aiHouse.id')
+        .innerJoin('aiHouse.likes', 'likes')
+        .where('aiHouse.id IN (:...ids)', { ids })
+        .andWhere('likes.id = :userId', { userId })
+        .getMany();
+
+      const likesMap = keyBy(likes, 'id');
+      result.items.forEach((item) => {
+        item.likes = likesMap[item.id] ? [{ id: userId } as UserEntity] : [];
+      });
+    }
+
+    // get likes count for each AI House
+    const likesCount = await this.repository
+      .createQueryBuilder('aiHouse')
+      .select('aiHouse.id')
+      .addSelect('COUNT(likes.id)', 'likesCount')
+      .innerJoin('aiHouse.likes', 'likes')
+      .where('aiHouse.id IN (:...ids)', { ids })
+      .groupBy('aiHouse.id')
+      .getRawMany();
+
+    const likesCountMap = keyBy(likesCount, 'aiHouse_id');
+    result.items.forEach((item) => {
+      item.likesCount = +likesCountMap[item.id]?.likesCount || 0;
+    });
+    return result;
+  }
+
   findOne(id: string) {
     return this.repository.findOne({
       select: {
@@ -91,6 +164,47 @@ export class AiHouseService {
       where: { id },
       relations: { address: true, images: true, seo: true, owner: true },
     });
+  }
+
+  // for public API, we can find AI House by URL, as it's more user-friendly than ID
+  async findOneByUrl(url: string, userId?: string) {
+    const result = await this.repository.findOne({
+      select: {
+        owner: { id: true },
+      },
+      where: { url },
+      relations: { address: true, images: true, seo: true, owner: true },
+    });
+
+    if (!result) {
+      throw new NotFoundException(`AiHouse with url ${url} not found`);
+    }
+
+    (result as any).likes = [];
+    if (userId) {
+      // can be either 1 or 0, as user can like only once
+      const isLiked = await this.repository
+        .createQueryBuilder('aiHouse')
+        .innerJoinAndSelect('aiHouse.likes', 'likes')
+        .where('aiHouse.id = :id', { id: result.id })
+        .andWhere('likes.id = :userId', { userId })
+        .getCount();
+
+      if (isLiked) {
+        (result as any).likes.push({ id: userId });
+      }
+    }
+
+    const likesCount = await this.repository
+      .createQueryBuilder('aiHouse')
+      .select('aiHouse.id')
+      .addSelect('COUNT(aiHouse.id)', 'likesCount')
+      .innerJoin('aiHouse.likes', 'likes')
+      .where('aiHouse.id = :id', { id: result.id })
+      .groupBy('aiHouse.id')
+      .getRawOne();
+    (result as any).likesCount = +likesCount?.likesCount || 0;
+    return result;
   }
 
   async update(id: string, updateAiHouseDto: UpdateAiHouseDto) {
@@ -121,5 +235,21 @@ export class AiHouseService {
 
   remove(id: string) {
     return this.repository.softDelete(id);
+  }
+
+  like(id: string, userId: string) {
+    return this.repository
+      .createQueryBuilder('aiHouse')
+      .relation(AiHouseEntity, 'likes')
+      .of(id)
+      .add(userId);
+  }
+
+  unlike(id: string, userId: string) {
+    return this.repository
+      .createQueryBuilder('aiHouse')
+      .relation(AiHouseEntity, 'likes')
+      .of(id)
+      .remove(userId);
   }
 }

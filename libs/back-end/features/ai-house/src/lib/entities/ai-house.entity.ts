@@ -21,6 +21,8 @@ import { SeoEntity } from '@be/seo/parts';
 
 @Entity('ai_houses')
 export class AiHouseEntity implements AIHouse {
+  likesCount?: number | undefined;
+
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -57,9 +59,6 @@ export class AiHouseEntity implements AIHouse {
   @Column({ type: 'json', nullable: true })
   metadata?: any;
 
-  @Column('simple-array', { nullable: true })
-  likes?: string[];
-
   @Column({ unique: true })
   url!: string;
 
@@ -90,4 +89,8 @@ export class AiHouseEntity implements AIHouse {
   @OneToOne(() => SeoEntity, (seo) => seo.aiHouse, { cascade: true })
   @JoinColumn()
   seo!: SeoEntity;
+
+  @ManyToMany(() => UserEntity, (user) => user.likesAiHouses)
+  @JoinTable()
+  likes!: UserEntity[];
 }

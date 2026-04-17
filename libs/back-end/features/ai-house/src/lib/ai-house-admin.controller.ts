@@ -3,20 +3,27 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
   DefaultValuePipe,
   ParseIntPipe,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 
 import { AiHouseService } from './ai-house.service';
 import { CreateAiHouseDto } from './dto/create-ai-house.dto';
 import { UpdateAiHouseDto } from './dto/update-ai-house.dto';
+import { Role } from '@shared';
+import { Roles, RolesGuard } from '@be/shared';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { JwtAuthGuard } from '@be/auth';
 
 @Controller('admin/ai-houses')
+@Roles(Role.Admin)
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class AiHouseAdminController {
   constructor(private readonly aiHouseService: AiHouseService) {}
 

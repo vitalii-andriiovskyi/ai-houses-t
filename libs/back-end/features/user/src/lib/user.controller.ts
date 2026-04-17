@@ -21,7 +21,7 @@ import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles, RolesGuard } from '@be/shared';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { JwtAuthGuard } from '@be/auth/jwt-guard';
+import { JwtAuthGuard } from '@be/auth';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AuthService } from '@be/auth';
 import { Role } from '@shared';

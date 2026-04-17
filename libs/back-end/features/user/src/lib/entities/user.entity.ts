@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -111,6 +112,9 @@ export class UserEntity implements User {
 
   @ManyToOne(() => AiHouseEntity, { nullable: true })
   aiHouses!: AiHouseEntity[];
+
+  @ManyToMany(() => AiHouseEntity, (aiHouse) => aiHouse.likes)
+  likesAiHouses!: AiHouseEntity[];
 }
 // ****************
 // https://github.com/typeorm/typeorm/issues/2624

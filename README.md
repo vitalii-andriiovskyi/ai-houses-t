@@ -1,5 +1,24 @@
 # AiHousesT
 
+## Table of Contents
+
+- [Run tasks](#run-tasks)
+- [Add new projects](#add-new-projects)
+- [Add Angular libraries, components, services, and more](#add-angular-libraries-components-services-and-more)
+- [Set up CI!](#set-up-ci)
+  - [Step 1](#step-1)
+  - [Step 2](#step-2)
+- [Install Nx Console](#install-nx-console)
+- [Useful links](#useful-links)
+- [Tailwind Configuration](#tailwind-configuration)
+- [PrimeNG components styles configuration: e.g. Button](#primeng-components-styles-configuration-eg-button)
+- [API nest.js](#api-nestjs)
+  - [Run tasks nest.js](#run-tasks-nestjs)
+- [Database migrations](#database-migrations)
+- [Redis](#redis)
+- [Admin Panel](#admin-panel)
+  - [Run tasks for Admin Panel](#run-tasks-for-admin-panel)
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
@@ -42,6 +61,8 @@ To generate a new application, use:
 npx nx g @nx/angular:app demo
 ```
 
+## Add Angular libraries, components, services, and more
+
 To generate a new library, use:
 
 ```sh
@@ -64,6 +85,8 @@ yarn nx g @nx/angular:service services/validation-errors-service/validation-erro
 yarn nx g @nx/angular:service services/local-storage/local-storage --project=fe/shared --dry-run
 yarn nx g @nx/angular:interceptor interceptors/auth/auth --project=fe/shared --dry-run
 
+yarn nx g @nx/angular:library libs/front-end/features/ai-house --importPath=@fe/ai-house --name=fe-ai-house --buildable
+yarn nx g @nx/angular:component libs/front-end/features/ai-house/src/lib/components/ai-houses-chunk/ai-houses-chunk --export
 ```
 
 
