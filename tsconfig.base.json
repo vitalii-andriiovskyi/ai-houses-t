@@ -40,7 +40,9 @@
       "@be/redis": ["libs/back-end/features/redis/src/index.ts"],
       "@ap/pages": ["libs/front-end-ap/pages/src/index.ts"],
       "@ap/core": ["libs/front-end-ap/core/src/index.ts"],
-      "@ap/shared": ["libs/front-end-ap/shared/src/index.ts"]
+      "@ap/shared": ["libs/front-end-ap/shared/src/index.ts"],
+      "@be/vehicle": ["libs/back-end/features/vehicle/src/index.ts"],
+      "@be/vehicle/parts": ["libs/back-end/features/vehicle/src/parts.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

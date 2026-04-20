@@ -13,6 +13,7 @@ import {
   Pagination,
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
+import { keyBy } from 'lodash-es';
 
 import { CreateAiHouseDto } from './dto/create-ai-house.dto';
 import { UpdateAiHouseDto } from './dto/update-ai-house.dto';
@@ -25,7 +26,6 @@ import { AddressService } from '@be/address';
 import { CreateImageDto } from '@be/image/parts';
 import { CreateSeoDto } from '@be/seo/parts';
 import { UserEntity } from '@be/user/parts';
-import { keyBy } from 'lodash-es';
 
 @Injectable()
 export class AiHouseService {
