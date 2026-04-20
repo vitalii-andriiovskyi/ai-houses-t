@@ -15,19 +15,19 @@ import { APP_CONFIG_TOKEN } from '@fe/shared';
 export class AiHouseApi {
   private http = inject(HttpClient);
   private apiUrl = inject(APP_CONFIG_TOKEN).apiUrl;
+  private featureUrl = `${this.apiUrl}/ai-houses`;
 
   getAIHouses = (params?: HttpParams) =>
-    this.http.get<Pagination<AIHouse>>(`${this.apiUrl}/ai-houses`, { params });
+    this.http.get<Pagination<AIHouse>>(this.featureUrl, { params });
   getAIHouseById = (id: string, params?: HttpParams) =>
-    this.http.get<AIHouse>(`${this.apiUrl}/ai-houses/${id}`, { params });
+    this.http.get<AIHouse>(`${this.featureUrl}/${id}`, { params });
   createAIHouse = (data: AIHouseCreate) =>
-    this.http.post<AIHouse>(`${this.apiUrl}/ai-houses`, data);
+    this.http.post<AIHouse>(this.featureUrl, data);
   updateAIHouse = (id: string, data: AIHouseUpdate) =>
-    this.http.put<AIHouse>(`${this.apiUrl}/ai-houses/${id}`, data);
-  deleteAIHouse = (id: string) =>
-    this.http.delete(`${this.apiUrl}/ai-houses/${id}`);
+    this.http.put<AIHouse>(`${this.featureUrl}/${id}`, data);
+  deleteAIHouse = (id: string) => this.http.delete(`${this.featureUrl}/${id}`);
   likeAIHouse = (id: string) =>
-    this.http.post<AIHouse>(`${this.apiUrl}/ai-houses/${id}/like`, null);
+    this.http.post<AIHouse>(`${this.featureUrl}/${id}/like`, null);
   unlikeAIHouse = (id: string) =>
-    this.http.post<AIHouse>(`${this.apiUrl}/ai-houses/${id}/unlike`, null);
+    this.http.post<AIHouse>(`${this.featureUrl}/${id}/unlike`, null);
 }

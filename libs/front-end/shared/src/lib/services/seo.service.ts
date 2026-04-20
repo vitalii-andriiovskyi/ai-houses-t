@@ -100,13 +100,17 @@ export class SeoService {
     (pageType: number) => (page: string, pageData: SEOBasic) => {
       this._prepareSeoState$.next({ page, pageData, pageType: pageType });
     };
+  // for blog category page
   setCatSeoData = this.setBlogCatSeoData(WepPageType.BlogCategoryPage);
+  // for blog page
   setBlogSeoData = this.setBlogCatSeoData(WepPageType.BlogPage);
 
   setPageSeoData = (pageType: number) => (pageData: SEOBasic) => {
     this._prepareSeoState$.next({ pageData, pageType: pageType });
   };
+  // for blog post page
   setPostSeoData = this.setPageSeoData(WepPageType.PostPage);
+  // for pages that are not blog or post, but we still want to have dynamic seo data
   setCommonPageSeoData = this.setPageSeoData(WepPageType.CommonPage);
 
   private titleService = inject(Title);

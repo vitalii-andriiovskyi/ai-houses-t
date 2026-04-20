@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 
 import { AiHouseApi } from './ai-house.api';
 import {
   AIHouse,
+  AIHouseBasic,
   AIHouseCreate,
   AIHouseUpdate,
 } from '../domain/ai-house.model';
 import { filterQueryParams, Pagination } from '@shared';
+import { BasicApiService } from '@fe/shared';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AiHouseService {
+export class AiHouseService implements BasicApiService<AIHouseBasic, AIHouse> {
   private _aiHouseApi = inject(AiHouseApi);
 
   fetchMany(params?: object) {

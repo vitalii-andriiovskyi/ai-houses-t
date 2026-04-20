@@ -26,7 +26,7 @@ applyTo: "**/*.ts,**/*.css,**/*.html"
   │   │   │   │   │   │   │   ├── home-page.css       # HomePage CSS
   │   │   │   │   │   │   │   ├── home-page.html      # HomePage View
   │   │   │   │   │   │   │   ├── home-page.spec.ts   # HomePage Tests
-  │   │   │   │   │   ├── routes.ts                   # all application routes
+  │   │   │   │   │   ├── lib.routes.ts                   # all application routes
   │   │   │   │   ├── index.ts
   │   │   ├── /core        
   │   │   │   ├── /src                  
@@ -78,7 +78,11 @@ applyTo: "**/*.ts,**/*.css,**/*.html"
   │   │   │   │   │   │   │   ├── cookie.spec.ts        # Cookie Tests
   │   │   │   │   │   ├── /tokens                       # Angular tokens
   │   │   │   │   │   │   ├── config.ts                 # Configuration token
-  │   │   │   │   │   ├── routes.ts                     # all application routes
+  │   │   │   │   │   ├── /validators                   # Angular validators
+  │   │   │   │   │   │   ├── password-match.validator.ts            # Configuration validator
+  │   │   │   │   │   ├── /utils                        # Angular utilities
+  │   │   │   │   │   │   ├── getId.ts                 
+  │   │   │   │   │   │   ├── isSafari.ts                 
   │   │   │   │   ├── index.ts
   │   │   ├── /features                          # Each domain entity has its own folder
   │   │   │   ├── /user
@@ -117,29 +121,44 @@ applyTo: "**/*.ts,**/*.css,**/*.html"
   │   │   │   │   │   │   │   │   ├── user-form.html      # UserForm View
   │   │   │   │   │   │   │   │   ├── user-form.spec.ts   # UserForm Tests
   │   │   │   │   │   │   ├── index.ts                    # Barrel export for easy imports
-  │   │   ├── /utils                           # Utilities (isSafari, isMobile), helpers (NO usually they are handle domain logic), constants
-  │   │   │   ├── /src                         # It has to have configuration to export each file individually, 
-  │   │   │   │   ├── /lib              
-  │   │   │   │   │   ├── isSafari.ts    
-  │   │   │   │   │   ├── getId.ts      
-  │   │   │   │   ├── index.ts                 # Barrel export for easy imports
   │   ├── /back-end 
   │   │   ├── /features                         # Each domain entity has its own folder
   │   │   │   ├── /user
   │   │   │   │   ├── /src                  
   │   │   │   │   │   ├── /lib  
-  │   │   │   │   │   │   ├── user.model.ts      # database model (MongoDB, Firebase, POSTGres, etc)
-  │   │   │   │   │   │   ├── user.repository.ts # Access to db model with basic methods like getById, getAll, updateOne, removeOne, removeMany, etc.
-  │   │   │   │   │   │   ├── user.service.ts    # Service with complex logic, validations, can use many repositories
-  │   │   ├── /utils                           # Contains utilities only on the BE side, usually they are  pure simple functions
-  │   │   │   ├── /src                         # It has to have configuration to export each file individually, 
-  │   │   │   │   ├── /lib              
-  │   │   │   │   │   ├── getId.ts    
-  │   │   ├── /shared-lib                      # library with more complex logic than utitilies: CustomError, ApiClient, etc
+  │   │   │   │   │   │   ├── user.module.ts     # import and export of controllers, services related to user feature. 
+  │   │   │   │   │   │   ├── user.controller.ts # feature routes
+  │   │   │   │   │   │   ├── user-admin.controller.ts # feature routes available only for admin users
+  │   │   │   │   │   │   ├── user.service.ts    # Service with complex logic, some validations, can use many services. Injects repository of user feature.
+  │   │   │   │   │   │   ├── user.service.spec.ts    # Service tests
+  │   │   │   │   │   │   ├── /dto  
+  │   │   │   │   │   │   │   ├── create-user.dto.ts # DTO for create user entry in DB. It has validation rules for the input data. 
+  │   │   │   │   │   │   │   ├── update-user.dto.ts # DTO for update user entry in DB. It has validation rules for the input data. 
+  │   │   │   │   │   │   ├── /entities  
+  │   │   │   │   │   │   │   ├── user.entity.ts # Entity for user entry in DB. It defines the structure and relationships of the user data. 
+  │   │   │   │   │   ├── index.ts    # Barrel export for easy imports
+  │   │   │   │   │   ├── parts.ts    # Barrel export for feature parsts: entity model and dto. do not export service and modules here. If they are here migrations will fail
+  │   │   ├── /shared                      # library with more complex logic than utitilies: CustomError, ApiClient, etc
   │   │   │   ├── /src                         
   │   │   │   │   ├── /lib              
-  │   │   │   │   │   ├── dbConnect.ts    
-  │   │   │   │   │   ├── auto-increment-mongoose.ts
+  │   │   │   │   │   ├── /decorators   # NestJS decorators             
+  │   │   │   │   │   ├── /filters      # NestJS filters        
+  │   │   │   │   │   │   ├── /all-exceptions
+  │   │   │   │   │   │   │   ├── all-exceptions.filter.ts
+  │   │   │   │   │   │   │   ├── all-exceptions.filter.spec.ts
+  │   │   │   │   │   ├── /guards       # NestJS guards       
+  │   │   │   │   │   │   ├── roles-guards.ts    
+  │   │   │   │   │   ├── /interceptors  # NestJS interceptors            
+  │   │   │   │   │   ├── /middlewares   # NestJS middlewares            
+  │   │   │   │   │   ├── /pipes         # NestJS pipes            
+  │   │   │   │   │   ├── /services      # NestJS services related to shared logic, for example, ConfigService, TypeOrmConfigService        
+  │   │   │   │   │   │   ├── /typeorm-config
+  │   │   │   │   │   │   │   ├── typeorm-config.service.ts    
+  │   │   │   │   │   │   │   ├── typeorm-config.service.spec.ts    
+  │   │   │   │   │   ├── /utils              
+  │   │   │   │   │   │   ├── include-columns.ts    
+  │   │   │   │   │   │   ├── getId.ts
+  │   │   │   │   │   ├── index.ts    # Barrel export for easy imports
   │   ├── /shared
   │   │   ├── /src                         # It has to have configuration to export each file individually, 
   │   │   │   ├── /lib
