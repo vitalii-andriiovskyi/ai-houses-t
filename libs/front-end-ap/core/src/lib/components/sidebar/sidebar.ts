@@ -35,6 +35,20 @@ export class Sidebar {
       ],
     },
     {
+      label: 'Vehicle',
+      icon: 'pi pi-car',
+      items: [
+        {
+          label: 'All Vehicles',
+          routerLink: 'pages/vehicles',
+        },
+        {
+          label: 'Create Vehicle',
+          routerLink: 'pages/vehicles/create',
+        },
+      ],
+    },
+    {
       label: 'Files',
       icon: 'pi pi-file',
       items: [

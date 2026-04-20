@@ -1,0 +1,432 @@
+<form
+  class="border-primary-900/35 my-8 flex flex-col gap-4 rounded-md border p-5"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <lib-form-control-wrapper
+    label="Vehicle Name"
+    [id]="'name'"
+    [touched]="name?.touched || false"
+    [dirty]="name?.dirty || false"
+    [invalid]="name?.invalid || false"
+    [required]="true"
+    [errors]="name?.errors"
+  >
+    <input
+      pInputText
+      formControlName="name"
+      required
+      [id]="'name'"
+      placeholder="Vehicle Name..."
+      type="text"
+      [invalid]="name?.invalid && (name?.touched || name?.dirty)"
+    />
+  </lib-form-control-wrapper>
+
+  <lib-form-control-wrapper
+    label="URL"
+    [id]="'url'"
+    [touched]="url?.touched || false"
+    [dirty]="url?.dirty || false"
+    [invalid]="url?.invalid || false"
+    [required]="true"
+    [errors]="url?.errors"
+  >
+    <input
+      pInputText
+      formControlName="url"
+      required
+      [id]="'url'"
+      placeholder="URL slug... (e.g. toyota-camry-2025)"
+      type="text"
+      [invalid]="url?.invalid && (url?.touched || url?.dirty)"
+    />
+  </lib-form-control-wrapper>
+
+  <lib-form-control-wrapper
+    label="Description"
+    [id]="'description'"
+    [touched]="description?.touched || false"
+    [dirty]="(description?.dirty && description?.touched) || false"
+    [invalid]="description?.invalid || false"
+    [required]="true"
+    [errors]="description?.errors"
+  >
+    <lib-quill-editor
+      formControlName="description"
+      nameStart="description"
+    ></lib-quill-editor>
+  </lib-form-control-wrapper>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <lib-form-control-wrapper
+      label="Model"
+      [id]="'model'"
+      [touched]="model?.touched || false"
+      [dirty]="model?.dirty || false"
+      [invalid]="model?.invalid || false"
+      [required]="true"
+      [errors]="model?.errors"
+    >
+      <input
+        pInputText
+        formControlName="model"
+        required
+        [id]="'model'"
+        placeholder="Model..."
+        type="text"
+        [invalid]="model?.invalid && (model?.touched || model?.dirty)"
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Color"
+      [id]="'color'"
+      [touched]="color?.touched || false"
+      [dirty]="color?.dirty || false"
+      [invalid]="color?.invalid || false"
+      [required]="true"
+      [errors]="color?.errors"
+    >
+      <input
+        pInputText
+        formControlName="color"
+        required
+        [id]="'color'"
+        placeholder="Color..."
+        type="text"
+        [invalid]="color?.invalid && (color?.touched || color?.dirty)"
+      />
+    </lib-form-control-wrapper>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <lib-form-control-wrapper
+      label="Year"
+      [id]="'year'"
+      [touched]="year?.touched || false"
+      [dirty]="year?.dirty || false"
+      [invalid]="year?.invalid || false"
+      [required]="true"
+      [errors]="year?.errors"
+    >
+      <p-inputnumber
+        formControlName="year"
+        [inputId]="'year'"
+        [invalid]="year?.invalid && (year?.touched || year?.dirty)"
+        placeholder="Year..."
+        autocomplete="off"
+        class="w-full"
+        [min]="1900"
+        [max]="9999"
+        required
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Doors"
+      [id]="'doors'"
+      [touched]="doors?.touched || false"
+      [dirty]="doors?.dirty || false"
+      [invalid]="doors?.invalid || false"
+      [required]="true"
+      [errors]="doors?.errors"
+    >
+      <p-inputnumber
+        formControlName="doors"
+        [inputId]="'doors'"
+        [invalid]="doors?.invalid && (doors?.touched || doors?.dirty)"
+        placeholder="Doors..."
+        autocomplete="off"
+        class="w-full"
+        [min]="1"
+        required
+        [step]="1"
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Seats"
+      [id]="'seats'"
+      [touched]="seats?.touched || false"
+      [dirty]="seats?.dirty || false"
+      [invalid]="seats?.invalid || false"
+      [required]="true"
+      [errors]="seats?.errors"
+    >
+      <p-inputnumber
+        formControlName="seats"
+        [inputId]="'seats'"
+        [invalid]="seats?.invalid && (seats?.touched || seats?.dirty)"
+        placeholder="Seats..."
+        autocomplete="off"
+        class="w-full"
+        [min]="1"
+        required
+        [step]="1"
+      />
+    </lib-form-control-wrapper>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <lib-form-control-wrapper
+      label="Mileage (optional)"
+      [id]="'mileage'"
+      [touched]="mileage?.touched || false"
+      [dirty]="mileage?.dirty || false"
+      [invalid]="mileage?.invalid || false"
+      [errors]="mileage?.errors"
+    >
+      <p-inputnumber
+        formControlName="mileage"
+        [inputId]="'mileage'"
+        [invalid]="mileage?.invalid && (mileage?.touched || mileage?.dirty)"
+        placeholder="Mileage in km..."
+        autocomplete="off"
+        class="w-full"
+        [min]="0"
+        [step]="1"
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Price"
+      [id]="'price'"
+      [touched]="price?.touched || false"
+      [dirty]="price?.dirty || false"
+      [invalid]="price?.invalid || false"
+      [required]="true"
+      [errors]="price?.errors"
+    >
+      <p-inputnumber
+        formControlName="price"
+        [inputId]="'price'"
+        [invalid]="price?.invalid && (price?.touched || price?.dirty)"
+        placeholder="Price..."
+        autocomplete="off"
+        class="w-full"
+        [min]="0"
+        mode="currency"
+        currency="USD"
+        required
+      />
+    </lib-form-control-wrapper>
+  </div>
+
+  <lib-form-control-wrapper
+    label="Available"
+    [id]="'availableId'"
+    [touched]="available?.touched || false"
+    [dirty]="available?.dirty || false"
+    [invalid]="available?.invalid || false"
+    [required]="true"
+    [errors]="available?.errors"
+    wrapperClass="w-auto! flex-row-reverse! justify-end! hover:[&_label]:cursor-pointer py-2"
+  >
+    <p-toggleswitch
+      formControlName="available"
+      [inputId]="'availableId'"
+      [invalid]="available?.invalid && (available?.touched || available?.dirty)"
+      required
+    />
+  </lib-form-control-wrapper>
+
+  <lib-image-uploader
+    legend="Preview Image"
+    formControlName="previewImage"
+    nameStart="previewImage"
+    [withCaption]="true"
+    [withDescription]="true"
+    [withTitle]="true"
+    [withType]="true"
+  ></lib-image-uploader>
+
+  <div class="border-primary-900/20 rounded-md border p-3">
+    <h4 class="mb-1 font-semibold">
+      Images <span class="text-red-500">*</span>
+    </h4>
+    <div class="grid gap-3">
+      @for (img of images.controls; track img.value.id; let i = $index) {
+        <div>
+          @if (images.value.length > 1) {
+            <div class="-mb-11 flex justify-end">
+              <lib-remove-item
+                tooltip="Remove Image"
+                [fn]="() => images.removeAt(i)"
+              ></lib-remove-item>
+            </div>
+          }
+          <lib-image-uploader
+            [formControl]="getFormControl(img)"
+            [nameStart]="`images[${i}]`"
+            [legend]="`Image ${i + 1}`"
+            [withCaption]="true"
+            [withDescription]="true"
+            [withTitle]="true"
+            [withType]="true"
+          ></lib-image-uploader>
+        </div>
+      }
+      <div class="flex justify-end">
+        <lib-custom-button
+          type="button"
+          label="Add Image"
+          class="p-button-sm"
+          (click)="addImage()"
+        ></lib-custom-button>
+      </div>
+    </div>
+  </div>
+
+  <fieldset
+    class="border-primary-900/20 bg-primary-900-4 rounded-md border p-4"
+    formGroupName="seo"
+  >
+    <legend class="font-primary text-primary-900 px-2 text-2xl font-bold">
+      SEO
+    </legend>
+
+    <div class="flex flex-col gap-4">
+      <lib-form-control-wrapper
+        label="SEO Title"
+        [id]="'seoTitle'"
+        [touched]="seoTitle?.touched || false"
+        [dirty]="seoTitle?.dirty || false"
+        [invalid]="seoTitle?.invalid || false"
+        [required]="true"
+        [errors]="seoTitle?.errors"
+      >
+        <input
+          pInputText
+          formControlName="title"
+          required
+          [id]="'seoTitle'"
+          placeholder="SEO Title..."
+          type="text"
+          [invalid]="
+            seoTitle?.invalid && (seoTitle?.touched || seoTitle?.dirty)
+          "
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO Headline"
+        [id]="'seoHeadline'"
+        [touched]="seoHeadline?.touched || false"
+        [dirty]="seoHeadline?.dirty || false"
+        [invalid]="seoHeadline?.invalid || false"
+        [required]="true"
+        [errors]="seoHeadline?.errors"
+      >
+        <input
+          pInputText
+          formControlName="headline"
+          required
+          [id]="'seoHeadline'"
+          placeholder="SEO Headline..."
+          type="text"
+          [invalid]="
+            seoHeadline?.invalid && (seoHeadline?.touched || seoHeadline?.dirty)
+          "
+        />
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO Description"
+        [id]="'seoDescription'"
+        [touched]="seoDescription?.touched || false"
+        [dirty]="seoDescription?.dirty || false"
+        [invalid]="seoDescription?.invalid || false"
+        [required]="true"
+        [errors]="seoDescription?.errors"
+      >
+        <textarea
+          rows="5"
+          cols="30"
+          pTextarea
+          [id]="'seoDescription'"
+          formControlName="description"
+          autoResize="true"
+          placeholder="SEO Description..."
+          [invalid]="
+            seoDescription?.invalid &&
+            (seoDescription?.touched || seoDescription?.dirty)
+          "
+        ></textarea>
+      </lib-form-control-wrapper>
+
+      <lib-form-control-wrapper
+        label="SEO URL"
+        [id]="'seoUrl'"
+        [touched]="seoUrl?.touched || false"
+        [dirty]="seoUrl?.dirty || false"
+        [invalid]="seoUrl?.invalid || false"
+        [errors]="seoUrl?.errors"
+      >
+        <input
+          pInputText
+          formControlName="url"
+          [id]="'seoUrl'"
+          placeholder="SEO URL (optional)..."
+          type="text"
+        />
+      </lib-form-control-wrapper>
+
+      <lib-image-uploader
+        formControlName="image"
+        nameStart="seo.image"
+        [legend]="'SEO Image'"
+        [withType]="true"
+      ></lib-image-uploader>
+
+      <div class="border-primary-900/20 rounded-md border p-3">
+        <h4 class="mb-1 font-semibold">SEO Keywords (optional)</h4>
+        <div class="grid gap-3">
+          @for (
+            keyword of seoKeywords.controls;
+            track keyword;
+            let i = $index
+          ) {
+            <div class="flex items-center gap-2">
+              <input
+                pInputText
+                [formControl]="keyword"
+                [id]="'seo-keyword-' + i"
+                placeholder="Keyword..."
+                type="text"
+                class="flex-1"
+              />
+              @if (seoKeywords.length > 1) {
+                <lib-remove-item
+                  tooltip="Remove Keyword"
+                  [fn]="() => removeSeoKeyword(i)"
+                ></lib-remove-item>
+              }
+            </div>
+          }
+          <div class="flex justify-end">
+            <lib-custom-button
+              type="button"
+              label="Add Keyword"
+              class="p-button-sm"
+              (click)="addSeoKeyword()"
+            ></lib-custom-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="mt-3 flex justify-end">
+    <lib-custom-button
+      type="submit"
+      variantCustom="regular"
+      [disabled]="
+        form.invalid || !form.touched || form.pending || isSubmitting()
+      "
+      [loading]="form.pending || isSubmitting()"
+      label="Save changes"
+    >
+    </lib-custom-button>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+<header class="flex items-center justify-between">
+  <h1
+    class="text-primary-900 font-primary text-5xl font-bold capitalize md:text-7xl"
+  >
+    Edit Vehicle
+  </h1>
+
+  <lib-custom-button
+    class="mb-6"
+    [routerLink]="['/pages/vehicles']"
+    label="Back to list"
+  ></lib-custom-button>
+</header>
+
+<lib-vehicle-form (save)="update($event)" [data]="data()"></lib-vehicle-form>

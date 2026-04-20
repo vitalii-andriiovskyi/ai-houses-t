@@ -10,6 +10,7 @@ export * from './lib/features/country/domain/country.model';
 export * from './lib/features/country/domain/countries';
 export * from './lib/features/country/domain/country.repository';
 export * from './lib/features/pagination/domain/pagination.model';
+export * from './lib/features/vehicle/domain/vehicle.model';
 
 export * from './lib/utils/delay';
 export * from './lib/utils/to-query-key';

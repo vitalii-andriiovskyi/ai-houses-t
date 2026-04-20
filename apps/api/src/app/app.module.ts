@@ -29,6 +29,7 @@ import { AddressModule } from '@be/address';
 import { SeoModule } from '@be/seo';
 import { AuthModule } from '@be/auth';
 import { RedisConfigService, REDIS_CLIENT, RedisModule } from '@be/redis';
+import { VehicleModule } from '@be/vehicle';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { RedisConfigService, REDIS_CLIENT, RedisModule } from '@be/redis';
     AddressModule,
     ImageModule,
     AiHouseModule,
+    VehicleModule,
   ],
   controllers: [AppController],
   providers: [

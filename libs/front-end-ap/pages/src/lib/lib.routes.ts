@@ -48,6 +48,32 @@ export const pagesRoutes: Route[] = [
           },
         ],
       },
+      {
+        path: 'vehicles',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/vehicle/vehicle-index/vehicle-index').then(
+                (m) => m.VehicleIndex,
+              ),
+          },
+          {
+            path: 'create',
+            loadComponent: () =>
+              import('./pages/vehicle/vehicle-create/vehicle-create').then(
+                (m) => m.VehicleCreatePage,
+              ),
+          },
+          {
+            path: 'edit/:id',
+            loadComponent: () =>
+              import('./pages/vehicle/vehicle-edit/vehicle-edit').then(
+                (m) => m.VehicleEdit,
+              ),
+          },
+        ],
+      },
     ],
     canActivate: [adminGuard],
   },

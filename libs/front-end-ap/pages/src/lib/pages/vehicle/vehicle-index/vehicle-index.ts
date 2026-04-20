@@ -11,14 +11,14 @@ import {
 } from 'primeng/dataview';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 
-import { AIHouse, ImageType, SEOBasic } from '@shared';
-import { APP_CONFIG_TOKEN, SeoService, CustomButton } from '@fe/shared';
+import { ImageType, SEOBasic, Vehicle } from '@shared';
+import { APP_CONFIG_TOKEN, CustomButton, SeoService } from '@fe/shared';
 import { DataStore, RemoveItem } from '@ap/shared';
 
-const URL = 'ai-houses';
+const URL = 'vehicles';
 
 @Component({
-  selector: 'lib-ai-house-index',
+  selector: 'lib-vehicle-index',
   imports: [
     ReactiveFormsModule,
     RouterLink,
@@ -28,22 +28,22 @@ const URL = 'ai-houses';
     RemoveItem,
     CustomButton,
   ],
-  templateUrl: './ai-house-index.html',
-  styleUrl: './ai-house-index.css',
+  templateUrl: './vehicle-index.html',
+  styleUrl: './vehicle-index.css',
   providers: [DataStore],
 })
-export class AiHouseIndex implements OnInit {
+export class VehicleIndex implements OnInit {
   seoData: SEOBasic = {
-    id: 'ai-house-index',
-    title: 'AI House Index - AI HOUSES',
-    headline: 'AI House Index',
+    id: 'vehicle-index',
+    title: 'Vehicle Index - AI HOUSES',
+    headline: 'Vehicle Index',
     description:
-      'Browse and manage the AI House index. View, edit, and organize AI-generated house entries.',
+      'Browse and manage vehicles in the admin panel. Search, edit, and remove vehicle entries.',
     url: '',
     image: {
-      id: 'ai-house-index-hero',
+      id: 'vehicle-index-hero',
       src: '',
-      alt: 'AI House Index',
+      alt: 'Vehicle Index',
       type: ImageType.HeroImage,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -53,14 +53,14 @@ export class AiHouseIndex implements OnInit {
   private appConfig = inject(APP_CONFIG_TOKEN);
   domain = this.appConfig?.domain || '';
   private seoService = inject(SeoService);
-  private dataStore = inject(DataStore<AIHouse>);
+  private dataStore = inject(DataStore<Vehicle>);
   data = this.dataStore.data;
 
   dv = viewChild<DataView>('dv');
   loading = signal(false);
   pageInitial = 1;
   protected page = signal(this.pageInitial);
-  protected limit = 10; // not sure do I need it to be signal
+  protected limit = 10;
 
   search = new FormControl('');
 
@@ -80,7 +80,6 @@ export class AiHouseIndex implements OnInit {
   loadData(page: number, limit: number, search = this.search.value) {
     this.loading.set(true);
     this.page.set(page);
-    // this.limit = limit;
 
     this.dataStore
       .load(URL, { page, limit, search })
@@ -93,8 +92,6 @@ export class AiHouseIndex implements OnInit {
       debounceTime(800),
       distinctUntilChanged(),
       tap(() => {
-        // don't need the line below as dv.paginate triggers onLazyLoad event at the end of pagination even if the first and rows are the same.
-        // this.loadData(this.pageInitial, this.limit, value);
         const dv = this.dv();
         if (dv) {
           dv.paginate({
@@ -120,9 +117,7 @@ export class AiHouseIndex implements OnInit {
       .subscribe();
   }
 
-  statusChange(event: any, item: AIHouse) {
-    // Implement the logic to change the status of the item
-    // For example, you can call a method in the data store to update the item's status and then refresh the list
+  statusChange(event: any, item: Vehicle) {
     console.log('Status changed for item:', item, 'New status:', event.checked);
   }
 
