@@ -47,7 +47,6 @@ __screenshots__/
 
 vitest.config.*.timestamp*
 
-/docs
 /.github/prompts
 
 .env
