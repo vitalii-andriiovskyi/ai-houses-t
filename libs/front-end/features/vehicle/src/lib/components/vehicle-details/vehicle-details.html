@@ -1,0 +1,79 @@
+@if (data()?.isLoading && !data()?.data) {
+  <div class="loading">
+    <p>Loading vehicle details...</p>
+  </div>
+} @else if (data()?.error) {
+  <p>Error loading Vehicle: {{ data()?.error }}</p>
+} @else if (data()?.data) {
+  <ng-container
+    *ngTemplateOutlet="
+      vehicleTemplate;
+      context: { $implicit: data()?.data, isLoading: data()?.isLoading }
+    "
+  ></ng-container>
+} @else {
+  <p>No data about this vehicle</p>
+}
+
+<ng-template #vehicleTemplate let-vehicle let-isLoading="isLoading">
+  <div class="mx-auto grid max-w-5xl grid-cols-2 gap-8 p-8 font-sans">
+    <div class="flex flex-col gap-4">
+      <div class="main-image">
+        <img
+          [src]="vehicle.images[0]?.src"
+          [alt]="vehicle.images[0]?.alt"
+          class="h-auto w-full rounded-lg"
+        />
+      </div>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-2">
+        @for (image of vehicle.images; track image.id) {
+          <img
+            [src]="image.src"
+            [alt]="image.alt"
+            class="w-full cursor-pointer rounded opacity-70 transition-opacity duration-200 hover:opacity-100 active:opacity-100"
+          />
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <h1
+        class="font-primary text-primary-900 mb-2 text-4xl font-bold md:text-6xl"
+      >
+        {{ vehicle.name }}
+      </h1>
+
+      <div class="mb-6 flex items-center justify-between">
+        <span
+          class="font-primary text-primary-900 text-3xl font-black md:text-5xl"
+        >
+          {{ vehicle.price | currency }}
+        </span>
+        <span
+          [class.text-green-600]="vehicle.available"
+          [class.text-red-600]="!vehicle.available"
+          class="text-lg font-bold"
+        >
+          {{ vehicle.available ? 'Available' : 'Not Available' }}
+        </span>
+      </div>
+
+      <!-- vehicle.description usually hold HTML content so need to use innerHTML or something safer -->
+      <p
+        class="mb-4 text-base text-gray-700"
+        [innerHTML]="vehicle.description"
+      ></p>
+
+      <div class="mb-6 grid grid-cols-2 gap-3 text-base">
+        <span><strong>Year:</strong> {{ vehicle.year }}</span>
+        <span><strong>Model:</strong> {{ vehicle.model }}</span>
+        <span><strong>Doors:</strong> {{ vehicle.doors }}</span>
+        <span><strong>Seats:</strong> {{ vehicle.seats }}</span>
+        <span><strong>Color:</strong> {{ vehicle.color }}</span>
+        @if (vehicle.mileage !== undefined) {
+          <span><strong>Mileage:</strong> {{ vehicle.mileage }} km</span>
+        }
+      </div>
+    </div>
+  </div>
+</ng-template>

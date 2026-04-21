@@ -27,6 +27,7 @@
       "@be/shared": ["libs/back-end/shared/src/index.ts"],
       "@be/user": ["libs/back-end/features/user/src/index.ts"],
       "@be/user/parts": ["libs/back-end/features/user/src/parts.ts"],
+      "@fe/vehicle": ["libs/front-end/features/vehicle/src/index.ts"],
       "@be/address": ["libs/back-end/features/address/src/index.ts"],
       "@be/address/parts": ["libs/back-end/features/address/src/parts.ts"],
       "@be/image": ["libs/back-end/features/image/src/index.ts"],

@@ -1,0 +1,38 @@
+<div class="mt-10 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+  @if (vehicles()?.isLoading && !vehicles()?.data?.length) {
+    <p>Loading Vehicles...</p>
+  } @else if (!vehicles()?.data?.length && !vehicles()?.isLoading) {
+    <p>No Vehicles found.</p>
+  } @else {
+    @for (vehicle of vehicles()?.data; track vehicle.id) {
+      <lib-vehicle-preview [data]="vehicle"></lib-vehicle-preview>
+    }
+  }
+</div>
+
+@if (vehicles()?.error) {
+  <div class="mt-20 mb-10 flex justify-center">
+    <p>Error loading Vehicles: {{ vehicles()?.error }}</p>
+  </div>
+}
+
+@if (vehicles()?.isLoading && vehicles()?.data?.length) {
+  <div class="mt-20 mb-10 flex justify-center">
+    <p class="font-primary text-primary-900 text-2xl">Loading Vehicles...</p>
+  </div>
+}
+
+<div
+  class="mt-20 mb-10 flex justify-center"
+  [class.hidden]="
+    (vehicles()?.data?.length || 0) >= (total() || 0) || vehicles()?.error
+  "
+>
+  <lib-custom-button
+    label="Load More"
+    (click)="loadMore()"
+    type="button"
+    variantCustom="regular"
+    [disabled]="vehicles()?.isLoading"
+  />
+</div>

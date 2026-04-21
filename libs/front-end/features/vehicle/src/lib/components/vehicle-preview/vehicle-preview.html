@@ -1,0 +1,31 @@
+<div
+  class="border-primary-900/30 h-full max-w-100 rounded-lg border p-4 shadow-md"
+>
+  <img
+    [src]="data()?.previewImage?.src"
+    [alt]="data()?.previewImage?.alt || data()?.name || 'Vehicle Image'"
+    class="h-55 w-full rounded-lg object-cover"
+    width="500"
+    height="220"
+  />
+  <div class="my-2 flex justify-between">
+    <h2 class="font-primary text-primary-900 mt-2 text-2xl font-bold">
+      <a [routerLink]="['/vehicles', data()?.url]">{{ data()?.name }}</a>
+    </h2>
+    <p
+      class="font-primary text-primary-900 mt-2 translate-y-0.5 text-4xl font-black"
+    >
+      ${{ data()?.price }}
+    </p>
+  </div>
+  <p class="details mt-2"><strong>Year:</strong> {{ data()?.year }}</p>
+  <p class="details"><strong>Doors:</strong> {{ data()?.doors }}</p>
+  <p class="details"><strong>Seats:</strong> {{ data()?.seats }}</p>
+  @if (data()?.mileage !== undefined) {
+    <p class="details"><strong>Mileage:</strong> {{ data()?.mileage }} km</p>
+  }
+  <p class="details mt-2">
+    <strong>Status:</strong>
+    {{ data()?.available ? 'Available' : 'Not Available' }}
+  </p>
+</div>

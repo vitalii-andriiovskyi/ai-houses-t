@@ -20,6 +20,18 @@ export const pagesRoutes: Route[] = [
         (m) => m.AiHouseDetailsPage,
       ),
   },
+  {
+    path: 'vehicles',
+    loadComponent: () =>
+      import('./pages/vehicles-page/vehicles-page').then((m) => m.VehiclesPage),
+  },
+  {
+    path: 'vehicles/:id',
+    loadComponent: () =>
+      import('./pages/vehicle-details-page/vehicle-details-page').then(
+        (m) => m.VehicleDetailsPage,
+      ),
+  },
   // {
   //   path: '**',
   //   loadComponent: () =>
