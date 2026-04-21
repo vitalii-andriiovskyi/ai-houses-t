@@ -1,0 +1,139 @@
+<div>
+  <h1 class="font-primary text-primary-900 text-center text-4xl font-bold">
+    Sign Up
+  </h1>
+  <form
+    class="mt-4 flex flex-col gap-4"
+    [formGroup]="signUpForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <lib-form-control-wrapper
+      label="First Name"
+      id="firstName"
+      [touched]="firstName?.touched || false"
+      [dirty]="firstName?.dirty || false"
+      [invalid]="firstName?.invalid || false"
+      [required]="true"
+      [errors]="firstName?.errors"
+    >
+      <!-- Check about invalid property: invalid={!!(errors?.email && touched?.email)} -->
+      <input
+        pInputText
+        formControlName="firstName"
+        required
+        id="firstName"
+        placeholder="Your First Name..."
+        type="text"
+        [invalid]="
+          firstName?.invalid && (firstName?.touched || firstName?.dirty)
+        "
+      />
+    </lib-form-control-wrapper>
+
+    <lib-form-control-wrapper
+      label="Last Name"
+      id="lastName"
+      [touched]="lastName?.touched || false"
+      [dirty]="lastName?.dirty || false"
+      [invalid]="lastName?.invalid || false"
+      [required]="true"
+      [errors]="lastName?.errors"
+    >
+      <!-- Check about invalid property: invalid={!!(errors?.email && touched?.email)} -->
+      <input
+        pInputText
+        formControlName="lastName"
+        required
+        id="lastName"
+        placeholder="Your Last Name..."
+        type="text"
+        [invalid]="lastName?.invalid && (lastName?.touched || lastName?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Email"
+      id="email"
+      [touched]="email?.touched || false"
+      [dirty]="email?.dirty || false"
+      [invalid]="email?.invalid || false"
+      [required]="true"
+      [errors]="email?.errors"
+    >
+      <!-- Check about invalid property: invalid={!!(errors?.email && touched?.email)} -->
+      <input
+        pInputText
+        formControlName="email"
+        required
+        id="email"
+        placeholder="Your Email..."
+        type="email"
+        [invalid]="email?.invalid && (email?.touched || email?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Password"
+      id="password"
+      [touched]="password?.touched || false"
+      [dirty]="password?.dirty || false"
+      [invalid]="password?.invalid || false"
+      [required]="true"
+      [errors]="password?.errors"
+    >
+      <p-password
+        formControlName="password"
+        [required]="true"
+        inputId="password"
+        placeholder="Your Password..."
+        type="password"
+        class="w-full"
+        inputStyleClass="w-full"
+        minLength="8"
+        [toggleMask]="true"
+        [feedback]="false"
+        [invalid]="password?.invalid && (password?.touched || password?.dirty)"
+      />
+    </lib-form-control-wrapper>
+    <lib-form-control-wrapper
+      label="Confirm Password"
+      id="confirmPassword"
+      [touched]="confirmPassword?.touched || false"
+      [dirty]="confirmPassword?.dirty || false"
+      [invalid]="confirmPassword?.invalid || false"
+      [required]="true"
+      [errors]="getErrorsForConfirmPassword()"
+    >
+      <p-password
+        formControlName="confirmPassword"
+        [required]="true"
+        inputId="confirmPassword"
+        placeholder="Confirm Your Password..."
+        type="password"
+        class="w-full"
+        inputStyleClass="w-full"
+        minLength="8"
+        [toggleMask]="true"
+        [feedback]="false"
+        [invalid]="
+          confirmPassword?.invalid &&
+          (confirmPassword?.touched || confirmPassword?.dirty)
+        "
+      />
+    </lib-form-control-wrapper>
+    @if (error()) {
+      <div class="mt-2 text-center text-sm text-red-500">
+        {{ error() }}
+      </div>
+    }
+
+    <div class="my-3 mt-5 text-center">
+      <lib-custom-button
+        type="submit"
+        variantCustom="regular"
+        [disabled]="signUpForm.invalid || signUpForm.pending || isSubmitting()"
+        [loading]="signUpForm.pending || isSubmitting()"
+        label="Sign Up"
+      >
+      </lib-custom-button>
+    </div>
+  </form>
+</div>

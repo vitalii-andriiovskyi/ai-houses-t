@@ -1,0 +1,29 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { APP_CONFIG_TOKEN } from '@fe/shared';
+import { Credentials, Role, UserSignUp } from '@shared';
+import { shareReplay } from 'rxjs';
+import { UserSignUpResponse } from './dto';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthApi {
+  private http = inject(HttpClient);
+  private config = inject(APP_CONFIG_TOKEN);
+  private apiUrl = this.config?.apiUrl;
+
+  signOut = () => this.http.post(`${this.apiUrl}/auth/logout`, {});
+  signUp = (data: UserSignUp) =>
+    this.http.post<UserSignUpResponse>(`${this.apiUrl}/auth/register`, data);
+
+  signIn(data: Credentials, query?: { role?: Role }) {
+    const params = {
+      ...(query?.role ? { role: query.role } : {}),
+    };
+    return this.http
+      .post<any>(`${this.apiUrl}/auth/login`, data, { params })
+      .pipe(shareReplay());
+  }
+}

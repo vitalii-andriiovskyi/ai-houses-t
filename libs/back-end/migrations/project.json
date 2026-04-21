@@ -1,0 +1,42 @@
+{
+  "name": "be-migrations",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/back-end/migrations/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project be-migrations --web",
+  "targets": {
+    "migration:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node -r tsconfig-paths/register --project tsconfig.lib.json ../../../node_modules/typeorm/cli migration:run -d src/lib/data-source.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "migration:revert": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node -r tsconfig-paths/register --project tsconfig.lib.json ../../../node_modules/typeorm/cli migration:revert -d src/lib/data-source.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "migration:gen": {
+      "executor": "nx:run-commands",
+      "parallelism": false,
+      "options": {
+        "command": "ts-node -r tsconfig-paths/register --project tsconfig.lib.json ../../../node_modules/typeorm/cli migration:generate src/lib/migrations/{args.name} --pretty -d src/lib/data-source.ts",
+        "forwardAllArgs": true,
+        "cwd": "{projectRoot}"
+      }
+    },
+    "migration:create": {
+     "executor": "nx:run-commands",
+     "parallelism": false,
+     "options": {
+        "command": "ts-node --project tsconfig.lib.json ../../../node_modules/typeorm/cli migration:create src/lib/migrations/{args.name}",
+        "forwardAllArgs": true,
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}

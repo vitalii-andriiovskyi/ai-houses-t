@@ -1,0 +1,151 @@
+<fieldset
+  [formGroup]="imageForm"
+  class="bg-primary-900/5 border-primary-900/10 my-3 flex flex-col gap-4 rounded-md border p-4 pb-6"
+>
+  <legend class="font-primary text-primary-900 text-2xl font-bold">
+    {{ legend() || 'Image Uploader ' }}
+  </legend>
+  <lib-form-control-wrapper
+    label="Image description (alt text)"
+    [id]="getFieldId('alt')"
+    [touched]="alt?.touched || false"
+    [dirty]="alt?.dirty || false"
+    [invalid]="alt?.invalid || false"
+    [required]="true"
+    [errors]="alt?.errors"
+  >
+    <input
+      class="w-full"
+      pInputText
+      formControlName="alt"
+      required
+      [id]="getFieldId('alt')"
+      placeholder="Image description (alt text)"
+      type="text"
+      [invalid]="alt?.invalid && (alt?.touched || alt?.dirty)"
+      (blur)="onTouched()"
+    />
+  </lib-form-control-wrapper>
+
+  @if (withTitle()) {
+    <lib-form-control-wrapper
+      label="Image title"
+      [id]="getFieldId('title')"
+      [touched]="title?.touched || false"
+      [dirty]="title?.dirty || false"
+      [invalid]="title?.invalid || false"
+      [errors]="title?.errors"
+    >
+      <input
+        class="w-full"
+        pInputText
+        formControlName="title"
+        [id]="getFieldId('title')"
+        placeholder="Image title (optional)"
+        type="text"
+        [invalid]="title?.invalid && (title?.touched || title?.dirty)"
+        (blur)="onTouched()"
+      />
+    </lib-form-control-wrapper>
+  }
+
+  <div>
+    <h3>Image <span class="text-red-500">*</span></h3>
+    @if (src?.value) {
+      <img
+        class="img-preview"
+        [src]="src?.value"
+        alt="Image preview"
+        width="200"
+        height="150"
+        class="object-fit"
+      />
+    }
+
+    <p-fileupload
+      name="image"
+      [url]="fileUploadUrl"
+      (onUpload)="onUploadImage($event)"
+      [multiple]="true"
+      accept="image/*"
+      maxFileSize="1000000"
+      mode="advanced"
+      withCredentials
+      (onError)="onError()"
+    >
+      <ng-template #empty>
+        <p class="m-0">Drag and drop files to here to upload.</p>
+      </ng-template>
+    </p-fileupload>
+  </div>
+
+  @if (withCaption()) {
+    <lib-form-control-wrapper
+      label="Image caption"
+      [id]="getFieldId('caption')"
+      [touched]="caption?.touched || false"
+      [dirty]="caption?.dirty || false"
+      [invalid]="caption?.invalid || false"
+      [required]="false"
+      [errors]="caption?.errors"
+    >
+      <input
+        class="w-full"
+        pInputText
+        formControlName="caption"
+        [id]="getFieldId('caption')"
+        placeholder="Image caption (optional)"
+        type="text"
+        [invalid]="caption?.invalid && (caption?.touched || caption?.dirty)"
+        (blur)="onTouched()"
+      />
+    </lib-form-control-wrapper>
+  }
+
+  @if (withDescription()) {
+    <lib-form-control-wrapper
+      label="Image description"
+      [id]="getFieldId('description')"
+      [touched]="description?.touched || false"
+      [dirty]="description?.dirty || false"
+      [invalid]="description?.invalid || false"
+      [required]="false"
+      [errors]="description?.errors"
+    >
+      <textarea
+        rows="5"
+        cols="30"
+        pTextarea
+        formControlName="description"
+        [id]="getFieldId('description')"
+        placeholder="Image description (optional)"
+        [invalid]="
+          description?.invalid && (description?.touched || description?.dirty)
+        "
+        fluid
+        (blur)="onTouched()"
+      ></textarea>
+    </lib-form-control-wrapper>
+  }
+
+  @if (withType()) {
+    <lib-form-control-wrapper
+      label="Image type"
+      [id]="getFieldId('type')"
+      [touched]="type?.touched || false"
+      [dirty]="type?.dirty || false"
+      [invalid]="type?.invalid || false"
+      [errors]="type?.errors"
+    >
+      <p-select
+        placeholder="Select an image type"
+        formControlName="type"
+        [options]="imageTypes"
+        optionLabel="label"
+        optionValue="value"
+        class="w-full md:w-56"
+        (blur)="onTouched()"
+      />
+    </lib-form-control-wrapper>
+  }
+</fieldset>

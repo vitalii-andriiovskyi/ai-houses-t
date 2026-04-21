@@ -15,11 +15,32 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ai-houses-t/ai-house": [
-        "libs/front-end/features/ai-house/src/index.ts"
-      ],
-      "@ai-houses-t/ai": ["front-end/features/ai/src/index.ts"],
-      "@ai-house": ["libs/front-end/features/ai-house/src/index.ts"]
+      "@fe/pages": ["libs/front-end/pages/src/index.ts"],
+      "@fe/core": ["libs/front-end/core/src/index.ts"],
+      "@fe/shared": ["libs/front-end/shared/src/index.ts"],
+      "@fe/utils": ["libs/front-end/utils/src/index.ts"],
+      "@fe/styles": ["libs/front-end/styles/src/index.ts"],
+      "@fe/user": ["libs/front-end/features/user/src/index.ts"],
+      "@fe/auth": ["libs/front-end/features/auth/src/index.ts"],
+      "@fe/ai-house": ["libs/front-end/features/ai-house/src/index.ts"],
+      "@shared": ["libs/shared/src/index.ts"],
+      "@be/shared": ["libs/back-end/shared/src/index.ts"],
+      "@be/user": ["libs/back-end/features/user/src/index.ts"],
+      "@be/user/parts": ["libs/back-end/features/user/src/parts.ts"],
+      "@be/address": ["libs/back-end/features/address/src/index.ts"],
+      "@be/address/parts": ["libs/back-end/features/address/src/parts.ts"],
+      "@be/image": ["libs/back-end/features/image/src/index.ts"],
+      "@be/image/parts": ["libs/back-end/features/image/src/parts.ts"],
+      "@be/seo": ["libs/back-end/features/seo/src/index.ts"],
+      "@be/seo/parts": ["libs/back-end/features/seo/src/parts.ts"],
+      "@be/ai-house": ["libs/back-end/features/ai-house/src/index.ts"],
+      "@be/ai-house/parts": ["libs/back-end/features/ai-house/src/parts.ts"],
+      "@be/migrations": ["libs/back-end/migrations/src/index.ts"],
+      "@be/auth": ["libs/back-end/features/auth/src/index.ts"],
+      "@be/redis": ["libs/back-end/features/redis/src/index.ts"],
+      "@ap/pages": ["libs/front-end-ap/pages/src/index.ts"],
+      "@ap/core": ["libs/front-end-ap/core/src/index.ts"],
+      "@ap/shared": ["libs/front-end-ap/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,11 @@
+@if (!!(user$ | async)) {
+  <div class="flex items-center">
+    <lib-menu-dropdown></lib-menu-dropdown>
+  </div>
+} @else {
+  <lib-custom-button
+    label="Hello, Sign in:)"
+    (click)="showAuth()"
+    variantCustom="secondary"
+  ></lib-custom-button>
+}

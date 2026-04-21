@@ -1,0 +1,98 @@
+<div>
+  <h1
+    class="text-primary-900 font-primary text-5xl font-bold capitalize md:text-7xl"
+  >
+    All AI Houses
+  </h1>
+
+  <div class="flex flex-wrap gap-3">
+    <a [routerLink]="['./create']" class="p-button font-bold text-white">
+      Create new AI House
+    </a>
+  </div>
+
+  <div class="mt-10 mb-3">
+    <input
+      pInputText
+      [formControl]="search"
+      placeholder="Search by AI house name..."
+      type="text"
+      name="search"
+      class="w-full"
+    />
+  </div>
+
+  <p-dataview
+    #dv
+    [value]="data()?.items || []"
+    [rows]="limit"
+    [paginator]="true"
+    [totalRecords]="data()?.meta?.totalItems || limit"
+    [lazy]="true"
+    (onLazyLoad)="onLoadData($event)"
+    [loading]="loading()"
+    class="border-primary-900/50 mt-6 rounded-md border [&_.p-dataview-empty-message]:p-4 [&>.p-dataview-header]:rounded-t-md"
+  >
+    <ng-template #header>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-7">
+          <strong class="mr-2.5 inline-block min-w-10">#</strong
+          ><strong>Title</strong>
+        </div>
+        <div class="col-span-3">
+          <!-- AI House doesn't have the option to be drafted or published yet -->
+          <!-- <strong>Status</strong> -->
+        </div>
+        <div class="col-span-2"><strong>Action</strong></div>
+      </div>
+    </ng-template>
+    <ng-template #list let-items>
+      @for (item of items; track item.id; let i = $index) {
+        <div class="even:bg-primary-900-4 grid grid-cols-12 gap-4 px-4 py-3">
+          <div class="col-span-7">
+            <div class="flex">
+              <strong class="mr-2.5 inline-flex min-w-10">{{
+                getRowIndex(i)
+              }}</strong>
+              <a
+                [href]="`${domain}ai-houses/${item.url}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ item.name }}</a
+              >
+            </div>
+          </div>
+
+          <div class="col-span-3">
+            <!-- AI House doesn't have the option to be drafted or published yet -->
+            <!-- <p-togglebutton
+                onLabel="Published"
+                offLabel="Draft"
+                [onIcon]="'pi pi-check'"
+                [offIcon]="'pi pi-circle-fill'"
+                [(ngModel)]="item.isPublished"
+                (onChange)="statusChange($event, item)"
+                class="w-24"
+                [name]="`item-${item.id}.isPublished`"
+              /> -->
+          </div>
+
+          <div class="col-span-2">
+            <div class="ai-start flex gap-5">
+              <lib-custom-button
+                [routerLink]="['./edit', item.id]"
+                label="Edit"
+              >
+              </lib-custom-button>
+
+              <lib-remove-item
+                tooltip="Delete"
+                [fn]="() => removeItem(item.id)"
+              ></lib-remove-item>
+            </div>
+          </div>
+        </div>
+      }
+    </ng-template>
+  </p-dataview>
+</div>

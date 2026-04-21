@@ -1,20 +1,44 @@
-<div class="wrapper">
-  @if(aiHouses$ | async; as aiHouses) {
-  @if(aiHouses.isLoading && !aiHouses.data?.length) {
-  <p>Loading AI Houses...</p>
-  }
-  @else if(aiHouses.error) {
-  <p>Error loading AI Houses: {{ aiHouses.error }}</p>
-  }
-  @else if(!aiHouses.data || aiHouses.data.length === 0) {
-  <p>No AI Houses found.</p>
+<div class="mt-10 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+  @if (aiHouses()?.isLoading && !aiHouses()?.data?.length) {
+    <p>Loading AI Houses...</p>
+  } @else if (!aiHouses()?.data?.length && !aiHouses()?.isLoading) {
+    <p>No AI Houses found.</p>
   } @else {
+    @for (house of aiHouses()?.data; track house.id) {
+      <!-- <ai-house-card [data]="house" (like)="like(house._id)" (unlike)="unlike(house._id)"></ai-house-card> -->
+      <lib-ai-house-card
+        [data]="house"
+        [like]="likeHouse"
+        [unlike]="unlikeHouse"
+        [user]="user()"
+      ></lib-ai-house-card>
+    }
+  }
+</div>
 
-  @for(house of aiHouses.data; track house._id) {
-  <!-- <ai-house-card [data]="house" (like)="like(house._id)" (unlike)="unlike(house._id)"></ai-house-card> -->
-  <lib-ai-house-card [data]="house" [removeMe]="removeHouse"></lib-ai-house-card>
-  }
-  }
-  }
+@if (aiHouses()?.error) {
+  <div class="mt-20 mb-10 flex justify-center">
+    <p>Error loading AI Houses: {{ aiHouses()?.error }}</p>
+  </div>
+}
 
+@if (aiHouses()?.isLoading && aiHouses()?.data?.length) {
+  <div class="mt-20 mb-10 flex justify-center">
+    <p class="font-primary text-primary-900 text-2xl">Loading AI Houses...</p>
+  </div>
+}
+
+<div
+  class="mt-20 mb-10 flex justify-center"
+  [class.hidden]="
+    (aiHouses()?.data?.length || 0) >= (total() || 0) || aiHouses()?.error
+  "
+>
+  <lib-custom-button
+    label="Load More"
+    (click)="loadMore()"
+    type="button"
+    variantCustom="regular"
+    [disabled]="aiHouses()?.isLoading"
+  />
 </div>

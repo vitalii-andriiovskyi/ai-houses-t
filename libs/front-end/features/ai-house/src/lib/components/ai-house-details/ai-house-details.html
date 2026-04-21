@@ -1,74 +1,142 @@
-@if(data$ | async; as data) {
-@if(data.isLoading && !data.data) {
-<div class="loading">
-  <p>Loading house details...</p>
-</div>
-} @else if(data.error;) {
-<p>Error loading AI Houses: {{ data.error }}</p>
-
-}@else if(data.data) {
-<ng-container *ngTemplateOutlet="aiHouse; context: { $implicit: data.data, isLoading: data.isLoading }"></ng-container>
+@if (data()?.isLoading && !data()?.data) {
+  <div class="loading">
+    <p>Loading house details...</p>
+  </div>
+} @else if (data()?.error) {
+  <p>Error loading AI Houses: {{ data()?.error }}</p>
+} @else if (data()?.data) {
+  <ng-container
+    *ngTemplateOutlet="
+      aiHouse;
+      context: { $implicit: data()?.data, isLoading: data()?.isLoading }
+    "
+  ></ng-container>
 } @else {
-<p>No data about this house</p>
+  <p>No data about this house</p>
 }
-
-}
-
 
 <ng-template #aiHouse let-house let-isLoading="isLoading">
-  <div class="container">
-    <div class="gallery">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-8 p-8 font-sans">
+    <div class="flex flex-col gap-4">
       <div class="main-image">
-        <img [src]="house.images[0].src" [alt]="house.images[0].alt" />
+        <img
+          [src]="house.images[0].src"
+          [alt]="house.images[0].alt"
+          class="h-auto w-full rounded-lg"
+        />
+        <!--
+            Ideally we should use responsive images with ngSrc and sizes 
+            or own <lib-img> but is has no implementation for link rel="preload"/rel="preconnect" 
+         -->
+        <!-- 
+          <img
+           [ngSrc]="house.images[0].src"
+            [alt]="house.images[0].alt"
+            class="h-auto w-full rounded-lg"
+            width="600"
+            height="400"
+            sizes="(min-width: 600px) 600px, calc(100vw - 40px)"
+        /> -->
       </div>
-      <div class="thumbnail-images">
-        @for(image of house.images; track image.src) {
-        <img [src]="image.src" [alt]="image.alt" />
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-2">
+        @for (image of house.images; track image.id) {
+          <img
+            [src]="image.src"
+            [alt]="image.alt"
+            class="w-full cursor-pointer rounded opacity-70 transition-opacity duration-200 hover:opacity-100 active:opacity-100"
+          />
+          <!--
+            Ideally we should use responsive images with ngSrc and sizes 
+              or own <lib-img> but is has no implementation for link rel="preload"/rel="preconnect" 
+          -->
+          <!-- 
+            <img
+              [ngSrc]="image.src"
+              [alt]="image.alt"
+              class="w-full cursor-pointer rounded opacity-70 transition-opacity duration-200 hover:opacity-100 active:opacity-100"
+              width="200"
+              height="100"
+              sizes="200px"
+          /> -->
         }
       </div>
     </div>
 
-    <div class="details">
-      <h1>{{ house.name }}</h1>
-      <p class="address">{{ getAddress(house.address) }}</p>
+    <div class="flex flex-col">
+      <h1
+        class="font-primary text-primary-900 mb-2 text-4xl font-bold md:text-6xl"
+      >
+        {{ house.name }}
+      </h1>
+      <p class="mb-6 text-lg">{{ getAddress(house.address) }}</p>
 
-      <div class="price-rating">
-        <span class="price">{{ house.price | currency }}</span>
-        <span class="rating">Rating: {{ house.rating }} / 5</span>
+      <div class="mb-6 flex items-center justify-between">
+        <span
+          class="font-primary text-primary-900 text-3xl font-black md:text-5xl"
+          >{{ house.price | currency }}</span
+        >
+        <span class="text-lg">Rating: {{ house.rating }} / 5</span>
       </div>
 
-      <div class="stats">
+      <div class="mb-6 grid grid-cols-2 gap-4 text-lg">
         <span>{{ house.rooms }} rooms</span>
         <span>{{ house.area }} sq ft</span>
         <span>Built in {{ house.builtYear | date: 'yyyy' }}</span>
-        @if(house.lastRenovation) {
-        <span>Renovated in {{ house.lastRenovation | date: 'yyyy' }}</span>
+        @if (house.lastRenovation) {
+          <span>Renovated in {{ house.lastRenovation | date: 'yyyy' }}</span>
         }
       </div>
 
-      @if(house.features?.length) {
-      <div class="features">
-        <h2>Features</h2>
-        <ul>
-          @for(feature of house.features; track feature) {
-          <li>{{ feature }}</li>
-          }
-        </ul>
-      </div>
+      @if (house.features?.length) {
+        <div class="mb-6">
+          <h2 class="text-primary-900 font-primary mb-2 text-2xl md:text-4xl">
+            Features
+          </h2>
+          <ul class="flex list-none flex-wrap gap-2 p-0">
+            @for (feature of house.features; track feature) {
+              <li class="rounded-full bg-gray-200 px-4 py-2">{{ feature }}</li>
+            }
+          </ul>
+        </div>
       }
 
-      <div class="availability">
-        <span [class.available]="house.available">
+      <div>
+        <span
+          [class.text-green-600]="house.available"
+          [class.font-bold]="house.available"
+          [class.text-red-600]="!house.available"
+          [class.font-bold]="!house.available"
+        >
           {{ house.available ? 'Available' : 'Not Available' }}
         </span>
       </div>
-      <div class="availability">
-        <button type="button" (click)="updateLikes(house._id, true, house)">Like</button>
-        <button type="button" (click)="updateLikes(house._id, false, house)">UnLike</button>
-        @if(isLoadingUpdate$ | async) {
-        <i>Updating likes...</i>
-        }
-        <strong>{{house.likes?.length || 0}} liked </strong>
+      <div class="flex items-center gap-2 pt-6">
+        <strong
+          >{{ house.likesCount || 0 }} like{{
+            house.likesCount === 1 ? '' : 's'
+          }}</strong
+        >
+
+        <span class="flex min-h-10.5 items-center">
+          @if (user() && isLiked()) {
+            <lib-custom-button
+              label="💞"
+              (click)="unlike()"
+              variant="text"
+              [rounded]="true"
+              [text]="true"
+            />
+          }
+          @if (user() && !isLiked()) {
+            <lib-custom-button
+              (click)="like()"
+              variant="text"
+              icon="pi pi-heart"
+              [rounded]="true"
+              [text]="true"
+            />
+          }
+        </span>
       </div>
     </div>
   </div>

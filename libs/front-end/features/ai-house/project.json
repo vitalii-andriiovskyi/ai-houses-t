@@ -1,5 +1,5 @@
 {
-  "name": "ai-house",
+  "name": "fe-ai-house",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/front-end/features/ai-house/src",
   "prefix": "lib",

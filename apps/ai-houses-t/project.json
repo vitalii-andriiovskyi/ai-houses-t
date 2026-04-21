@@ -61,7 +61,11 @@
           "buildTarget": "ai-houses-t:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": ["api:serve"],
+      "options": {
+        "proxyConfig": "apps/ai-houses-t/proxy.conf.json"
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint"

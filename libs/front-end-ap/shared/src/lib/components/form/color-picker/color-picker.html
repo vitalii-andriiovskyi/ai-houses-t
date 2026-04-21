@@ -1,0 +1,38 @@
+<fieldset
+  [formGroup]="form"
+  class="bg-primary-900/5 border-primary-900/10 my-3 flex flex-col gap-4 rounded-md border p-4 pb-6"
+>
+  <legend class="font-primary text-primary-900 text-2xl font-bold">
+    {{ legend() || 'Choose a color' }}
+  </legend>
+  <lib-form-control-wrapper
+    label="Hex Color"
+    [id]="getFieldId('hex')"
+    [touched]="hex?.touched || false"
+    [dirty]="hex?.dirty || false"
+    [invalid]="hex?.invalid || false"
+    [required]="true"
+    [errors]="hex?.errors"
+  >
+    <input
+      class="w-full"
+      pInputText
+      formControlName="hex"
+      required
+      [id]="getFieldId('hex')"
+      placeholder="Hex Color (e.g. #ff0000)"
+      type="text"
+      [invalid]="hex?.invalid && (hex?.touched || hex?.dirty)"
+      (blur)="onTouched()"
+    />
+  </lib-form-control-wrapper>
+  <div>
+    <p-colorpicker
+      formControlName="color"
+      [inputId]="getFieldId('color')"
+      name="color"
+      class="border-primary-900/50 rounded-[7px] border"
+    />
+    <span class="ml-2">&larr; pick a color</span>
+  </div>
+</fieldset>

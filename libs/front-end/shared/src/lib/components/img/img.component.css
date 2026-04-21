@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+.article-slide {
+  margin-bottom: 12px;
+}
+
+@media screen and (min-width: 992px) {
+  .article-slide {
+    margin-bottom: 20px;
+  }
+}

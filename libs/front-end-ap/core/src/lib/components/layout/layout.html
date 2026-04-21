@@ -1,0 +1,16 @@
+<lib-header></lib-header>
+
+<main>
+  <div
+    class="container mx-auto grid min-h-(--section-height) gap-2 p-5 md:gap-5"
+    [class.md:grid-cols-[300px_minmax(900px,1fr)]]="user()"
+  >
+    @if (user()) {
+      <lib-sidebar class=""></lib-sidebar>
+    }
+    <router-outlet class="hidden"></router-outlet>
+  </div>
+</main>
+
+<lib-global-toast></lib-global-toast>
+<lib-footer></lib-footer>

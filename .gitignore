@@ -46,3 +46,8 @@ Thumbs.db
 __screenshots__/
 
 vitest.config.*.timestamp*
+
+/docs
+/.github/prompts
+
+.env
