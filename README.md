@@ -1,14 +1,18 @@
 # AiHousesT
 
+**AiHousesT** is a full-stack, server-side rendered web application for browsing AI-generated houses, built as an **Nx monorepo**.
+
 ## Table of Contents
 
-- [Run tasks](#run-tasks)
+- [Technical Overview](#technical-overview)
+  - [Architecture](#architecture)
+  - [Workspace Structure](#workspace-structure)
+  - [Key Front-end Libraries](#key-front-end-libraries)
+  - [UI & Styling](#ui--styling)
+  - [Testing](#testing)
+- [Run tasks](#run-tasks-angular-fe)
 - [Add new projects](#add-new-projects)
 - [Add Angular libraries, components, services, and more](#add-angular-libraries-components-services-and-more)
-- [Set up CI!](#set-up-ci)
-  - [Step 1](#step-1)
-  - [Step 2](#step-2)
-- [Install Nx Console](#install-nx-console)
 - [Useful links](#useful-links)
 - [Tailwind Configuration](#tailwind-configuration)
 - [PrimeNG components styles configuration: e.g. Button](#primeng-components-styles-configuration-eg-button)
@@ -19,13 +23,61 @@
 - [Admin Panel](#admin-panel)
   - [Run tasks for Admin Panel](#run-tasks-for-admin-panel)
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Technical Overview
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+### Architecture
 
-## Run tasks
+| Layer | Technology |
+|---|---|
+| Monorepo tooling | Nx 22 |
+| Frontend framework | Angular 21 with SSR (`@angular/ssr`) |
+| Admin panel | Separate Angular 21 application |
+| Backend framework | NestJS 11 (REST API) |
+| Database | PostgreSQL via TypeORM 0.3 |
+| Session store | Redis (connect-redis + express-session) |
+| Authentication | Passport.js — JWT + Local strategies |
+
+### Workspace Structure
+
+```
+apps/
+  ai-houses-t        — Main SSR Angular application
+  admin-panel        — Angular admin panel
+  api                — NestJS REST API
+libs/
+  front-end/         — Angular libraries (core, shared, styles, utils, pages, features/)
+  front-end-ap/      — Admin-panel-specific Angular libraries
+  back-end/          — NestJS feature libraries (auth, user, address, ai-house, image, seo, redis, migrations)
+  shared/            — Framework-agnostic models and utilities shared across front-end and back-end
+```
+
+### Key Front-end Libraries
+
+| Alias | Path | Purpose |
+|---|---|---|
+| `@fe/core` | `libs/front-end/core` | App-wide configuration (providers, interceptors) |
+| `@fe/shared` | `libs/front-end/shared` | Services, guards, directives, SEO |
+| `@fe/pages` | `libs/front-end/pages` | Routed page components |
+| `@fe/styles` | `libs/front-end/styles` | Global styles and PrimeNG theme tokens |
+| `@fe/utils` | `libs/front-end/utils` | Pure utility functions |
+| `@fe/ai-house` | `libs/front-end/features/ai-house` | AI House feature (store, components) |
+| `@fe/auth` | `libs/front-end/features/auth` | Authentication UI and logic |
+| `@fe/user` | `libs/front-end/features/user` | User profile feature |
+
+### UI & Styling
+
+- **Tailwind CSS v4** — utility-first styling
+- **PrimeNG v21** — component library with customisable design tokens (Aura theme base)
+- Component-level style overrides via PrimeNG `pt` (PassThrough) API or Tailwind utilities
+
+### Testing
+
+- **Jest** — unit tests for back-end libraries and shared code
+- **Playwright** — end-to-end tests for both `ai-houses-t` and `admin-panel`
+- Angular component tests use `TestBed`
+
+## Run tasks Angular FE
 
 To run the dev server for your app, use:
 
@@ -89,43 +141,9 @@ yarn nx g @nx/angular:library libs/front-end/features/ai-house --importPath=@fe/
 yarn nx g @nx/angular:component libs/front-end/features/ai-house/src/lib/components/ai-houses-chunk/ai-houses-chunk --export
 ```
 
-
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
 [Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
 ## Useful links
 
@@ -177,12 +195,11 @@ We can to customize button in two ways:
       />
     ```
 
-    where `[pt]="{ root: '...'}"` -- `root` can contain bunch of Tailwind classes OR own one custom class like `.btn`. Good example of using Tailwind utilities is in the library `primereact/passthrough/tailwind`. It's for React applications, but could be a good basis for Angular ones too. Probably there's a way to adopt it to Anglar.
+    where `[pt]="{ root: '...'}"` -- `root` can contain bunch of Tailwind classes OR own one custom class like `.btn`. Good example of using Tailwind utilities is in the library `primereact/passthrough/tailwind`. It's for React applications, but could be a good basis for Angular ones too. Probably there's a way to adopt it to Angular.
 
 Sometimes we need a special variation of button that cannot be defined as primary or secondary. Then we need to extend design tokens like it is shown in the [Extend Section](https://primeng.org/theming/styled#extend) or probably create a component `<custom-btn>` with many local presets and the ability to choose the needed one. Those presets can be done via Tailwind as it shown above.
 
-One pitfall with primeng and Tailwind in Angular is that it's not possible to use Tailwind color design tokens (`--color-blue-500`) for defining primitive primeng css tokens unless using CSS variables (not sure about it) or using a library like `primereact/passthrough/tailwind` when all styles of 
-primeng components are defined by Tailwind utilities.
+One pitfall with primeng and Tailwind in Angular is that it's not possible to use Tailwind color design tokens (`--color-blue-500`) for defining primitive primeng css tokens unless using CSS variables (not sure about it) or using a library like `primereact/passthrough/tailwind` when all styles of primeng components are defined by Tailwind utilities.
 
 ## API nest.js
 
@@ -272,18 +289,18 @@ psql postgres
 
 All details about database migrations and CLI usage are in the [README](./libs/back-end/migrations/README.md) of the library `be-migrations`.
 
+## Kill process on port 4200
 
-macOS and Linux
-Find the Process ID (PID): Open the terminal and run:
-`lsof -i :4200`
-Kill the Process: Use the PID found from the previous step:
-`kill -9 [PID]`
-One-liner for Mac/Linux: sudo kill -9 $(sudo lsof -t -i:4200).
-Stack Overflow
-Stack Overflow
-3. Quick One-Line Solution (NPM)
-If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID:
-Command: `npx kill-port 4200`.
+macOS and Linux:
+
+- Find the Process ID (PID): Open the terminal and run:
+  `lsof -i :4200`
+- Kill the Process: Use the PID found from the previous step:
+  `kill -9 [PID]`
+- One-liner for Mac/Linux: `sudo kill -9 $(sudo lsof -t -i:4200)`.
+- Quick One-Line Solution (NPM)
+  If you have Node.js installed, you can use the kill-port utility directly without manually finding the PID:
+  Command: `npx kill-port 4200`.
 
 ## Redis
 
