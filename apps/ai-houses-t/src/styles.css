@@ -6,6 +6,7 @@
 @import "tailwindcss-primeui" source(none); /* it goes into @layer utilities */
 
 @import "primeicons/primeicons.css" layer(primereacticons) source(none);
+@import "./fonts.css" layer(base) source(none);
 /* Configuration Tailwind v4 with Angular in an Nx Monorepo without problem to include Tailwind classes from unused libraries */
 /* https://nx.dev/blog/setup-tailwind-4-angular-nx-workspace */
 /* https://gist.github.com/Phhansen/66cd0e4baeabe154d7d20691d709a421 */
@@ -24,6 +25,7 @@
   --font-nanum-pen-script: 'Nanum Pen Script', cursive;
   --font-roboto: 'Roboto',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
   --font-roboto: 'Roboto',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
+  --font-grotesk: 'Space Grotesk',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
 }
 
 /* 
@@ -31,6 +33,7 @@
  but instead of on-primary we use primary-foreground
 */
 @theme { 
+  --breakpoint-xs: 26rem;
   --animate-fade-in: fade-in 0.3s ease-out;
   --animate-fade-out: fade-out 0.3s ease-out;
   --animate-backdrop-fade-in: backdrop-fade-in 0.3s ease-out;
@@ -79,30 +82,146 @@
 }
 
 @theme inline {
+  --color-ai-dark: #191A23; /* primary color */
+  --color-ai-green: #B9FF66; /* secondary color */
+  --color-ai-grey: #F3F3F3; /* tertiary color */
+
+   /* Dark palette - Primary */
+  --color-ai-dark-50:  oklch(from var(--color-ai-dark) 0.95 0.005 h); /* ~#EDEDED  ~rgb(237, 237, 237) */
+  --color-ai-dark-100: oklch(from var(--color-ai-dark) 0.90 0.008 h); /* ~#DDDDDE  ~rgb(221, 221, 222) */
+  --color-ai-dark-200: oklch(from var(--color-ai-dark) 0.79 0.012 h); /* ~#BFBFC1  ~rgb(191, 191, 193) */
+  --color-ai-dark-300: oklch(from var(--color-ai-dark) 0.64 0.015 h); /* ~#98989C  ~rgb(152, 152, 156) */
+  --color-ai-dark-400: oklch(from var(--color-ai-dark) 0.47 0.018 h); /* ~#6A6A70  ~rgb(106, 106, 112) */
+  --color-ai-dark-500: var(--color-ai-dark);                           /*  #191A23   rgb( 25,  26,  35) */
+  --color-ai-dark-600: oklch(from var(--color-ai-dark) 0.13 0.022 h); /* ~#15161E  ~rgb( 21,  22,  30) */
+  --color-ai-dark-700: oklch(from var(--color-ai-dark) 0.11 0.020 h); /* ~#121219  ~rgb( 18,  18,  25) */
+  --color-ai-dark-800: oklch(from var(--color-ai-dark) 0.09 0.016 h); /* ~#0E0E13  ~rgb( 14,  14,  19) */
+  --color-ai-dark-900: oklch(from var(--color-ai-dark) 0.07 0.012 h); /* ~#0A0A0E  ~rgb( 10,  10,  14) */
+  --color-ai-dark-950: oklch(from var(--color-ai-dark) 0.05 0.009 h); /* ~#07070A  ~rgb(  7,   7,  10) */
+
+  /* Green palette - Secondary */
+  --color-ai-green-50:  oklch(from var(--color-ai-green) 0.99 0.03 h); /* ~#F9FFF3  ~rgb(249, 255, 243) */
+  --color-ai-green-100: oklch(from var(--color-ai-green) 0.98 0.06 h); /* ~#F4FFE8  ~rgb(244, 255, 232) */
+  --color-ai-green-200: oklch(from var(--color-ai-green) 0.97 0.10 h); /* ~#EBFFD4  ~rgb(235, 255, 212) */
+  --color-ai-green-300: oklch(from var(--color-ai-green) 0.96 0.14 h); /* ~#DFFFBA  ~rgb(223, 255, 186) */
+  --color-ai-green-400: oklch(from var(--color-ai-green) 0.95 0.18 h); /* ~#D1FF9B  ~rgb(209, 255, 155) */
+  --color-ai-green-500: var(--color-ai-green);                          /*  #B9FF66   rgb(185, 255, 102) */
+  --color-ai-green-600: oklch(from var(--color-ai-green) 0.82 c h);    /* ~#9DD957  ~rgb(157, 217,  87) */
+  --color-ai-green-700: oklch(from var(--color-ai-green) 0.69 c h);    /* ~#82B347  ~rgb(130, 179,  71) */
+  --color-ai-green-800: oklch(from var(--color-ai-green) 0.55 c h);    /* ~#668C38  ~rgb(102, 140,  56) */
+  --color-ai-green-900: oklch(from var(--color-ai-green) 0.42 c h);    /* ~#4A6629  ~rgb( 74, 102,  41) */
+  --color-ai-green-950: oklch(from var(--color-ai-green) 0.32 c h);    /* ~#34471D  ~rgb( 52,  71,  29) */
+
+  /* Grey palette - Tertiary */
+  --color-ai-grey-50:  oklch(from var(--color-ai-grey) 0.995 c h); /* ~#FEFEFE  ~rgb(254, 254, 254) */
+  --color-ai-grey-100: oklch(from var(--color-ai-grey) 0.990 c h); /* ~#FDFDFD  ~rgb(253, 253, 253) */
+  --color-ai-grey-200: oklch(from var(--color-ai-grey) 0.985 c h); /* ~#FCFCFC  ~rgb(252, 252, 252) */
+  --color-ai-grey-300: oklch(from var(--color-ai-grey) 0.982 c h); /* ~#FAFAFA  ~rgb(250, 250, 250) */
+  --color-ai-grey-400: oklch(from var(--color-ai-grey) 0.978 c h); /* ~#F7F7F7  ~rgb(247, 247, 247) */
+  --color-ai-grey-500: var(--color-ai-grey);                        /*  #F3F3F3   rgb(243, 243, 243) */
+  --color-ai-grey-600: oklch(from var(--color-ai-grey) 0.84 c h);  /* ~#CFCFCF  ~rgb(207, 207, 207) */
+  --color-ai-grey-700: oklch(from var(--color-ai-grey) 0.71 c h);  /* ~#AAAAAA  ~rgb(170, 170, 170) */
+  --color-ai-grey-800: oklch(from var(--color-ai-grey) 0.58 c h);  /* ~#868686  ~rgb(134, 134, 134) */
+  --color-ai-grey-900: oklch(from var(--color-ai-grey) 0.43 c h);  /* ~#616161  ~rgb( 97,  97,  97) */
+  --color-ai-grey-950: oklch(from var(--color-ai-grey) 0.31 c h);  /* ~#444444  ~rgb( 68,  68,  68) */
+
   /* --color-primary-100: var(--color-red-100);*/ /* all --color-primary-* are set by `tailwindcss-primeui` library */
-  --color-primary-900-4: oklch(0.971 0.0054 17.25); /* this is the same as bg-primary-900/4 but I need it to not have opacity*/
+  --color-primary-900-4: color-mix(in oklab, var(--color-primary-900) 4%, white); /* solid equivalent of primary-900 at 4% opacity on white */
   --color-primary-foreground: var(--color-white);
 
-  --color-secondary: var(--color-yellow-500);
-  --color-secondary-600: var(--color-yellow-600);
-  --color-secondary-700: var(--color-yellow-700);
-  --color-secondary-800: var(--color-yellow-800);
-  --color-secondary-900: var(--color-yellow-900);
-  --color-secondary-foreground: var(--color-white);
+  --color-secondary: var(--color-ai-green-500);
+  --color-secondary-600: var(--color-ai-green-600);
+  --color-secondary-700: var(--color-ai-green-700);
+  --color-secondary-800: var(--color-ai-green-800);
+  --color-secondary-900: var(--color-ai-green-900);
+  --color-secondary-foreground: var(--color-black);
  
-  --color-tertiary: var(--color-black);
-  --color-tertiary-foreground: var(--color-white);
+  --color-tertiary: var(--color-ai-grey-500);
+  --color-tertiary-600: var(--color-ai-grey-600);
+  --color-tertiary-700: var(--color-ai-grey-700);
+  --color-tertiary-800: var(--color-ai-grey-800);
+  --color-tertiary-900: var(--color-ai-grey-900);
+  --color-tertiary-foreground: var(--color-black);
 
   /* --color-surface: var(--background); */ /* all --color-surface-* are set by `tailwindcss-primeui` library */
-  --color-surface-foreground: var(--foreground);
+  --color-surface-foreground: var(--background);
 
-  --font-primary: var(--font-nanum-pen-script);
+  --font-primary: var(--font-grotesk);
   --font-main: var(--font-roboto);
 }
 
 @layer base {
+  html {
+    font-size: 16px; /** 1rem = 16px; and this is the base for Tailwind utility classes: pt-1 = padding-top: 0.25rem ~ 4px */
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;  /** This is the base font size for the body and all elements in it unless they have text-[some-size] classes; and it allows to avoid text-[some-size] classes for responsive design */
+    @media (min-width: 64rem) {
+      font-size: 18px; /** This is the base font size for the body and all elements in it unless they have text-[some-size] classes; and it allows to avoid text-[some-size] classes for responsive design */
+    }
+  }
+
+  h1,h2,h3,h4 {
+    font-family: var(--font-grotesk);
+    font-weight: 500;
+    line-height: 1.3;
+    @media (min-width: 64rem) {
+      line-height: 1.25;
+    }
+  }
+
+  h1 {
+    font-size: 2.6875rem;
+    @media (min-width: 64rem) {
+      font-size: 3.75rem;
+    }
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    @media (min-width: 64rem) {
+      font-size: 2.5rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.625rem;
+    @media (min-width: 64rem) {
+      font-size: 1.875rem;
+    }
+  }
+
+  h4 {
+    font-size: 1.125rem;
+    @media (min-width: 64rem) {
+      font-size: 1.25rem; 
+    }
+  }
+
+  p {
+    font-family: var(--font-grotesk);
+    font-weight: 400;
+    line-height: 1.5;
+    @media (min-width: 64rem) {
+      line-height: 1.28;
+    }
+  }
+
   dialog {
     margin: auto;
+  }
+
+  .container-ai {
+    padding-inline: 20px;
+    margin-inline: auto;
+    @media (min-width: 64rem) {
+      max-width: 1280px;
+    }
   }
 }
 
@@ -150,12 +269,4 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
 }
