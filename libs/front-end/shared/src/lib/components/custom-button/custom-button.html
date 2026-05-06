@@ -9,7 +9,7 @@
     [pt]="cpt()"
     [dt]="dt()"
     [ptOptions]="ptOptions()"
-    [text]="text"
+    [text]="ctext()"
     [plain]="plain"
     [raised]="raised"
     [size]="csize()"
@@ -35,7 +35,7 @@
     [pt]="cpt()"
     [dt]="dt()"
     [ptOptions]="ptOptions()"
-    [text]="text"
+    [text]="ctext()"
     [plain]="plain"
     [raised]="raised"
     [size]="csize()"
@@ -61,7 +61,7 @@
     [disabled]="disabled"
     [raised]="raised"
     [rounded]="rounded"
-    [text]="text"
+    [text]="ctext()"
     [plain]="plain"
     [outlined]="outlined"
     [link]="link"
@@ -94,6 +94,11 @@
 </ng-template>
 
 <ng-template #linkInner>
+  @if (isCustomLink()) {
+    <span [class]="cIconStyleClass()">
+      <svg arrow-right-up [width]="21" [height]="20"></svg>
+    </span>
+  }
   <span
     pButtonLabel
     [pButtonLabelUnstyled]="isUnstyled()"

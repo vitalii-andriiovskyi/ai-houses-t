@@ -1,0 +1,31 @@
+@switch (tagName()) {
+  @case ('h2') {
+    <h2 [class]="_variantClasses()">
+      <ng-container *ngTemplateOutlet="inner"></ng-container>
+    </h2>
+  }
+  @case ('h3') {
+    <h3 [class]="_variantClasses()">
+      <ng-container *ngTemplateOutlet="inner"></ng-container>
+    </h3>
+  }
+  @case ('h4') {
+    <h4 [class]="_variantClasses()">
+      <ng-container *ngTemplateOutlet="inner"></ng-container>
+    </h4>
+  }
+  @case ('h5') {
+    <h5 [class]="_variantClasses()">
+      <ng-container *ngTemplateOutlet="inner"></ng-container>
+    </h5>
+  }
+  @case ('h6') {
+    <h6 [class]="_variantClasses()">
+      <ng-container *ngTemplateOutlet="inner"></ng-container>
+    </h6>
+  }
+}
+
+<ng-template #inner>
+  <ng-content #innerContent></ng-content>
+</ng-template>

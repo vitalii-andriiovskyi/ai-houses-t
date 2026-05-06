@@ -1,0 +1,39 @@
+<section class="hero-section px-5 py-10 md:py-12 lg:py-17.5">
+  <div
+    class="mx-auto grid max-w-110 grid-cols-1 gap-5 lg:max-w-310 lg:grid-cols-[1fr_minmax(0,37.5rem)] lg:items-center lg:gap-x-12 lg:gap-y-8"
+  >
+    <h1
+      class="font-primary text-primary order-1 text-[2.6875rem] font-medium lg:col-start-1 lg:row-start-1 lg:max-w-[33.2rem] lg:text-[3.75rem]"
+    >
+      {{ content().title }}
+    </h1>
+
+    <div
+      class="order-2 m-0 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mt-0"
+    >
+      <img
+        [alt]="content().img.alt"
+        class="mx-auto block h-77.5 w-90 max-w-full lg:h-128.75 lg:w-150"
+        [src]="content().img.src"
+        [width]="600"
+        [height]="515"
+        sizes="(max-width: 991px) 84vw, 48vw"
+      />
+    </div>
+
+    <p
+      class="font-primary text-primary order-3 text-base leading-6 font-normal lg:col-start-1 lg:row-start-2 lg:max-w-[31.1rem] lg:text-xl lg:leading-7"
+    >
+      {{ content().description }}
+    </p>
+
+    <div class="order-4 pt-5 lg:col-start-1 lg:row-start-3 lg:pt-0 lg:pb-8.5">
+      <lib-custom-button
+        [variantCustom]="'primary'"
+        [routerLink]="content().button.url"
+        [label]="content().button.text"
+        styleClass="min-h-[68px] w-full lg:w-auto lg:min-w-[264px]"
+      ></lib-custom-button>
+    </div>
+  </div>
+</section>

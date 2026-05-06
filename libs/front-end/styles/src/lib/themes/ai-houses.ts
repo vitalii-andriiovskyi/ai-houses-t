@@ -1,6 +1,10 @@
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 
+const aiDark = '#191A23';
+const aiGreen = '#B9FF66';
+const aiGrey = '#F3F3F3';
+
 export const AiHousesTheme = definePreset(Aura, {
   primitive: {
     aiRed: {
@@ -14,41 +18,80 @@ export const AiHousesTheme = definePreset(Aura, {
       700: 'oklch(50.5% 0.213 27.518)',
       800: 'oklch(44.4% 0.177 26.899)',
       900: 'oklch(39.6% 0.141 25.723)',
-      950: 'oklch(25.8% 0.092 26.042)'
-    }
+      950: 'oklch(25.8% 0.092 26.042)',
+    },
+    aiDark: {
+      50: `oklch(from var(--color-ai-dark) 0.95 0.005 h)`,
+      100: `oklch(from var(--color-ai-dark) 0.90 0.008 h)`,
+      200: `oklch(from var(--color-ai-dark) 0.79 0.012 h)`,
+      300: `oklch(from var(--color-ai-dark) 0.64 0.015 h)`,
+      400: `oklch(from var(--color-ai-dark) 0.47 0.018 h)`,
+      500: `${aiDark}`,
+      600: `oklch(from var(--color-ai-dark) 0.13 0.022 h)`,
+      700: `oklch(from var(--color-ai-dark) 0.11 0.020 h)`,
+      800: `oklch(from var(--color-ai-dark) 0.09 0.016 h)`,
+      900: `oklch(from var(--color-ai-dark) 0.07 0.012 h)`,
+      950: `oklch(from var(--color-ai-dark) 0.05 0.009 h)`,
+    },
+    aiGreen: {
+      50: `oklch(from var(--color-ai-green) 0.99 0.03 h)`,
+      100: `oklch(from var(--color-ai-green) 0.98 0.06 h)`,
+      200: `oklch(from var(--color-ai-green) 0.97 0.10 h)`,
+      300: `oklch(from var(--color-ai-green) 0.96 0.14 h)`,
+      400: `oklch(from var(--color-ai-green) 0.95 0.18 h)`,
+      500: `${aiGreen}`,
+      600: `oklch(from var(--color-ai-green) 0.82 c h)`,
+      700: `oklch(from var(--color-ai-green) 0.69 c h)`,
+      800: `oklch(from var(--color-ai-green) 0.55 c h)`,
+      900: `oklch(from var(--color-ai-green) 0.42 c h)`,
+      950: `oklch(from var(--color-ai-green) 0.32 c h)`,
+    },
+    aiGrey: {
+      50: `oklch(from var(--color-ai-grey) 0.995 c h)`,
+      100: `oklch(from var(--color-ai-grey) 0.990 c h)`,
+      200: `oklch(from var(--color-ai-grey) 0.985 c h)`,
+      300: `oklch(from var(--color-ai-grey) 0.982 c h)`,
+      400: `oklch(from var(--color-ai-grey) 0.978 c h)`,
+      500: `${aiGrey}`,
+      600: `oklch(from var(--color-ai-grey) 0.84 c h)`,
+      700: `oklch(from var(--color-ai-grey) 0.71 c h)`,
+      800: `oklch(from var(--color-ai-grey) 0.58 c h)`,
+      900: `oklch(from var(--color-ai-grey) 0.43 c h)`,
+      950: `oklch(from var(--color-ai-grey) 0.31 c h)`,
+    },
   },
   semantic: {
     primary: {
-      50: '{aiRed.50}',
-      100: '{aiRed.100}',
-      200: '{aiRed.200}',
-      300: '{aiRed.300}',
-      400: '{aiRed.400}',
-      500: '{aiRed.500}',
-      600: '{aiRed.600}',
-      700: '{aiRed.700}',
-      800: '{aiRed.800}',
-      900: '{aiRed.900}',
-      950: '{aiRed.950}'
+      50: '{aiDark.50}',
+      100: '{aiDark.100}',
+      200: '{aiDark.200}',
+      300: '{aiDark.300}',
+      400: '{aiDark.400}',
+      500: '{aiDark.500}',
+      600: '{aiDark.600}',
+      700: '{aiDark.700}',
+      800: '{aiDark.800}',
+      900: '{aiDark.900}',
+      950: '{aiDark.950}',
     },
     colorScheme: {
       light: {
         primary: {
-          color: '{aiRed.600}',
+          color: '{aiDark.500}',
           inverseColor: '#ffffff',
-          hoverColor: '{aiRed.700}',
-          activeColor: '{aiRed.700}',
-          50: '{aiRed.50}',
-          100: '{aiRed.100}',
-          200: '{aiRed.200}',
-          300: '{aiRed.300}',
-          400: '{aiRed.400}',
-          500: '{aiRed.500}',
-          600: '{aiRed.600}',
-          700: '{aiRed.700}',
-          800: '{aiRed.800}',
-          900: '{aiRed.900}',
-          950: '{aiRed.950}'
+          hoverColor: '{aiDark.700}',
+          activeColor: '{aiDark.700}',
+          50: '{aiDark.50}',
+          100: '{aiDark.100}',
+          200: '{aiDark.200}',
+          300: '{aiDark.300}',
+          400: '{aiDark.400}',
+          500: '{aiDark.500}',
+          600: '{aiDark.600}',
+          700: '{aiDark.700}',
+          800: '{aiDark.800}',
+          900: '{aiDark.900}',
+          950: '{aiDark.950}',
         },
         surface: {
           0: '#ffffff',
@@ -62,21 +105,21 @@ export const AiHousesTheme = definePreset(Aura, {
           700: '{zinc.700}',
           800: '{zinc.800}',
           900: '{zinc.900}',
-          950: '{zinc.950}'
+          950: '{zinc.950}',
         },
         highlight: {
-          background: '{aiRed.600}',
-          focusBackground: '{aiRed.700}',
+          background: '{aiDark.600}',
+          focusBackground: '{aiDark.700}',
           color: '#ffffff',
-          focusColor: '#ffffff'
-        }
+          focusColor: '#ffffff',
+        },
       },
       dark: {
         primary: {
-          color: '{aiRed.50}',
-          inverseColor: '{aiRed.950}',
-          hoverColor: '{aiRed.100}',
-          activeColor: '{aiRed.200}'
+          color: '{aiDark.50}',
+          inverseColor: '{aiDark.950}',
+          hoverColor: '{aiDark.100}',
+          activeColor: '{aiDark.200}',
         },
         surface: {
           0: '#ffffff',
@@ -90,16 +133,15 @@ export const AiHousesTheme = definePreset(Aura, {
           700: '{slate.700}',
           800: '{slate.800}',
           900: '{slate.900}',
-          950: '{slate.950}'
+          950: '{slate.950}',
         },
         highlight: {
           background: 'rgba(250, 250, 250, .16)',
           focusBackground: 'rgba(250, 250, 250, .24)',
           color: 'rgba(255,255,255,.87)',
-          focusColor: 'rgba(255,255,255,.87)'
-        }
-      }
-    }
-  }
+          focusColor: 'rgba(255,255,255,.87)',
+        },
+      },
+    },
+  },
 });
-

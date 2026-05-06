@@ -1,0 +1,50 @@
+<article
+  class="border-primary xs:p-12.25 xs:h-80.5 h-70 rounded-[2.8125rem] border p-6 shadow-[0_0.3125rem_0_0_var(--color-primary)] lg:h-77.5"
+  [class]="_styles().cardBackgroundClass"
+>
+  <div class="grid h-full grid-cols-1 grid-rows-1">
+    <div class="col-1 row-1 flex items-end justify-end lg:items-center">
+      <img
+        [style.--image-width-mobile]="
+          content()?.imageWidthMobile
+            ? content()?.imageWidthMobile + 'px'
+            : null
+        "
+        [style.--image-width]="
+          content()?.imageWidth ? content()?.imageWidth + 'px' : null
+        "
+        class="w-[var(--image-width-mobile)] max-w-full xl:w-[var(--image-width)]"
+        [class]="_styles().imageClass"
+        [src]="content()?.image?.src || ''"
+        [alt]="content()?.image?.alt || ''"
+        [width]="210"
+        [height]="210"
+        [attr.sizes]="_isSvgImage() ? null : '(max-width: 1023px) 165px, 210px'"
+      />
+    </div>
+
+    <div class="col-1 row-1 flex flex-col justify-between gap-8">
+      <div>
+        <lib-heading
+          [variant]="_styles().headingVariant"
+          [size]="'md'"
+          [tagName]="'h3'"
+        >
+          <span> {{ content()?.titleLine1 || '' }}</span>
+          @if (content()?.titleLine2) {
+            <span class="absolute -ml-1.75 block">
+              {{ content()?.titleLine2 }}
+            </span>
+          }
+        </lib-heading>
+      </div>
+
+      <lib-custom-button
+        class="[&_.p-button-label]:hidden lg:[&_.p-button-label]:inline"
+        [label]="content()?.button?.text || ''"
+        [routerLink]="content()?.button?.url || '/'"
+        [variantCustom]="_styles().buttonVariant"
+      ></lib-custom-button>
+    </div>
+  </div>
+</article>

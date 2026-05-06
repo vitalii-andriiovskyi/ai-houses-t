@@ -18,29 +18,48 @@ import {
 import { Bind } from 'primeng/bind';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 
+import { ArrowRightUp } from '../svgs/arrow-right-up/arrow-right-up';
+
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
 
 const CUSTOM_VARIANTS: Record<string, string> = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
+  TERTIARY: 'tertiary',
   ACCENT: 'accent',
   REGULAR: 'regular',
+  LINK_PRIMARY: 'linkPrimary',
+  LINK_SECONDARY: 'linkSecondary',
+  LINK_TERTIARY: 'linkTertiary',
+  LINK_PRIMARY_FULL: 'linkPrimaryFull',
+  LINK_PRIMARY_FULL_ACCENT: 'linkPrimaryFullAccent',
+  LINK_SECONDARY_FULL: 'linkSecondaryFull',
+  LINK_SECONDARY_FULL_LIGHT: 'linkSecondaryFullLight',
+  LINK_TERTIARY_FULL: 'linkTertiaryFull',
+  LINK_TERTIARY_FULL_ACCENT: 'linkTertiaryFullAccent',
 };
 
-// every prop in [CUSTOM_VARIANTS['KEY']] is one of the Button component props
-const CUSTOM_VARIANTS_PROPS = {
+const CUSTOM_VARIANTS_PROPS: { [key in keyof typeof CUSTOM_VARIANTS]?: any } = {
   [CUSTOM_VARIANTS['PRIMARY']]: {
     pt: {
-      root: 'ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-primary-900 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground cta from-primary-500 to-primary-700 transition-400 hover:from-primary-700 hover:to-primary-500 outline-primary-700 focus:from-primary-700 focus:to-primary-500 relative inline-flex h-12 min-w-[240px] items-center justify-center rounded-full bg-linear-to-br px-6 shadow-xl shadow-black/50 outline-2 outline-offset-2 transition-colors duration-300 hover:cursor-pointer hover:bg-linear-to-tr hover:shadow-xl hover:shadow-black/30 focus:bg-linear-to-tr focus:shadow-black/30 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 md:h-14 md:min-w-[260px]',
+      root: 'inline-flex items-center justify-center rounded-[10px] md:rounded-[14px] bg-primary h-[50px] md:h-[68px] px-3 py-1 md:px-5 md:py-3 transition-colors duration-300 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50 font-primary text-[20px] leading-7 font-normal text-primary-foreground text-center whitespace-nowrap hover:bg-primary-700 focus:bg-primary-700',
       label:
-        'font-primary text-primary-foreground text-[22px] font-bold tracking-wide uppercase md:text-[26px]',
+        'font-primary md:text-[1.25rem] leading-7 font-normal text-primary-foreground text-center whitespace-nowrap',
     },
   },
   [CUSTOM_VARIANTS['SECONDARY']]: {
-    variant: 'outlined',
-    size: 'small',
-    styleClass:
-      'font-primary text-primary-700 border-primary-700 bg-primary-100/40 h-9 rounded-lg border-1 px-2 py-0 text-lg font-normal hover:cursor-pointer md:h-10 md:text-2xl',
+    pt: {
+      root: 'inline-flex items-center justify-center rounded-[10px] md:rounded-[14px] bg-secondary h-[50px] md:h-[68px] px-3 py-1 md:px-5 md:py-3 transition-colors duration-300 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50 font-primary text-[20px] leading-7 font-normal text-secondary-foreground text-center whitespace-nowrap hover:bg-secondary-600 focus:bg-secondary-600',
+      label:
+        'font-primary md:text-[1.25rem] leading-7 font-normal text-secondary-foreground text-center whitespace-nowrap',
+    },
+  },
+  [CUSTOM_VARIANTS['TERTIARY']]: {
+    pt: {
+      root: 'inline-flex items-center justify-center rounded-[10px] md:rounded-[14px] border border-primary bg-tertiary h-[50px] md:h-[68px] px-3 py-1 md:px-5 md:py-3 transition-colors duration-300 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50 font-primary text-[20px] leading-7 font-normal text-tertiary-foreground text-center whitespace-nowrap hover:bg-tertiary-600 focus:bg-tertiary-600',
+      label:
+        'font-primary md:text-[1.25rem] leading-7 font-normal text-tertiary-foreground text-center whitespace-nowrap',
+    },
   },
   [CUSTOM_VARIANTS['REGULAR']]: {
     pt: {
@@ -48,6 +67,80 @@ const CUSTOM_VARIANTS_PROPS = {
       label:
         'font-primary text-primary-foreground uppercase font-bold tracking-wide text-[22px] md:text-[26px]',
     },
+  },
+  // Links
+  [CUSTOM_VARIANTS['LINK_PRIMARY']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent flex-row-reverse items-center gap-[15px] p-0 font-primary text-[20px] leading-7 [&_.p-button-label]:font-normal text-primary hover:cursor-pointer underline decoration-transparent hover:decoration-primary underline-offset-4 transition-all duration-300',
+    iconStyleClass: 'text-tertiary-foreground',
+    iconPos: 'right',
+  },
+  [CUSTOM_VARIANTS['LINK_SECONDARY']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent flex-row-reverse items-center gap-[15px] p-0 font-primary text-[20px] leading-7 [&_.p-button-label]:font-normal text-secondary hover:cursor-pointer underline decoration-transparent hover:decoration-secondary underline-offset-4 transition-all duration-300',
+    iconStyleClass: 'text-secondary',
+    iconPos: 'right',
+  },
+  [CUSTOM_VARIANTS['LINK_TERTIARY']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent flex-row-reverse items-center gap-[15px] p-0 font-primary text-[20px] leading-7 [&_.p-button-label]:font-normal text-primary-foreground hover:cursor-pointer underline decoration-transparent hover:decoration-primary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass: 'text-primary-foreground',
+    iconPos: 'right',
+  },
+  [CUSTOM_VARIANTS['LINK_PRIMARY_FULL']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-tertiary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-tertiary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-primary text-[20px] text-primary-foreground',
+  },
+  [CUSTOM_VARIANTS['LINK_PRIMARY_FULL_ACCENT']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-tertiary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-tertiary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-primary text-[20px] text-secondary',
+  },
+  [CUSTOM_VARIANTS['LINK_SECONDARY_FULL']]: {
+    variant: 'text',
+    text: 'text',
+
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-tertiary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-tertiary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-secondary text-[20px] text-tertiary-foreground',
+  },
+  [CUSTOM_VARIANTS['LINK_SECONDARY_FULL_LIGHT']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-primary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-primary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-secondary text-[20px] text-primary-foreground',
+  },
+  [CUSTOM_VARIANTS['LINK_TERTIARY_FULL']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-primary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-primary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-primary-foreground text-[20px] text-tertiary-foreground',
+  },
+  [CUSTOM_VARIANTS['LINK_TERTIARY_FULL_ACCENT']]: {
+    variant: 'text',
+    text: 'text',
+    styleClass:
+      'inline-flex hover:bg-transparent focus:bg-transparent min-h-[41px] items-center gap-[15px] p-0 font-primary text-[20px] leading-7 font-normal [&_.p-button-label]:font-normal text-primary-foreground hover:cursor-pointer underline hover:underline decoration-transparent hover:decoration-primary-foreground underline-offset-4 transition-all duration-300',
+    iconStyleClass:
+      'inline-flex h-[41px] w-[41px] items-center justify-center rounded-full bg-primary-foreground text-[20px] text-secondary',
   },
 };
 /**
@@ -87,7 +180,7 @@ const CUSTOM_VARIANTS_PROPS = {
  */
 @Component({
   selector: 'lib-custom-button',
-  imports: [NgTemplateOutlet, ButtonModule, Bind, RouterLink],
+  imports: [NgTemplateOutlet, ButtonModule, Bind, RouterLink, ArrowRightUp],
   templateUrl: './custom-button.html',
   styleUrl: './custom-button.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -101,13 +194,15 @@ const CUSTOM_VARIANTS_PROPS = {
 export class CustomButton extends Button {
   routerLink = input<string | any[]>(); // `routerLink` has to be the full route path without domain of course
   innerContent = contentChild('innerContent'); // always undefined | cannot remove bug when there's html passed and label is not empty
-  variantCustom = input<'primary' | 'secondary' | 'accent' | 'regular'>();
+  variantCustom = input<keyof typeof CUSTOM_VARIANTS>();
   isUnstyled = computed(
     () =>
       this.unstyled() ||
-      [CUSTOM_VARIANTS['PRIMARY'], CUSTOM_VARIANTS['REGULAR']].some(
-        (el: string) => this.variantCustom() === el,
-      ),
+      [
+        CUSTOM_VARIANTS['PRIMARY'],
+        CUSTOM_VARIANTS['REGULAR'],
+        CUSTOM_VARIANTS['TERTIARY'],
+      ].some((el: keyof typeof CUSTOM_VARIANTS) => this.variantCustom() === el),
   );
   clabel = computed(() => (this.innerContent() ? '' : this.label));
   cbadge = computed(() => (this.innerContent() ? '' : this.badge));
@@ -119,24 +214,38 @@ export class CustomButton extends Button {
   }));
   cvariant = computed(
     () =>
-      (CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.variant as
-        | 'outlined'
-        | 'text'
-        | undefined) || this.variant,
+      CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.variant ||
+      this.variant,
+  );
+  ctext = computed(
+    () => CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.text || this.text,
   );
   csize = computed(
-    () =>
-      (CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.size as
-        | 'small'
-        | 'large'
-        | undefined) || this.size,
+    () => CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.size || this.size,
   );
   cstyleClass = computed(
     () =>
       `${CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.styleClass || ''} ${this.styleClass || ''}`,
   );
+  cIconStyleClass = computed(
+    () =>
+      CUSTOM_VARIANTS_PROPS[this.variantCustom() || '']?.iconStyleClass || '',
+  );
   target = input<string>();
   rel = input<string>();
+  isCustomLink = computed(() =>
+    [
+      CUSTOM_VARIANTS['LINK_PRIMARY'],
+      CUSTOM_VARIANTS['LINK_SECONDARY'],
+      CUSTOM_VARIANTS['LINK_TERTIARY'],
+      CUSTOM_VARIANTS['LINK_PRIMARY_FULL'],
+      CUSTOM_VARIANTS['LINK_PRIMARY_FULL_ACCENT'],
+      CUSTOM_VARIANTS['LINK_SECONDARY_FULL'],
+      CUSTOM_VARIANTS['LINK_SECONDARY_FULL_LIGHT'],
+      CUSTOM_VARIANTS['LINK_TERTIARY_FULL'],
+      CUSTOM_VARIANTS['LINK_TERTIARY_FULL_ACCENT'],
+    ].some((el: keyof typeof CUSTOM_VARIANTS) => this.variantCustom() === el),
+  );
 
   constructor() {
     super();

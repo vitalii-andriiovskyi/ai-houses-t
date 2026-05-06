@@ -1,0 +1,101 @@
+<section>
+  <h2 class="font-primary mb-6 font-bold">Typography</h2>
+  <h1>
+    h1 -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+  </h1>
+  <h2>
+    h2 -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+  </h2>
+  <h3>
+    h3 -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+  </h3>
+  <h4>
+    h4 -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+  </h4>
+  <p>
+    p -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+  </p>
+</section>
+<section class="flex flex-col items-start gap-5 pt-5">
+  <h2 class="font-primary mb-6 font-bold">Buttons Examples</h2>
+  <!-- lib-custom-button[routerLink="/" variantCustom="primary"] -->
+  <lib-custom-button
+    [variantCustom]="'primary'"
+    label="Get Started"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="secondary"] -->
+  <lib-custom-button
+    [variantCustom]="'secondary'"
+    label="Get Started"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="tertiary"] -->
+  <lib-custom-button
+    [variantCustom]="'tertiary'"
+    label="Get Started"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="linkPrimary"] -->
+  <lib-custom-button
+    variantCustom="linkPrimary"
+    [routerLink]="'/ai-houses'"
+    label="Link Primary"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="linkSecondary"] -->
+  <lib-custom-button
+    label="Link Secondary"
+    [routerLink]="'/ai-houses'"
+    variantCustom="linkSecondary"
+  ></lib-custom-button>
+  <div class="bg-primary p-4">
+    <!-- lib-custom-button[routerLink="/" variantCustom="linkTertiary"] -->
+    <lib-custom-button
+      label="Link Tertiary"
+      [routerLink]="'/ai-houses'"
+      variantCustom="linkTertiary"
+    ></lib-custom-button>
+  </div>
+  <!-- lib-custom-button[routerLink="/" variantCustom="linkPrimaryFull"] -->
+  <lib-custom-button
+    label="Link Primary Full"
+    [routerLink]="'/ai-houses'"
+    variantCustom="linkPrimaryFull"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="linkPrimaryFullAccent"] -->
+  <lib-custom-button
+    label="Link Primary Full Accent"
+    [routerLink]="'/ai-houses'"
+    variantCustom="linkPrimaryFullAccent"
+  ></lib-custom-button>
+  <!-- lib-custom-button[routerLink="/" variantCustom="linkSecondaryFull"] -->
+  <lib-custom-button
+    label="Link Secondary Full"
+    [routerLink]="'/ai-houses'"
+    variantCustom="linkSecondaryFull"
+  ></lib-custom-button>
+  <div class="bg-primary flex flex-col items-start gap-5 p-4">
+    <!-- lib-custom-button[routerLink="/" variantCustom="linkSecondaryFullLight"] -->
+    <lib-custom-button
+      label="Link Secondary Full Light"
+      [routerLink]="'/ai-houses'"
+      variantCustom="linkSecondaryFullLight"
+    ></lib-custom-button>
+
+    <!-- lib-custom-button[routerLink="/" variantCustom="linkTertiaryFull"] -->
+    <lib-custom-button
+      label="Link Tertiary Full"
+      [routerLink]="'/ai-houses'"
+      variantCustom="linkTertiaryFull"
+    ></lib-custom-button>
+
+    <!-- lib-custom-button[routerLink="/" variantCustom="linkTertiaryFullAccent"] -->
+    <lib-custom-button
+      label="Link Tertiary Full Accent"
+      [routerLink]="'/ai-houses'"
+      variantCustom="linkTertiaryFullAccent"
+    ></lib-custom-button>
+  </div>
+  <section class="flex flex-col items-start gap-5 pt-5">
+    <h2 class="font-primary mb-6 font-bold">Headings Examples</h2>
+    <!-- lib-heading[text="Heading 2"] -->
+    <lib-heading text="Heading 2"></lib-heading>
+  </section>
+</section>

@@ -1,0 +1,17 @@
+<section class="logos-section pt-5 pb-7.5 md:pt-6 md:pb-8 xl:pt-7.5 xl:pb-17.5">
+  <div class="container-ai overflow-hidden">
+    <div
+      class="mx-auto flex max-w-140 flex-wrap items-center justify-center gap-x-9 gap-y-5 mix-blend-luminosity lg:max-w-none lg:justify-between"
+    >
+      @for (logo of content().logos.children; track logo.id) {
+        <img
+          [src]="logo.src"
+          [alt]="logo.alt"
+          [width]="124"
+          [height]="48"
+          class="w-auto max-w-full"
+        />
+      }
+    </div>
+  </div>
+</section>

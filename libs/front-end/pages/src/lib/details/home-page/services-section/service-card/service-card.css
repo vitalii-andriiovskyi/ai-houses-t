@@ -1,0 +1,5 @@
+:host {
+	display: block;
+  --image-width-mobile: 165px;
+  --image-width: 210px;
+}

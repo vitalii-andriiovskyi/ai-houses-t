@@ -1,0 +1,70 @@
+:host {
+	display: block;
+}
+
+.service-card-light {
+	background-color: #f3f3f3;
+}
+
+.service-card-accent {
+	background-color: var(--color-secondary);
+}
+
+.service-card-dark {
+	background-color: var(--color-primary);
+}
+
+.service-card-title-secondary {
+	background-color: var(--color-secondary);
+}
+
+.service-card-title-white {
+	background-color: #ffffff;
+}
+
+.service-link-icon-dark-bg {
+	background-color: #000000;
+}
+
+.service-link-icon-light-bg {
+	background-color: #ffffff;
+}
+
+.service-link-text-dark {
+	color: #000000;
+}
+
+.service-link-text-light {
+	color: #ffffff;
+}
+
+.icon-arrow-up::before,
+.icon-arrow-up::after {
+	content: '';
+	position: absolute;
+	background-color: #b9ff66;
+	border-radius: 9999px;
+}
+
+.icon-arrow-up::before {
+	width: 1rem;
+	height: 0.15625rem;
+	left: 0.125rem;
+	top: 0.875rem;
+	transform: rotate(-45deg);
+	transform-origin: left center;
+}
+
+.icon-arrow-up::after {
+	width: 0.15625rem;
+	height: 1rem;
+	left: 0.875rem;
+	top: 0.125rem;
+	transform: rotate(-45deg);
+	transform-origin: center top;
+}
+
+.icon-arrow-up-dark::before,
+.icon-arrow-up-dark::after {
+	background-color: #000000;
+}

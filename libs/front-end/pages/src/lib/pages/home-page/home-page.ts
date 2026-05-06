@@ -2,10 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 
 import { ImageType, SEOBasic } from '@shared';
 import { SeoService } from '@fe/shared';
+import { LeadingSection } from '../../details/home-page/leading-section/leading-section';
+import { LogosSection } from '../../details/home-page/logos-section/logos-section';
+import { ServicesSection } from '../../details/home-page/services-section/services-section';
 
 @Component({
   selector: 'lib-home-page',
-  imports: [],
+  imports: [LeadingSection, LogosSection, ServicesSection],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })
