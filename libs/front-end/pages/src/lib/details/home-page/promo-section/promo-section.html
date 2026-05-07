@@ -1,0 +1,41 @@
+<section class="promo-section pt-10 pb-7.5 lg:pt-18.5 lg:pb-20.5">
+  <div class="container-ai">
+    <article
+      class="bg-tertiary mx-auto max-w-100 rounded-[2.8125rem] p-12.5 lg:grid lg:min-h-86.75 lg:max-w-none lg:grid-cols-2 lg:items-center lg:gap-x-10 lg:p-15"
+    >
+      <div class="flex max-w-72.5 flex-col gap-5 lg:max-w-125 lg:gap-6.5">
+        <h3>{{ content()?.title }}</h3>
+
+        <p>
+          {{ content()?.description }}
+        </p>
+
+        <div>
+          <lib-custom-button
+            [variantCustom]="'primary'"
+            [routerLink]="content()?.button?.url || '/'"
+            styleClass="min-h-[68px] max-lg:hidden lg:w-auto lg:min-w-[288px]"
+            ><span [innerHTML]="content()?.button?.text"></span
+          ></lib-custom-button>
+          <lib-custom-button
+            [variantCustom]="'primary'"
+            [routerLink]="content()?.buttonMobile?.url || '/'"
+            styleClass="min-h-[68px] w-full lg:hidden"
+            ><span [innerHTML]="content()?.buttonMobile?.text"></span
+          ></lib-custom-button>
+        </div>
+      </div>
+
+      <div class="hidden lg:relative lg:block">
+        <img
+          [src]="content()?.img?.src"
+          [alt]="content()?.img?.alt"
+          [width]="359"
+          [height]="395"
+          sizes="(max-width: 1279px) 1px, 359px"
+          class="absolute block h-98.5 max-w-full place-self-center"
+        />
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<section class="studies-section pt-7.5 pb-10 lg:py-17.5 xl:pt-20">
+  <div class="container-ai">
+    <!-- Heading -->
+    <div
+      class="mx-auto flex max-w-140 flex-col items-center gap-7.5 lg:max-w-7xl lg:flex-row lg:items-start lg:gap-10"
+    >
+      <lib-heading [variant]="'secondary'" [size]="'lg'">{{
+        content()?.title
+      }}</lib-heading>
+      <p class="max-w-97.5 text-center lg:max-w-145 lg:pt-0.75 lg:text-left">
+        {{ content()?.description }}
+      </p>
+    </div>
+
+    <!-- Desktop panel: 3 case studies side by side with dividers -->
+    <div
+      class="bg-primary mt-10 hidden rounded-[2.8125rem] px-15 py-17.5 lg:mt-20 lg:flex lg:items-start lg:gap-16"
+    >
+      @for (item of content()?.items; track item.id; let last = $last) {
+        <div class="flex flex-1 flex-col gap-5">
+          <p class="text-primary-foreground">{{ item.description }}</p>
+          <lib-custom-button
+            [variantCustom]="'linkSecondary'"
+            [routerLink]="item.button.url || '/'"
+            >{{ item.button.text }}</lib-custom-button
+          >
+        </div>
+        @if (!last) {
+          <div class="bg-primary-foreground w-px self-stretch"></div>
+        }
+      }
+    </div>
+  </div>
+  <!-- Mobile carousel -->
+  <div class="mt-10 lg:hidden [&_.owl-stage-outer]:px-5">
+    <owl-carousel-o [options]="carouselOptions">
+      @for (item of content()?.items; track item.id) {
+        <ng-template carouselSlide [width]="350">
+          <div
+            class="bg-primary flex flex-col gap-5 rounded-[2.8125rem] px-12.5 py-10.5"
+          >
+            <p class="text-primary-foreground">{{ item.description }}</p>
+            <lib-custom-button
+              [variantCustom]="'linkSecondary'"
+              [routerLink]="item.button.url || '/'"
+              >{{ item.button.text }}</lib-custom-button
+            >
+          </div>
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+<section class="workflow-section pt-7.5 pb-10 lg:py-20">
+  <div class="container-ai">
+    <div
+      class="mx-auto flex max-w-140 flex-col items-center gap-7.5 text-center lg:max-w-7xl lg:flex-row lg:items-start lg:gap-10 lg:text-left"
+    >
+      <lib-heading [variant]="'secondary'" [size]="'lg'">{{
+        content().title
+      }}</lib-heading>
+
+      <p class="max-w-97.5 lg:max-w-145 lg:pt-0.75">
+        {{ content().description }}
+      </p>
+    </div>
+
+    <div class="mt-7.5 lg:mt-20">
+      <p-accordion
+        [value]="activeStepId()"
+        (valueChange)="onAccordionValueChange($event)"
+        [pt]="accordionPTOptions"
+        [multiple]="true"
+      >
+        @for (step of content().steps; track step.id) {
+          <p-accordion-panel
+            [value]="step.id"
+            [unstyled]="true"
+            [pt]="panelPTOptions"
+          >
+            <p-accordion-header [pt]="headerPTOptions" [unstyled]="true">
+              <ng-template #toggleicon let-active="active">
+                <lib-accordion-toggler
+                  [isOpen]="active"
+                ></lib-accordion-toggler>
+              </ng-template>
+
+              <div class="flex w-full items-center justify-between gap-4">
+                <div class="flex min-w-0 items-center gap-8.25 lg:gap-6.25">
+                  <span class="text-3xl leading-none font-medium lg:text-6xl">{{
+                    step.order
+                  }}</span>
+                  <h3 class="text-lg leading-none font-medium lg:text-3xl">
+                    {{ step.title }}
+                  </h3>
+                </div>
+              </div>
+            </p-accordion-header>
+
+            <p-accordion-content [pt]="contentPTOptions" [unstyled]="true">
+              <div class="px-7.5 pb-7.5 lg:px-15 lg:pb-10.25">
+                <div class="border-primary border-t"></div>
+                <p class="mt-5 lg:mt-7.5">
+                  {{ step.description }}
+                </p>
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+        }
+      </p-accordion>
+    </div>
+  </div>
+</section>

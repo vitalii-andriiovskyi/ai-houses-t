@@ -4,11 +4,21 @@ import { ImageType, SEOBasic } from '@shared';
 import { SeoService } from '@fe/shared';
 import { LeadingSection } from '../../details/home-page/leading-section/leading-section';
 import { LogosSection } from '../../details/home-page/logos-section/logos-section';
+import { PromoSection } from '../../details/home-page/promo-section/promo-section';
 import { ServicesSection } from '../../details/home-page/services-section/services-section';
+import { StudiesSection } from '../../details/home-page/studies-section/studies-section';
+import { WorkflowSection } from '../../details/home-page/workflow-section/workflow-section';
 
 @Component({
   selector: 'lib-home-page',
-  imports: [LeadingSection, LogosSection, ServicesSection],
+  imports: [
+    LeadingSection,
+    LogosSection,
+    ServicesSection,
+    PromoSection,
+    StudiesSection,
+    WorkflowSection,
+  ],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })

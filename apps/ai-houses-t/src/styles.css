@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@layer theme, base, components, primeng, primereacticons, utilities;
+@layer theme, base, components, primeng, primereacticons, owlcarousel, utilities;
 @import "tailwindcss/theme.css" layer(theme) source(none);
 @import "tailwindcss/preflight.css" layer(base) source(none);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "tailwindcss-primeui" source(none); /* it goes into @layer utilities */
 
 @import "primeicons/primeicons.css" layer(primereacticons) source(none);
+@import "ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css" layer(owlcarousel) source(none);
+@import "ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css" layer(owlcarousel) source(none);
+
 @import "./fonts.css" layer(base) source(none);
 /* Configuration Tailwind v4 with Angular in an Nx Monorepo without problem to include Tailwind classes from unused libraries */
 /* https://nx.dev/blog/setup-tailwind-4-angular-nx-workspace */

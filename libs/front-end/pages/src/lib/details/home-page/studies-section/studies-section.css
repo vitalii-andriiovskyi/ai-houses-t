@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.studies-section owl-carousel-o .owl-dots {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.studies-section owl-carousel-o .owl-dot span {
+  background-color: var(--color-ai-dark-200);
+  border-radius: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.studies-section owl-carousel-o .owl-dot.active span {
+  background-color: var(--color-ai-dark);
+}

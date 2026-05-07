@@ -1,10 +1,13 @@
 export * from './lib/components/spinner/spinner';
 export * from './lib/components/custom-button/custom-button';
+export * from './lib/components/accordion-toggler/accordion-toggler';
 export * from './lib/components/form-control-wrapper/form-control-wrapper';
 export * from './lib/components/generic/generic';
 export * from './lib/components/heading/heading';
 
 export * from './lib/components/svgs/arrow-right-up/arrow-right-up';
+export * from './lib/components/svgs/plus/plus';
+export * from './lib/components/svgs/minus/minus';
 
 export * from './lib/tokens/config.token';
 export * from './lib/tokens/local-storage.token';

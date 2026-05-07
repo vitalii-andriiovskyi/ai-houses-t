@@ -24,18 +24,15 @@ export class Heading {
 
   protected readonly _variantClasses = computed(() => {
     const variantMap: Record<HeadingVariant, string> = {
-      primary:
-        'bg-primary text-primary-foreground [&_.absolute]:bg-primary [&_.absolute]:text-primary-foreground',
-      secondary:
-        'bg-secondary text-secondary-foreground [&_.absolute]:bg-secondary [&_.absolute]:text-secondary-foreground',
-      tertiary:
-        'bg-white text-black [&_.absolute]:bg-white [&_.absolute]:text-black',
+      primary: 'bg-primary text-primary-foreground',
+      secondary: 'bg-secondary text-secondary-foreground',
+      tertiary: 'bg-white text-black',
     };
     const sizeMap: Record<HeadingSize, string> = {
       lg: 'leading-[1.28] text-[2.25rem] xl:text-[2.5rem]',
       md: 'leading-[1.27] text-[1.625rem] xl:text-[1.875rem]',
       sm: 'leading-[1.5] text-[1.25rem] xl:text-[1.5rem]',
     };
-    return `w-fit px-[7px] rounded-[7px] [&_.absolute]:px-[7px] [&_.absolute]:rounded-[7px] ${variantMap[this.variant()]} ${sizeMap[this.size()]}`.trim();
+    return `w-fit px-[7px] inline box-decoration-clone rounded-[7px] ${variantMap[this.variant()]} ${sizeMap[this.size()]}`.trim();
   });
 }

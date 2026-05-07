@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
         options: {
           cssLayer: {
             name: 'primeng',
-            order: 'theme, base, components, primeng, utilities',
+            order: 'theme, base, components, primeng, owlcarousel, utilities',
           },
         },
       },

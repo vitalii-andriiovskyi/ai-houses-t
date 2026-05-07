@@ -21,8 +21,7 @@ const content: ServicesSectionContent = {
   cards: [
     {
       id: 'services-search-engine-optimization',
-      titleLine1: 'Search engine',
-      titleLine2: 'optimization',
+      title: 'Search engine optimization',
       button: {
         id: 'services-link-seo',
         text: 'Learn more',
@@ -40,8 +39,7 @@ const content: ServicesSectionContent = {
     },
     {
       id: 'services-pay-per-click-advertising',
-      titleLine1: 'Pay-per-click',
-      titleLine2: 'advertising',
+      title: 'Pay-per-click advertising',
       button: {
         id: 'services-link-ppc',
         text: 'Learn more',
@@ -59,8 +57,7 @@ const content: ServicesSectionContent = {
     },
     {
       id: 'services-social-media-marketing',
-      titleLine1: 'Social Media',
-      titleLine2: 'Marketing',
+      title: 'Social Media Marketing',
       button: {
         id: 'services-link-social-media',
         text: 'Learn more',
@@ -78,8 +75,7 @@ const content: ServicesSectionContent = {
     },
     {
       id: 'services-email-marketing',
-      titleLine1: 'Email',
-      titleLine2: 'Marketing',
+      title: 'Email Marketing',
       button: {
         id: 'services-link-email-marketing',
         text: 'Learn more',
@@ -97,8 +93,7 @@ const content: ServicesSectionContent = {
     },
     {
       id: 'services-content-creation',
-      titleLine1: 'Content',
-      titleLine2: 'Creation',
+      title: 'Content Creation',
       button: {
         id: 'services-link-content-creation',
         text: 'Learn more',
@@ -116,8 +111,7 @@ const content: ServicesSectionContent = {
     },
     {
       id: 'services-analytics-and-tracking',
-      titleLine1: 'Analytics and',
-      titleLine2: 'Tracking',
+      title: 'Analytics and Tracking',
       button: {
         id: 'services-link-analytics-tracking',
         text: 'Learn more',

@@ -12,8 +12,7 @@ export type ServiceCardVariant = 'primary' | 'secondary' | 'tertiary';
 
 export interface ServiceCardContent {
   id: string;
-  titleLine1: string;
-  titleLine2: string;
+  title: string;
   button: Button;
   image: Image;
   imageWidthMobile?: number;

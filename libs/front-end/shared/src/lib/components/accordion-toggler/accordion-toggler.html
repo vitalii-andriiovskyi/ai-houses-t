@@ -1,0 +1,23 @@
+<button
+  type="button"
+  class="bg-tertiary border-primary text-primary inline-flex h-7.5 w-7.5 items-center justify-center rounded-full border hover:cursor-pointer lg:h-14.5 lg:w-14.5"
+  [attr.aria-label]="
+    isOpen() ? content().ariaLabelClose : content().ariaLabelOpen
+  "
+>
+  @if (isOpen()) {
+    <svg
+      minus
+      class="h-[2.92px] w-[9.19px] lg:h-[5.64px] lg:w-[17.76px]"
+      [width]="17.76"
+      [height]="5.64"
+    ></svg>
+  } @else {
+    <svg
+      plus
+      class="h-[12.97px] w-[12.97px] lg:h-[25.08px] lg:w-[25.08px]"
+      [width]="25.08"
+      [height]="25.08"
+    ></svg>
+  }
+</button>

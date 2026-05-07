@@ -24,18 +24,13 @@
     </div>
 
     <div class="col-1 row-1 flex flex-col justify-between gap-8">
-      <div>
+      <div class="max-w-[70%] lg:max-w-[50%]">
         <lib-heading
           [variant]="_styles().headingVariant"
           [size]="'md'"
           [tagName]="'h3'"
         >
-          <span> {{ content()?.titleLine1 || '' }}</span>
-          @if (content()?.titleLine2) {
-            <span class="absolute -ml-1.75 block">
-              {{ content()?.titleLine2 }}
-            </span>
-          }
+          {{ content()?.title || '' }}
         </lib-heading>
       </div>
 
