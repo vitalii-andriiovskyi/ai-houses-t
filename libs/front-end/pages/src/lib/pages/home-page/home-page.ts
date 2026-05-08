@@ -7,10 +7,13 @@ import { LogosSection } from '../../details/home-page/logos-section/logos-sectio
 import { PromoSection } from '../../details/home-page/promo-section/promo-section';
 import { ServicesSection } from '../../details/home-page/services-section/services-section';
 import { StudiesSection } from '../../details/home-page/studies-section/studies-section';
+import { TeamSectionComponent } from '../../details/home-page/team-section';
+import { TestimonialsSection } from '../../details/home-page/testimonials-section/testimonials-section';
 import { WorkflowSection } from '../../details/home-page/workflow-section/workflow-section';
 
 @Component({
   selector: 'lib-home-page',
+  standalone: true,
   imports: [
     LeadingSection,
     LogosSection,
@@ -18,6 +21,8 @@ import { WorkflowSection } from '../../details/home-page/workflow-section/workfl
     PromoSection,
     StudiesSection,
     WorkflowSection,
+    TeamSectionComponent,
+    TestimonialsSection,
   ],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],

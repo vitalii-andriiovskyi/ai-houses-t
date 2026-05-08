@@ -1,0 +1,52 @@
+<article
+  class="border-primary relative mx-auto h-full min-h-73.75 rounded-[2.8125rem] border bg-white p-10 shadow-[0_0.3125rem_0_0_var(--color-primary)] md:max-w-106 lg:min-h-82.5 lg:px-6 lg:py-7.5 xl:px-8.75 xl:py-10"
+>
+  <div class="relative flex items-start gap-5 lg:gap-6.25">
+    <div class="relative shrink-0">
+      <!-- need to add shadow of 4 petal flour -->
+      <span
+        class="bg-primary absolute inset-0 z-0 translate-1.5 mask-[url(/images/icons/four-petal-fl.svg)]"
+      ></span>
+      <img
+        class="h-24.5 w-24.5 shrink-0 mask-[url(/images/icons/four-petal-fl.svg)] object-cover"
+        [src]="content()?.photo?.src"
+        [alt]="content()?.photo?.alt"
+        [width]="98"
+        [height]="98"
+        sizes="(max-width: 1023px) 98px, 98px"
+      />
+      <span
+        class="bg-secondary/40 absolute inset-0 mask-[url(/images/icons/four-petal-fl.svg)]"
+      ></span>
+    </div>
+
+    <div class="flex translate-y-1 flex-col self-end lg:gap-0.5">
+      <h3
+        class="text-[1.125rem] leading-[1.27] lg:text-[1.25rem] lg:leading-[1.1]"
+      >
+        {{ content()?.name }}
+      </h3>
+
+      <p>
+        {{ content()?.position }}
+      </p>
+    </div>
+
+    <a
+      class="text-secondary bg-primary absolute top-0 right-0 flex h-8.5 w-8.5 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 focus:scale-105 focus:outline-none"
+      [href]="content()?.socialLink?.url"
+      [attr.aria-label]="content()?.socialLink?.text"
+      [attr.title]="content()?.socialLink?.text"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <svg linked-in></svg>
+    </a>
+  </div>
+
+  <hr class="border-primary my-5 lg:mt-8.5 lg:mb-7" />
+
+  <p>
+    {{ content()?.description }}
+  </p>
+</article>

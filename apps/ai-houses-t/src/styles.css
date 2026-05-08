@@ -20,6 +20,37 @@
         
 /* @source "../node_modules/primereact/passthrough/tailwind"; */
 
+/* !!!IIMPORTANT!!! 
+  CSS variables and colors configuration is a bit tricky because we use Tailwind, PrimeNG, and custom CSS.
+
+  Here we have mix of css variables because we use primeng, tailwind, and other libraries
+  1. PrimeNG has own color configuration. Visit `apps/ai-houses-t/src/app/app.config.ts` and `libs/front-end/styles/src/lib/themes/ai-houses.ts` for details.
+      It sets primary and surface colors. CSS variables are available as --p-primary-color, --p-primary-100, --p-primary-200, ..., --p-surface-color, --p-surface-100, --p-surface-200, ...
+      They use design tokens, e.g. `--p-primary-color: var(--p-ai-dark-500);`
+  2. Tailwind has own color configuration in @inline (See below @inline rule).
+      As I use `tailwindcss-primeui` library, it sets --color-primary-100, --color-primary-200, ..., --color-surface-color, --color-surface-100, --color-surface-200, ... based on --p-primary-color, --p-primary-100, ..., and --p-surface-color, --p-surface-100, ...
+      Example: `--color-primary: var(--p-primary-color);`, See details `https://github.com/primefaces/tailwindcss-primeui/blob/main/packages/tailwindcss-primeui/src/v4/theme/colors.css`
+      We added --color-secondary, --color-secondary-*, --color-secondary-foreground, --color-tertiary, --color-tertiary-*, --color-tertiary-foreground for our custom colors. See @inline rule below.
+      But all --color-primary-*, --color-secondary-*, and --color-tertiary-* variables when using Tailwind utility classes like bg-primary-100, text-secondary-500 end up
+      with this: 
+      ```
+      .bg-primary {
+        background-color: var(--p-primary-color);
+      }
+      ```
+      and 
+      ```
+      .bg-secondary {
+        background-color: var(--color-ai-green-500);
+      }
+      ```
+      tThere's no css variables as --color-primary, --color-primary-*, ... in the final css (that is they are not defined/generated) 
+      and if we need to use them (`--color-primary`) in our custom css, we need to set them somewhere or maybe there's Tailwind configuration to generate them.
+      
+      So we set them only on demand in :root below like `--color-secondary: var(--color-ai-green-500);` and then we can use --color-secondary in our custom css
+      in some meaning it is like duplicating code because we have two the same rows in the this file.
+*/
+
 :root {
   --background: #ffffff;
   --foreground: #1c1b1d;
@@ -29,6 +60,9 @@
   --font-roboto: 'Roboto',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
   --font-roboto: 'Roboto',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
   --font-grotesk: 'Space Grotesk',  "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Arial", "sans-serif", sans-serif;
+
+  /** DUPLICATION because of issue described above */
+  --color-secondary: var(--color-ai-green-500);
 }
 
 /* 

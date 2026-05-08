@@ -8,6 +8,10 @@ export * from './lib/components/heading/heading';
 export * from './lib/components/svgs/arrow-right-up/arrow-right-up';
 export * from './lib/components/svgs/plus/plus';
 export * from './lib/components/svgs/minus/minus';
+export * from './lib/components/svgs/linked-in/linked-in';
+export * from './lib/components/svgs/star/star';
+export * from './lib/components/svgs/arrow-left/arrow-left';
+export * from './lib/components/svgs/arrow-right/arrow-right';
 
 export * from './lib/tokens/config.token';
 export * from './lib/tokens/local-storage.token';

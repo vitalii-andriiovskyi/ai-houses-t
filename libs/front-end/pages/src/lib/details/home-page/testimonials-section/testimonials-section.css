@@ -1,0 +1,102 @@
+:host {
+	display: block;
+}
+
+.container-ai {
+	container-type: inline-size;
+	container-name: carousel-container;
+}
+
+/**  984px is the breakpoint where carousel changes from 1 to 2 items per slide */
+@container carousel-container (inline-size >= 984px) { 
+	.testimonials-carousel-wrap ::ng-deep .owl-stage {
+			display: flex;
+	}
+	
+	.testimonials-carousel-wrap ::ng-deep .owl-item {
+			float: none;
+	}
+}
+
+.testimonials-carousel-wrap ::ng-deep .owl-prev,
+.testimonials-carousel-wrap ::ng-deep .owl-next {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	top: calc(100% + 68px);
+	@container carousel-container (inline-size >= 984px) {
+		top: calc(100% + 130px);
+	}
+}
+
+.testimonials-carousel-wrap ::ng-deep .owl-prev.disabled,
+.testimonials-carousel-wrap ::ng-deep .owl-next.disabled {
+	opacity: 0.3;
+}
+
+.testimonials-carousel-wrap ::ng-deep .owl-prev {
+	left: 30px;
+	@container carousel-container (inline-size >= 984px) {
+		--slide-width: calc((100% - 50px * 2) / 2);
+		left: calc((100% - var(--slide-width) )/2 + 21px);
+		translate: 50% 0;
+	}
+}
+.testimonials-carousel-wrap ::ng-deep .owl-next {
+	right: 30px;
+	@container carousel-container (inline-size >= 984px) {
+		--slide-width: calc((100% - 50px * 2) / 2);
+		right: calc((100% - var(--slide-width) )/2 + 23px);
+		translate: -50% 1px;
+	}
+}
+
+.testimonials-carousel-wrap ::ng-deep .owl-dots {
+	display: flex;
+	margin-top: 60px;
+	justify-content: center;
+	gap: 19px;
+	@container carousel-container (inline-size >= 984px) {
+		margin-top: 124px;
+	}
+}
+.testimonials-carousel-wrap ::ng-deep .owl-dots .owl-dot span {
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	border-radius: 0;
+	background-color: var(--color-white);
+	mask-image: url("/images/icons/star-white.svg");
+}
+.testimonials-carousel-wrap ::ng-deep .owl-dots .owl-dot.active span {
+	background-color: var(--color-secondary);
+}
+
+
+.testimonial-bubble {
+	position: relative;
+}
+
+.testimonial-bubble::after {
+	content: '';
+	position: absolute;
+	left: 45px;
+	bottom: -17px;
+	width: 33px;
+	height: 33px;
+	background-color: var(--color-primary);
+	border-right: 1px solid var(--color-secondary);
+	border-bottom: 1px solid var(--color-secondary);
+	transform: rotate(45deg);
+
+	@container carousel-container (inline-size >= 984px) {
+		left: 3.75rem;
+		bottom: -18px;
+		width: 35px;
+		height: 35px;
+	}
+}
+
+
+
