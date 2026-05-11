@@ -13,11 +13,14 @@
     </div>
 
     <div class="mt-7.5 lg:mt-20">
+      <!-- Need to skip hydration for accordion because p-motion tries to read accordion element height on the server and has 0 and later all animation open/close doesn't work in browser -->
       <p-accordion
         [value]="activeStepId()"
         (valueChange)="onAccordionValueChange($event)"
         [pt]="accordionPTOptions"
         [multiple]="true"
+        [unstyled]="true"
+        ngSkipHydration
       >
         @for (step of content().steps; track step.id) {
           <p-accordion-panel
