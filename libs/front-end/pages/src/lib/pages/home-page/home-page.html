@@ -1,11 +1,17 @@
 <main class="min-h-(--section-height)">
-  <lib-leading-section></lib-leading-section>
-  <lib-logos-section></lib-logos-section>
-  <lib-services-section></lib-services-section>
-  <lib-promo-section></lib-promo-section>
-  <lib-studies-section></lib-studies-section>
-  <lib-workflow-section></lib-workflow-section>
-  <lib-team-section></lib-team-section>
-  <lib-testimonials-section></lib-testimonials-section>
-  <lib-contact-us></lib-contact-us>
+  <lib-leading-section [content]="content.leadingSection"></lib-leading-section>
+  <lib-logos-section [content]="content.logosSection"></lib-logos-section>
+  <lib-services-section
+    [content]="content.servicesSection"
+  ></lib-services-section>
+  <lib-promo-section [content]="content.promoSection"></lib-promo-section>
+  <lib-studies-section [content]="content.studiesSection"></lib-studies-section>
+  <lib-workflow-section
+    [content]="content.workflowSection"
+  ></lib-workflow-section>
+  <lib-team-section [content]="content.teamSection"></lib-team-section>
+  <lib-testimonials-section
+    [content]="content.testimonialsSection"
+  ></lib-testimonials-section>
+  <lib-contact-us [content]="content.contactUsSection"></lib-contact-us>
 </main>

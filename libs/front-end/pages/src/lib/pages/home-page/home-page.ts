@@ -11,6 +11,7 @@ import { TeamSectionComponent } from '../../details/home-page/team-section';
 import { TestimonialsSection } from '../../details/home-page/testimonials-section/testimonials-section';
 import { WorkflowSection } from '../../details/home-page/workflow-section/workflow-section';
 import { ContactUs } from '../../details/home-page/contact-us/contact-us';
+import { homePageContent } from './data';
 
 @Component({
   selector: 'lib-home-page',
@@ -46,6 +47,8 @@ export class HomePage implements OnInit {
       updatedAt: new Date(),
     },
   };
+
+  readonly content = homePageContent;
 
   private seoService = inject(SeoService);
 

@@ -4,17 +4,21 @@
       class="mx-auto flex max-w-140 flex-col items-center gap-7.5 px-5 lg:max-w-7xl lg:flex-row lg:items-start lg:gap-10 lg:px-0"
     >
       <lib-heading [variant]="'secondary'" [size]="'lg'">{{
-        content().title
+        content()?.title
       }}</lib-heading>
       <p class="max-w-140 text-center lg:max-w-145 lg:pt-0.75 lg:text-left">
-        {{ content().description }}
+        {{ content()?.description }}
       </p>
     </div>
 
     <div
       class="mx-auto mt-10 grid max-w-100 grid-cols-1 gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-2 lg:gap-10"
     >
-      @for (card of content().cards; track card.id; let cardIndex = $index) {
+      @for (
+        card of content()?.cards ?? [];
+        track card.id;
+        let cardIndex = $index
+      ) {
         <lib-service-card
           [variant]="getCardVariant(cardIndex)"
           [content]="card"

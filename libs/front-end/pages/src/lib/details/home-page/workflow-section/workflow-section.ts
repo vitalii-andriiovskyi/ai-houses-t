@@ -19,60 +19,11 @@ interface WorkflowStep {
   description: string;
 }
 
-interface WorkflowSectionContent {
+export interface WorkflowSectionContent {
   title: string;
   description: string;
   steps: WorkflowStep[];
 }
-
-const content: WorkflowSectionContent = {
-  title: 'Our Working Process',
-  description: 'Step-by-Step Guide to Achieving Your Business Goals',
-  steps: [
-    {
-      id: 'workflow-consultation',
-      order: '01',
-      title: 'Consultation',
-      description:
-        'During the initial consultation, we will discuss your business goals and objectives, target audience, and current marketing efforts. This will allow us to understand your needs and tailor our services to best fit your requirements.',
-    },
-    {
-      id: 'workflow-research-and-strategy-development',
-      order: '02',
-      title: 'Research and Strategy Development',
-      description:
-        'We analyze your market, competitors, and current performance to build a tailored strategy with clear priorities, channels, and measurable outcomes.',
-    },
-    {
-      id: 'workflow-implementation',
-      order: '03',
-      title: 'Implementation',
-      description:
-        'Our team launches the agreed initiatives across selected channels, coordinating content, campaigns, and technical updates for a smooth rollout.',
-    },
-    {
-      id: 'workflow-monitoring-and-optimization',
-      order: '04',
-      title: 'Monitoring and Optimization',
-      description:
-        'We continuously track performance and optimize campaigns, messaging, and budgets to improve results based on real-time data.',
-    },
-    {
-      id: 'workflow-reporting-and-communication',
-      order: '05',
-      title: 'Reporting and Communication',
-      description:
-        'You receive regular updates with transparent reporting, actionable insights, and next steps so decisions remain aligned with your business goals.',
-    },
-    {
-      id: 'workflow-continual-improvement',
-      order: '06',
-      title: 'Continual Improvement',
-      description:
-        'We iterate on proven tactics and test new opportunities to keep your growth momentum strong as market conditions evolve.',
-    },
-  ],
-};
 
 type AccordionValue = string | number | string[] | number[] | null | undefined;
 
@@ -91,7 +42,7 @@ type AccordionValue = string | number | string[] | number[] | null | undefined;
   styleUrl: './workflow-section.css',
 })
 export class WorkflowSection {
-  readonly content = input<WorkflowSectionContent>(content);
+  readonly content = input<WorkflowSectionContent | null>();
 
   readonly activeStepId = signal<string[]>([]);
 

@@ -4,15 +4,15 @@
   >
     <div class="order-1 lg:col-start-1 lg:row-start-1 lg:max-w-[33.2rem]">
       <h1 class="lg:text-[3.2rem] lg:leading-tight xl:text-[3.75rem]">
-        {{ content().title }}
+        {{ content()?.title }}
       </h1>
     </div>
 
     <div class="order-2 lg:col-start-2 lg:row-span-3 lg:row-start-1">
       <img
-        [alt]="content().img.alt"
+        [alt]="content()?.img?.alt"
         class="mx-auto block h-77.5 w-90 max-w-full lg:h-auto lg:w-120 xl:h-128.75 xl:w-150"
-        [src]="content().img.src"
+        [src]="content()?.img?.src"
         [width]="600"
         [height]="515"
         sizes="(max-width: 991px) 84vw, 48vw"
@@ -21,15 +21,15 @@
 
     <div class="order-3 lg:col-start-1 lg:row-start-2 lg:max-w-[31.1rem]">
       <p class="text-base lg:text-xl lg:leading-7">
-        {{ content().description }}
+        {{ content()?.description }}
       </p>
     </div>
 
     <div class="order-4 pt-5 lg:col-start-1 lg:row-start-3 lg:pt-0 lg:pb-8.5">
       <lib-custom-button
         [variantCustom]="'primary'"
-        [routerLink]="content().button.url"
-        [label]="content().button.text"
+        [routerLink]="content()?.button?.url || '/'"
+        [label]="content()?.button?.text || ''"
         styleClass="min-h-[68px] w-full lg:w-auto lg:min-w-[264px]"
       ></lib-custom-button>
     </div>

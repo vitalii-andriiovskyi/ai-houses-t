@@ -4,11 +4,11 @@
       class="mx-auto flex max-w-140 flex-col items-center gap-7.5 text-center lg:max-w-7xl lg:flex-row lg:items-start lg:gap-10 lg:text-left"
     >
       <lib-heading [variant]="'secondary'" [size]="'lg'">{{
-        content().title
+        content()?.title
       }}</lib-heading>
 
       <p class="max-w-97.5 lg:max-w-145 lg:pt-0.75">
-        {{ content().description }}
+        {{ content()?.description }}
       </p>
     </div>
 
@@ -22,7 +22,7 @@
         [unstyled]="true"
         ngSkipHydration
       >
-        @for (step of content().steps; track step.id) {
+        @for (step of content()?.steps ?? []; track step.id) {
           <p-accordion-panel
             [value]="step.id"
             [unstyled]="true"

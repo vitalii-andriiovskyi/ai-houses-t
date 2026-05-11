@@ -3,7 +3,7 @@
     <div
       class="mx-auto flex max-w-140 flex-wrap items-center justify-center gap-x-9 gap-y-5 mix-blend-luminosity lg:max-w-none lg:justify-between"
     >
-      @for (logo of content().logos.children; track logo.id) {
+      @for (logo of content()?.logos?.children ?? []; track logo.id) {
         <img
           [src]="logo.src"
           [alt]="logo.alt"

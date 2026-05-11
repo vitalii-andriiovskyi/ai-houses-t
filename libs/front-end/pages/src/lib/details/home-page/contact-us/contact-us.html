@@ -4,11 +4,11 @@
       class="mx-auto flex max-w-140 flex-col items-center gap-7.5 text-center lg:mx-0 lg:max-w-none lg:flex-row lg:items-start lg:gap-10 lg:text-left"
     >
       <lib-heading [variant]="'secondary'" [size]="'lg'">
-        {{ content().title }}
+        {{ content()?.title }}
       </lib-heading>
 
       <p class="max-w-95 sm:max-w-105 lg:max-w-80 lg:pt-0.75">
-        {{ content().description }}
+        {{ content()?.description }}
       </p>
     </div>
 
@@ -21,7 +21,7 @@
         class="pointer-events-none absolute z-0 translate-x-[47%] -translate-y-1/2 max-lg:hidden lg:top-[50%] lg:right-0 lg:h-162 lg:w-173"
       />
       <lib-contact-us-form
-        [content]="content().form"
+        [content]="content()?.form ?? null"
         class="relative"
       ></lib-contact-us-form>
     </div>
