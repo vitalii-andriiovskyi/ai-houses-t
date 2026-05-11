@@ -5,6 +5,8 @@ const aiDark = '#191A23';
 const aiGreen = '#B9FF66';
 const aiGrey = '#F3F3F3';
 
+// console.log('Aura', Aura);
+
 export const AiHousesTheme = definePreset(Aura, {
   primitive: {
     aiRed: {
@@ -117,6 +119,27 @@ export const AiHousesTheme = definePreset(Aura, {
           color: '#ffffff',
           focusColor: '#ffffff',
         },
+        formField: {
+          background: '#ffffff',
+          disabledBackground: '{aiGrey.200}',
+          filledBackground: '#ffffff',
+          filledHoverBackground: '#ffffff',
+          filledFocusBackground: '#ffffff',
+          borderColor: '{aiDark.500}',
+          hoverBorderColor: '{aiDark.500}',
+          focusBorderColor: '{aiDark.500}',
+          invalidBorderColor: '{aiRed.500}',
+          color: '{aiDark.500}',
+          disabledColor: '{aiGrey.700}',
+          placeholderColor: '#898989',
+          invalidPlaceholderColor: '{aiRed.600}',
+          floatLabelColor: '#898989',
+          floatLabelFocusColor: '{aiDark.500}',
+          floatLabelActiveColor: '#898989',
+          floatLabelInvalidColor: '{form.field.invalid.placeholder.color}',
+          iconColor: '{aiDark.500}',
+          shadow: 'none',
+        },
       },
       dark: {
         primary: {
@@ -144,6 +167,56 @@ export const AiHousesTheme = definePreset(Aura, {
           focusBackground: 'rgba(250, 250, 250, .24)',
           color: 'rgba(255,255,255,.87)',
           focusColor: 'rgba(255,255,255,.87)',
+        },
+      },
+    },
+  },
+  components: {
+    radiobutton: {
+      root: {
+        width: '28px',
+        height: '28px',
+        background: '#ffffff',
+        borderColor: '{aiDark.500}',
+        hoverBorderColor: '{aiDark.500}',
+        focusBorderColor: '{aiDark.500}',
+        checkedBackground: '#ffffff',
+        checkedBorderColor: '{aiDark.500}',
+        checkedHoverBorderColor: '{aiDark.500}',
+        checkedHoverBackground: '#ffffff',
+        checkedFocusBorderColor: '{aiDark.500}',
+      },
+      icon: {
+        checkedColor: '{aiGreen.500}',
+        checkedHoverColor: '{aiGreen.600}',
+        size: '16px',
+      },
+    },
+    inputtext: {
+      root: {
+        paddingX: '20px',
+        paddingY: '18px',
+        borderRadius: '14px',
+        focusRing: {
+          width: '0',
+          style: 'none',
+          color: 'transparent',
+          offset: '0',
+          shadow: 'none',
+        },
+      },
+    },
+    textarea: {
+      root: {
+        paddingX: '20px',
+        paddingY: '18px',
+        borderRadius: '14px',
+        focusRing: {
+          width: '0',
+          style: 'none',
+          color: 'transparent',
+          offset: '0',
+          shadow: 'none',
         },
       },
     },

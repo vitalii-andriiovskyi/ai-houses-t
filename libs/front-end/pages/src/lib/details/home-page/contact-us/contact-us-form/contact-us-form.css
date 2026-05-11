@@ -1,0 +1,6 @@
+/* Contact Us Form Styles */
+:host {
+  display: block;
+  width: 100%;
+}
+

@@ -10,6 +10,7 @@ import { StudiesSection } from '../../details/home-page/studies-section/studies-
 import { TeamSectionComponent } from '../../details/home-page/team-section';
 import { TestimonialsSection } from '../../details/home-page/testimonials-section/testimonials-section';
 import { WorkflowSection } from '../../details/home-page/workflow-section/workflow-section';
+import { ContactUs } from '../../details/home-page/contact-us/contact-us';
 
 @Component({
   selector: 'lib-home-page',
@@ -23,6 +24,7 @@ import { WorkflowSection } from '../../details/home-page/workflow-section/workfl
     WorkflowSection,
     TeamSectionComponent,
     TestimonialsSection,
+    ContactUs,
   ],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],

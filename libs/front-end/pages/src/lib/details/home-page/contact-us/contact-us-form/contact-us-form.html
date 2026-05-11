@@ -1,0 +1,112 @@
+<form class="w-full lg:max-w-139" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Action Selection - Radio Buttons -->
+  <div
+    class="mb-9 flex items-center justify-around gap-6 lg:mb-12 lg:justify-start lg:gap-8.75"
+  >
+    @for (option of actionOptions; track option.value) {
+      <lib-form-control-wrapper
+        [label]="content()?.action?.[option.value]?.label || option.name"
+        [id]="'action-' + option.value"
+        [touched]="action?.touched || false"
+        [dirty]="action?.dirty || false"
+        [invalid]="action?.invalid || false"
+        [errors]="action?.errors"
+        wrapperClass="w-auto! flex-row-reverse! items-center gap-3.75 hover:[&_label]:cursor-pointer"
+      >
+        <p-radiobutton
+          formControlName="action"
+          [value]="option.value"
+          [inputId]="'action-' + option.value"
+        />
+      </lib-form-control-wrapper>
+    }
+  </div>
+
+  <!-- Form Fields Container -->
+  <div class="space-y-5 lg:space-y-8">
+    <!-- Name Field -->
+    <lib-form-control-wrapper
+      [label]="content()?.name?.label || 'Name'"
+      [id]="'name'"
+      [touched]="name?.touched || false"
+      [dirty]="name?.dirty || false"
+      [invalid]="name?.invalid || false"
+      [required]="true"
+      [errors]="name?.errors"
+      wrapperClass="gap-1.75 text-[14px] lg:text-[16px]"
+    >
+      <input
+        pInputText
+        formControlName="name"
+        required
+        [id]="'name'"
+        [placeholder]="content()?.name?.placeholder || 'Enter your name'"
+        type="text"
+        class="w-full lg:px-7"
+        [invalid]="name?.invalid && (name?.touched || name?.dirty)"
+      />
+    </lib-form-control-wrapper>
+
+    <!-- Email Field -->
+    <lib-form-control-wrapper
+      [label]="content()?.email?.label || 'Email'"
+      [id]="'email'"
+      [touched]="email?.touched || false"
+      [dirty]="email?.dirty || false"
+      [invalid]="email?.invalid || false"
+      [required]="true"
+      [errors]="email?.errors"
+      wrapperClass="gap-1.75 text-[14px] lg:text-[16px]"
+    >
+      <input
+        pInputText
+        formControlName="email"
+        required
+        [id]="'email'"
+        [placeholder]="content()?.email?.placeholder || 'Enter your email'"
+        type="email"
+        class="w-full lg:px-7"
+        [invalid]="email?.invalid && (email?.touched || email?.dirty)"
+      />
+    </lib-form-control-wrapper>
+
+    <!-- Message Field -->
+    <lib-form-control-wrapper
+      [label]="content()?.message?.label || 'Message'"
+      [id]="'message'"
+      [touched]="message?.touched || false"
+      [dirty]="message?.dirty || false"
+      [invalid]="message?.invalid || false"
+      [required]="true"
+      [errors]="message?.errors"
+      wrapperClass="gap-1.75 text-[14px] lg:text-[16px]"
+    >
+      <textarea
+        pInputTextarea
+        formControlName="message"
+        required
+        [id]="'message'"
+        [placeholder]="content()?.message?.placeholder || 'Enter your message'"
+        class="min-h-30 w-full lg:min-h-40 lg:px-7"
+        [invalid]="message?.invalid && (message?.touched || message?.dirty)"
+        rows="5"
+        [autoResize]="true"
+      ></textarea>
+    </lib-form-control-wrapper>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mt-8 lg:mt-10">
+    <lib-custom-button
+      [disabled]="!form.valid || isSubmitting()"
+      [variantCustom]="'primary'"
+      [label]="
+        isSubmitting()
+          ? content()?.submitButton?.loadingText || 'Sending...'
+          : content()?.submitButton?.text || 'Send Message'
+      "
+      type="submit"
+      styleClass="min-h-[68px] w-full"
+    ></lib-custom-button>
+  </div>
+</form>
